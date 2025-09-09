@@ -10,14 +10,9 @@ select-target-org:
     SF_AUTH_PROD: ""
   script:
     - echo "Selecting target org..."
-
-    # Extract target branch (GitLab provides CI_COMMIT_REF_NAME)
-    - target_branch="$CI_COMMIT_REF_NAME"
-    - echo "Target branch: $target_branch"
-
-    # Select org based on branch
-    - |
-      case "$target_branch" in
+    - echo "Target branch: $CI_COMMIT_REF_NAME"
+    - >
+      case "$CI_COMMIT_REF_NAME" in
         main)
           echo "ORG_ALIAS=PROD" >> org_output.env
           echo "$SF_AUTH_PROD" > ./auth_file.json
@@ -31,13 +26,12 @@ select-target-org:
           echo "$SF_AUTH_UAT" > ./auth_file.json
           ;;
         *)
-          echo "Unsupported branch: $target_branch"
+          echo "Unsupported branch: $CI_COMMIT_REF_NAME"
           exit 1
           ;;
       esac
-
     - echo "Org alias set and auth file created"
 
   artifacts:
     reports:
-      dotenv: org_output.env   # Makes ORG_ALIAS available for downstream jobs
+      dotenv: org_output.env
