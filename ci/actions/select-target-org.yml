@@ -4,8 +4,13 @@ stages:
 select-target-org:
   stage: select
   image: alpine:latest
-  parallel:
-    matrix:
-      - TARGET_BRANCH: ["main", "qa", "uat"]
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+    - if: '$CI_COMMIT_REF_NAME == "qa"'
+    - if: '$CI_COMMIT_REF_NAME == "uat"'
   script:
-    - ./.gitlab/scripts/select_target_org.sh "$TARGET_BRANCH"
+    - chmod +x .gitlab/scripts/select_target_org.sh
+    - ./.gitlab/scripts/select_target_org.sh "$CI_COMMIT_REF_NAME"
+  artifacts:
+    reports:
+      dotenv: org_output.env
