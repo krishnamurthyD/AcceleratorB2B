@@ -1,33 +1,22 @@
-name: Build & Push Docker Image - Ad Hoc
- 
-on:
-  workflow_dispatch:
- 
-env:
-  DOCKER_IMAGE: wilson-scott-docker-image
-  REGISTRY_URL: ghcr.io
-  REGISTRY_OWNER: ${{vars.DOCKER_USERNAME}} # Make sure this is all lowercase
- 
-jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
- 
-    steps:
-    - uses: actions/checkout@v3
- 
-    - name: Log in to GitHub Container Registry
-      uses: docker/login-action@v2
-      with:
-        registry: ${{ env.REGISTRY_URL }}
-        username: ${{vars.DOCKER_USERNAME}}
-        password: ${{ secrets.DOCKER_PWD }}
- 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        push: true
-        tags: ${{ env.REGISTRY_URL }}/${{ env.REGISTRY_OWNER }}/${{ env.DOCKER_IMAGE }}:latest
+stages:
+  - docker
+
+build-and-push-docker:
+  stage: docker
+  image: docker:24.0.5   # Docker client
+  services:
+    - docker:dind        # Docker daemon in Docker
+  variables:
+    DOCKER_IMAGE: "wilson-scott-docker-image"
+    REGISTRY_URL: "ghcr.io"
+    # In GitLab → Settings → CI/CD → Variables, create these:
+    #   DOCKER_USERNAME = your username (lowercase)
+    #   DOCKER_PWD      = your GitHub PAT (with package:write scope)
+    REGISTRY_OWNER: "$DOCKER_USERNAME"
+  before_script:
+    - echo "Logging in to GitHub Container Registry..."
+    - echo "$DOCKER_PWD" | docker login $REGISTRY_URL -u "$DOCKER_USERNAME" --password-stdin
+  script:
+    - echo "Building and pushing Docker image..."
+    - docker build -t $REGISTRY_URL/$REGISTRY_OWNER/$DOCKER_IMAGE:latest .
+    - docker push $REGISTRY_URL/$REGISTRY_OWNER/$DOCKER_IMAGE:latest

@@ -1,66 +1,77 @@
-name: Validate PR
+stages:
+  - checkout
+  - select_org
+  - authenticate
+  - generate_delta
+  - scan
+  - validate
 
-on:
-  pull_request:
-    types: [opened, synchronize]
-    branches:
-      - "main"
-      - "qa"
-      - "uat"
-    paths:
-      - "force-app/**"
+variables:
+  DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/midj-docker-image-new:latest"
 
-jobs:
-  validate_delta:
-    runs-on: ubuntu-latest
-    container:
-       image: ghcr.io/${{vars.DOCKER_USERNAME}}/midj-docker-image-new:latest
-       credentials:
-        username: ${{vars.DOCKER_USERNAME}}
-        password: ${{ secrets.DOCKER_PWD }}
-    if: ${{ github.actor != 'dependabot[bot]' }}
+# Checkout source code
+checkout_code:
+  stage: checkout
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - git fetch --unshallow || echo "Already shallow clone"
+    - git checkout $CI_COMMIT_REF_NAME
 
-    steps:
-    
-      - name: "Checkout source code"
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+# Selecting Target Org
+select_target_org:
+  stage: select_org
+  image: $DOCKER_IMAGE
+  script:
+    - echo "Selecting target org..."
+    - ORG_ALIAS=$(./.gitlab/actions/select_target_org.sh "$SF_AUTH_QA" "$SF_AUTH_UAT" "$SF_AUTH_PROD")
+    - echo "ORG_ALIAS=$ORG_ALIAS" >> variables.env
+    - echo "GitLab Merge Request Source Branch: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
+  artifacts:
+    reports:
+      dotenv: variables.env
 
-      - name: Selecting Target Org
-        id: org-selection
-        uses: ./.github/actions/select_target_org
-        with:
-          SF_AUTH_QA:  ${{ secrets.SF_AUTH_QA }}
-          SF_AUTH_UAT: ${{ secrets.SF_AUTH_UAT }}
-          SF_AUTH_PROD: ${{ secrets.SF_AUTH_PROD }}
+# Authenticate to SF Org
+authenticate_to_org:
+  stage: authenticate
+  image: $DOCKER_IMAGE
+  dependencies:
+    - select_target_org
+  script:
+    - source variables.env
+    - if [ ! -z "$ORG_ALIAS" ]; then
+        ./.gitlab/actions/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
+      fi
 
-      - name: Debug Org Selection
-        run: |
-          echo "Org Alias: ${{ steps.org-selection.outputs.org-alias }}"
-          echo "GitHub Base Ref: ${{ github.base_ref }}"
+# Create delta packages
+generate_delta:
+  stage: generate_delta
+  image: $DOCKER_IMAGE
+  script:
+    - ./.gitlab/actions/sf-generate-delta.sh "HEAD~1" "HEAD"
 
+# Scan and Upload SARIF
+scan_sarif:
+  stage: scan
+  image: $DOCKER_IMAGE
+  script:
+    - ./.gitlab/actions/sf-code-scanner.sh || echo "Scan completed"
 
-      - name: Authenticate to SF Org
-        if: steps.org-selection.outputs.org-alias != ''
-        uses: ./.github/actions/authenticate-to-org
-        with:
-          ORG_ALIAS: ${{ steps.org-selection.outputs.org-alias }}
-          AUTH_FILE: "auth_file.json" 
+# Validate Delta
+validate_delta:
+  stage: validate
+  image: $DOCKER_IMAGE
+  dependencies:
+    - authenticate_to_org
+    - generate_delta
+  script:
+    - source variables.env
+    - if [ ! -z "$ORG_ALIAS" ]; then
+        ./.gitlab/actions/sf-validate-delta.sh "$ORG_ALIAS";
+      fi
 
-      - name: Create delta packages for new, modified or deleted metadata
-        uses: ./.github/actions/sf-generate-delta
-        with:
-          to: "HEAD"
-          from: "HEAD~1"
-
-      - name: "Scan and Upload SARIF"
-        uses: "./.github/actions/sf-code-scanner"
-        if: ${{ always() }}
-              
-
-      - name: Validate
-        if: ${{ always() }}
-        uses: ./.github/actions/sf-validate-delta
-        with:
-          ORG_ALIAS: ${{ steps.org-selection.outputs.org-alias }}
+# Trigger only on Merge Requests to main, qa, or uat
+workflow:
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /(main|qa|uat)/

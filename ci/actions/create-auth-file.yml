@@ -1,24 +1,16 @@
-name: "Selecting Target Org"
-description: "Select Target Org using target branch"
-inputs:
-  SF_AUTH_DEMO:
-    description: "Dev authentication secret file"
-    required: true
+stages:
+  - select
 
-outputs:
-  org-alias:
-    description: "org alias"
-    value: ${{ steps.org-selection.outputs.org-alias }}
-
-runs:
-  using: "composite"
-  steps:
-    - name: "Select target org"
-      shell: bash
-      env:
-        SF_AUTH_DEMO: ${{ inputs.SF_AUTH_DEMO }}
-
-      id: auth-selection
-      run: |
-         echo "org-alias=DEMO" >> $GITHUB_OUTPUT
-         echo $SF_AUTH_DEMO >> ./auth_file.json
+select-target-org:
+  stage: select
+  image: node:18
+  variables:
+    SF_AUTH_DEMO: ""   # set this in GitLab CI/CD variables, not here
+  script:
+    - echo "Selecting target org..."
+    - echo "$SF_AUTH_DEMO" > ./auth_file.json
+    - echo "org-alias=DEMO" >> org_output.txt
+    - echo "Target org alias set to DEMO"
+  artifacts:
+    reports:
+      dotenv: org_output.txt   # exports variables for later jobs
