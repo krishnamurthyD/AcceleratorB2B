@@ -1,8 +1,7 @@
 #!/bin/sh
 TARGET_BRANCH="$1"
 
-echo "Selecting target org..."
-echo "Target branch: $TARGET_BRANCH"
+echo "Running for branch: $TARGET_BRANCH"
 
 case "$TARGET_BRANCH" in
   main)
@@ -22,5 +21,3 @@ case "$TARGET_BRANCH" in
     exit 1
     ;;
 esac
-
-echo "Org alias set and auth file created"
