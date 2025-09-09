@@ -9,6 +9,7 @@ select-target-org:
     SF_AUTH_UAT: ""
     SF_AUTH_PROD: ""
   script:
+    - chmod +x .gitlab/scripts/select_target_org.sh
     - ./.gitlab/scripts/select_target_org.sh
   artifacts:
     reports:
