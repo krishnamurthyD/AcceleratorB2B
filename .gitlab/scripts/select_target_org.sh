@@ -1,9 +1,8 @@
 #!/bin/sh
-TARGET_BRANCH="$1"
 
-echo "Running for branch: $TARGET_BRANCH"
+echo "Running for branch: $CI_COMMIT_REF_NAME"
 
-case "$TARGET_BRANCH" in
+case "$CI_COMMIT_REF_NAME" in
   main)
     echo "ORG_ALIAS=PROD" >> org_output.env
     echo "$SF_AUTH_PROD" > ./auth_file.json
@@ -17,7 +16,9 @@ case "$TARGET_BRANCH" in
     echo "$SF_AUTH_UAT" > ./auth_file.json
     ;;
   *)
-    echo "Unsupported branch: $TARGET_BRANCH"
+    echo "Unsupported branch: $CI_COMMIT_REF_NAME"
     exit 1
     ;;
 esac
+
+echo "Org alias set and auth file created"

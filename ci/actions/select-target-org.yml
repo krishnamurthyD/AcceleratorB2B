@@ -9,8 +9,7 @@ select-target-org:
     - if: '$CI_COMMIT_REF_NAME == "qa"'
     - if: '$CI_COMMIT_REF_NAME == "uat"'
   script:
-    - chmod +x .gitlab/scripts/select_target_org.sh
-    - ./.gitlab/scripts/select_target_org.sh "$CI_COMMIT_REF_NAME"
+    - ./.gitlab/scripts/select_target_org.sh
   artifacts:
     reports:
       dotenv: org_output.env
