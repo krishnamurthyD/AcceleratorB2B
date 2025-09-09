@@ -8,8 +8,7 @@ select-target-org:
     - if: '$CI_COMMIT_REF_NAME == "main"'
     - if: '$CI_COMMIT_REF_NAME == "qa"'
     - if: '$CI_COMMIT_REF_NAME == "uat"'
-  script:
-    - ./.gitlab/scripts/select_target_org.sh
+  script: "./.gitlab/scripts/select_target_org.sh"
   artifacts:
     reports:
       dotenv: org_output.env
