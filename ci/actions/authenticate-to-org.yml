@@ -1,0 +1,19 @@
+name: "Authenticate to SF Org"
+description: "Authenticate to Salesforce org using provided alias and auth file"
+
+inputs:
+  ORG_ALIAS:
+    description: "Alias for the Salesforce org"
+    required: true
+  AUTH_FILE:
+    description: "Name of the auth file to use"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Authenticate to Salesforce org"
+      shell: bash
+      run: |
+        sf org login sfdx-url --sfdx-url-file ./auth_file.json --alias ${{ inputs.ORG_ALIAS }}
+        echo "Authenticated to org with alias: ${{ inputs.ORG_ALIAS }}"

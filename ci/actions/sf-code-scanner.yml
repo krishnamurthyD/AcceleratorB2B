@@ -1,0 +1,46 @@
+name: "Scan and Upload SARIF"
+description: "Scan code using SFDX scanner and upload SARIF file"
+outputs:
+  scan-exit-code:
+    description: "PMD Scan exit code"
+    value: ${{ steps.pmd-scan.outputs.scan-exit-code }}
+runs:
+  using: "composite"
+  steps:
+    - name: "Scan and Upload SARIF"
+      shell: bash
+      id: pmd-scan
+      run: |
+        cd changed-sources
+        if ! sf scanner:run --format sarif --target './**/*.cls' --outfile 'apexScanResults.sarif' --severity-threshold 1; then
+          scan_exit_code=1
+        else
+          scan_exit_code=0
+        fi
+        echo "scan-exit-code=$scan_exit_code" >> $GITHUB_OUTPUT
+
+        # Check for severity 1 issues and display the violations
+        if [ -f apexScanResults.sarif ]; then
+          echo "Checking for severity 1 issues (errors)..."
+
+          # Find and count severity 1 issues (errors)
+          severity_1_count=$(jq '[.runs[].results[] | select(.level == "error")] | length' apexScanResults.sarif)
+
+          if [ "$severity_1_count" -gt 0 ]; then
+            echo "Found $severity_1_count severity 1 issue(s)."
+
+            # Display only the violations with their message, rule ID, and location
+            echo "Displaying the violations:"
+            jq '.runs[].results[] | select(.level == "error") | 
+                {message: .message.text, ruleId: .ruleId, file: .locations[].physicalLocation.artifactLocation.uri, startLine: .locations[].physicalLocation.region.startLine}' apexScanResults.sarif
+
+            # Fail the step to stop the pipeline
+            exit 1
+          else
+            echo "No severity 1 issues found."
+          fi
+        else
+          echo "No SARIF file generated."
+        fi
+        
+        cd ..

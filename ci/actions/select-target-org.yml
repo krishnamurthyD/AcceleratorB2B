@@ -1,0 +1,59 @@
+name: "Selecting Target Org"
+description: "Select Target Org using target branch"
+inputs:
+  SF_AUTH_QA:
+    description: "QA Authentication secret file"
+    required: true
+  
+  SF_AUTH_UAT:
+    description: "UAT Authentication secret file"
+    required: true
+  
+  SF_AUTH_PROD:
+    description: "PROD Authentication secret file"
+    required: true
+
+outputs:
+  org-alias:
+    description: "org alias"
+    value: ${{ steps.org-selection.outputs.org-alias }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Select target org"
+      shell: bash
+      env:
+        SF_AUTH_QA: ${{ inputs.SF_AUTH_QA }}
+        SF_AUTH_UAT: ${{ inputs.SF_AUTH_UAT }}
+        SF_AUTH_PROD: ${{ inputs.SF_AUTH_PROD }}
+
+      id: org-selection
+      run: |
+        # Check if it's a pull request event
+        if [ ${{ github.event_name }} == "pull_request" ]; then
+          target_branch=${{github.event.pull_request.base.ref}}
+          echo ${target_branch}
+        # Check if it's a push event
+        elif [ ${{ github.event_name }} == "push" ]; then
+          target_branch=${GITHUB_REF##*/}
+          echo ${target_branch}
+        else
+          echo "Unsupported branch"
+        fi
+
+        # Extract Org
+        case $target_branch in
+          main)
+            echo "org-alias=PROD" >> $GITHUB_OUTPUT
+            echo $SF_AUTH_PROD >> ./auth_file.json
+            ;;
+          qa)
+            echo "org-alias=QA" >> $GITHUB_OUTPUT
+            echo $SF_AUTH_QA >> ./auth_file.json
+            ;;
+          uat)
+            echo "org-alias=UAT" >> $GITHUB_OUTPUT
+            echo $SF_AUTH_UAT >> ./auth_file.json
+            ;;
+        esac

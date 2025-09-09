@@ -1,0 +1,37 @@
+name: "Check and Deploy"
+description: "Check-only deploy delta changes and run specified tests"
+inputs:
+  APEX_TESTS:
+    description: "List of Apex test classes to run"
+    required: false
+  TEST_LEVEL:
+    description: "Apex testing level for deployment"
+    required: true
+    default: "RunSpecifiedTests"
+    options:
+      - "RunSpecifiedTests"
+    
+  ORG_ALIAS:
+    description: "Alias for the Salesforce org"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: "Check and Deploy"
+      shell: bash
+      run: |
+        # Use the TEST_CLASSES variable from the previous step
+        echo 'running with 62 api version'
+        if [[ -d "changed-sources/force-app" ]]; then
+          if [[ -z "${{ env.TEST_CLASSES }}" ]]; then
+            echo 'validating without test classes'
+            sf project deploy start --source-dir "changed-sources/force-app" --dry-run --target-org ${{ inputs.ORG_ALIAS }} --ignore-conflicts
+          else
+            echo 'validating with testclasses'
+            sf project deploy start --source-dir "changed-sources/force-app" --dry-run --target-org ${{ inputs.ORG_ALIAS }} --test-level ${{ inputs.TEST_LEVEL }} -t ${{ env.TEST_CLASSES }} --ignore-conflicts
+          fi
+        fi
+        if [[ -d "changed-sources/destructiveChanges" ]]; then
+            echo 'validating destructive changes'
+            sf project deploy start --metadata-dir "changed-sources/destructiveChanges" --dry-run --target-org ${{ inputs.ORG_ALIAS }} --ignore-conflicts
+        fi

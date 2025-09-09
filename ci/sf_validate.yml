@@ -1,0 +1,66 @@
+name: Validate PR
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - "main"
+      - "qa"
+      - "uat"
+    paths:
+      - "force-app/**"
+
+jobs:
+  validate_delta:
+    runs-on: ubuntu-latest
+    container:
+       image: ghcr.io/${{vars.DOCKER_USERNAME}}/midj-docker-image-new:latest
+       credentials:
+        username: ${{vars.DOCKER_USERNAME}}
+        password: ${{ secrets.DOCKER_PWD }}
+    if: ${{ github.actor != 'dependabot[bot]' }}
+
+    steps:
+    
+      - name: "Checkout source code"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Selecting Target Org
+        id: org-selection
+        uses: ./.github/actions/select_target_org
+        with:
+          SF_AUTH_QA:  ${{ secrets.SF_AUTH_QA }}
+          SF_AUTH_UAT: ${{ secrets.SF_AUTH_UAT }}
+          SF_AUTH_PROD: ${{ secrets.SF_AUTH_PROD }}
+
+      - name: Debug Org Selection
+        run: |
+          echo "Org Alias: ${{ steps.org-selection.outputs.org-alias }}"
+          echo "GitHub Base Ref: ${{ github.base_ref }}"
+
+
+      - name: Authenticate to SF Org
+        if: steps.org-selection.outputs.org-alias != ''
+        uses: ./.github/actions/authenticate-to-org
+        with:
+          ORG_ALIAS: ${{ steps.org-selection.outputs.org-alias }}
+          AUTH_FILE: "auth_file.json" 
+
+      - name: Create delta packages for new, modified or deleted metadata
+        uses: ./.github/actions/sf-generate-delta
+        with:
+          to: "HEAD"
+          from: "HEAD~1"
+
+      - name: "Scan and Upload SARIF"
+        uses: "./.github/actions/sf-code-scanner"
+        if: ${{ always() }}
+              
+
+      - name: Validate
+        if: ${{ always() }}
+        uses: ./.github/actions/sf-validate-delta
+        with:
+          ORG_ALIAS: ${{ steps.org-selection.outputs.org-alias }}

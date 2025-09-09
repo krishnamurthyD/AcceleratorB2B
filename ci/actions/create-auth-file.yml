@@ -1,0 +1,24 @@
+name: "Selecting Target Org"
+description: "Select Target Org using target branch"
+inputs:
+  SF_AUTH_DEMO:
+    description: "Dev authentication secret file"
+    required: true
+
+outputs:
+  org-alias:
+    description: "org alias"
+    value: ${{ steps.org-selection.outputs.org-alias }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Select target org"
+      shell: bash
+      env:
+        SF_AUTH_DEMO: ${{ inputs.SF_AUTH_DEMO }}
+
+      id: auth-selection
+      run: |
+         echo "org-alias=DEMO" >> $GITHUB_OUTPUT
+         echo $SF_AUTH_DEMO >> ./auth_file.json

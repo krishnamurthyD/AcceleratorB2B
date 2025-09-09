@@ -1,0 +1,54 @@
+name: "Create Delta Packages"
+description: "Create delta packages for new, modified, or deleted metadata"
+runs:
+  using: "composite"
+  steps:
+    - name: "Create Delta Packages"
+      shell: bash
+      run: |
+        export HOME=/root
+        git config --system --add safe.directory "$GITHUB_WORKSPACE"
+        rm -rf changed-sources
+        mkdir changed-sources
+        sf plugins
+        sf sgd:source:delta --to "${{ inputs.to }}" --from "${{ inputs.from }}" --output changed-sources/ --generate-delta --source force-app/
+
+    - name: "Find and store test classes in variable"
+      shell: bash
+      run: |
+        cd changed-sources
+
+        # Initialize the test_classes variable
+        test_classes=""
+
+        # Find all .cls files and check if they contain @isTest (indicating a test class)
+        for file in $(grep -rl '@isTest' . --include "*.cls"); do
+          # Extract the class name (filename without path and extension)
+          class_name=$(basename "$file" .cls)
+          echo "${class_name}"
+          # Append the class name to test_classes with a comma
+          if [ -n "$test_classes" ]; then
+            test_classes="${test_classes} ${class_name}"
+          else
+            test_classes="${class_name}"
+          fi
+        done
+
+        # Output the found test classes
+        if [ -n "$test_classes" ]; then
+          echo "Test classes found: $test_classes"
+        else
+          echo "No test classes found."
+        fi
+
+        # Save the test classes in the environment to be used later in the pipeline
+        echo "TEST_CLASSES=$test_classes" >> $GITHUB_ENV
+
+
+inputs:
+  to:
+    description: "Source Branch"
+    required: true
+  from:
+    description: "Target Branch"
+    required: true
