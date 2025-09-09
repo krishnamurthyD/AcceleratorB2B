@@ -1,8 +1,10 @@
 #!/bin/sh
-echo "Selecting target org..."
-echo "Target branch: $CI_COMMIT_REF_NAME"
+TARGET_BRANCH="$1"
 
-case "$CI_COMMIT_REF_NAME" in
+echo "Selecting target org..."
+echo "Target branch: $TARGET_BRANCH"
+
+case "$TARGET_BRANCH" in
   main)
     echo "ORG_ALIAS=PROD" >> org_output.env
     echo "$SF_AUTH_PROD" > ./auth_file.json
@@ -16,7 +18,7 @@ case "$CI_COMMIT_REF_NAME" in
     echo "$SF_AUTH_UAT" > ./auth_file.json
     ;;
   *)
-    echo "Unsupported branch: $CI_COMMIT_REF_NAME"
+    echo "Unsupported branch: $TARGET_BRANCH"
     exit 1
     ;;
 esac

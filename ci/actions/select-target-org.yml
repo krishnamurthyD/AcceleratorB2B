@@ -8,9 +8,13 @@ select-target-org:
     SF_AUTH_QA: ""
     SF_AUTH_UAT: ""
     SF_AUTH_PROD: ""
+  parallel:
+    matrix:
+      - TARGET_BRANCH: ["main", "qa", "uat"]
   script:
+    - echo "Running for branch: $TARGET_BRANCH"
     - chmod +x .gitlab/scripts/select_target_org.sh
-    - ./.gitlab/scripts/select_target_org.sh
+    - ./.gitlab/scripts/select_target_org.sh "$TARGET_BRANCH"
   artifacts:
     reports:
       dotenv: org_output.env
