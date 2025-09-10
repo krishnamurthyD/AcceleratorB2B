@@ -1,10 +1,7 @@
 #!/bin/sh
-
-# Detect branch
-TARGET_BRANCH="$CI_COMMIT_REF_NAME"
+TARGET_BRANCH="$1"
 echo "Branch detected: $TARGET_BRANCH"
 
-# Select org
 case "$TARGET_BRANCH" in
   main)
     echo "ORG_ALIAS=PROD" >> org_output.env
