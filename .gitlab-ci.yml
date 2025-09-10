@@ -53,8 +53,7 @@ select_target_org:
   image: $DOCKER_IMAGE
   script:
     - echo "Selecting target org..."
-    - >
-      ORG_ALIAS=$(./.gitlab/actions/select_target_org.sh "$SF_AUTH_QA" "$SF_AUTH_UAT" "$SF_AUTH_PROD")
+    - ORG_ALIAS=$(./.gitlab/actions/select_target_org.sh "$SF_AUTH_QA" "$SF_AUTH_UAT" "$SF_AUTH_PROD")
     - echo "ORG_ALIAS=$ORG_ALIAS" >> variables.env
     - echo "GitLab Merge Request Source Branch: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
   artifacts:
