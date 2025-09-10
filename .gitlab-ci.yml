@@ -30,9 +30,9 @@ kaniko-build:
     - mkdir -p /kaniko/.docker
     - |
       echo "{\"auths\":{\"ghcr.io\":{\"username\":\"$DOCKER_USERNAME\",\"password\":\"$DOCKER_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor \
-        --context $CI_PROJECT_DIR \
-        --dockerfile $CI_PROJECT_DIR/Dockerfile \
+    - /kaniko/executor
+        --context $CI_PROJECT_DIR
+        --dockerfile $CI_PROJECT_DIR/Dockerfile
         --destination ghcr.io/$DOCKER_USERNAME/b2b-commerce-cloud:latest
 
 
