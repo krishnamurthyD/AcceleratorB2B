@@ -23,7 +23,7 @@ before_script:
 kaniko-build:
   stage: docker
   image:
-    name: gcr.io/kaniko-project/executor:latest
+    name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   script:
     - echo "Kaniko container started ✅"
