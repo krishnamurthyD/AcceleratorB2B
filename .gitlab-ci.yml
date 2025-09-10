@@ -60,9 +60,9 @@ authenticate_to_org:
   stage: authenticate
   image: docker:latest
   dependencies:
-    - select_target_org
+    - select_target_org   # ensures variables.env is downloaded
   script:
-    - source variables.env
+    - echo "Authenticating to Salesforce Org..."
     - if [ ! -z "$ORG_ALIAS" ]; then
         ./.gitlab/actions/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
       fi
