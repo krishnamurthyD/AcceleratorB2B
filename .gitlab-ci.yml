@@ -51,8 +51,8 @@ select_target_org:
   script:
     - cd $CI_PROJECT_DIR                     # Ensure correct working directory
     - echo "Selecting target org..."
-    - chmod +x ./.gitlab/actions/select_target_org.sh   # Make sure script is executable
-    - ORG_ALIAS=$(./.gitlab/actions/select_target_org.sh "$SF_AUTH_QA" "$SF_AUTH_UAT" "$SF_AUTH_PROD")
+    - chmod +x ./.gitlab/scripts/select_target_org.sh   # Make sure script is executable
+    - ORG_ALIAS=$(./.gitlab/scripts/select_target_org.sh "$SF_AUTH_QA" "$SF_AUTH_UAT" "$SF_AUTH_PROD")
     - echo "ORG_ALIAS=$ORG_ALIAS" >> variables.env
   artifacts:
     reports:
