@@ -7,7 +7,7 @@ stages:
   - validate
 
 variables:
-  DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/midj-docker-image-new:latest"
+  DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/cloud-odyssey-docker-image-new:latest"
 
 # Checkout source code
 checkout_code:

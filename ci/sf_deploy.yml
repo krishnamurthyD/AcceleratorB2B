@@ -7,7 +7,7 @@ stages:
   - deploy
 
 variables:
-  DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/midj-docker-image-new:latest"
+  DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/cloud-odyssey-docker-image-new:latest"
 
 before_script:
   - echo "Starting GitLab pipeline"

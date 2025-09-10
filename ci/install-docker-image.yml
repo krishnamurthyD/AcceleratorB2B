@@ -7,7 +7,7 @@ build-and-push-docker:
   services:
     - docker:dind        # Docker daemon in Docker
   variables:
-    DOCKER_IMAGE: "wilson-scott-docker-image"
+    DOCKER_IMAGE: "cloud-odyssey-docker-image"
     REGISTRY_URL: "ghcr.io"
     # In GitLab → Settings → CI/CD → Variables, create these:
     #   DOCKER_USERNAME = your username (lowercase)
