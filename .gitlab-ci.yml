@@ -13,9 +13,6 @@ stages:
   - deploy
   - validate
 
-variables:
-  DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/cloud-odyssey-docker-image-new:latest"
-
 before_script:
   - echo "Starting GitLab pipeline"
 
@@ -49,11 +46,14 @@ checkout_code:
 select_target_org:
   stage: select_org
   image: docker:latest
+  services:
+    - docker:dind
   script:
+    - cd $CI_PROJECT_DIR                     # Ensure correct working directory
     - echo "Selecting target org..."
+    - chmod +x ./.gitlab/actions/select_target_org.sh   # Make sure script is executable
     - ORG_ALIAS=$(./.gitlab/actions/select_target_org.sh "$SF_AUTH_QA" "$SF_AUTH_UAT" "$SF_AUTH_PROD")
     - echo "ORG_ALIAS=$ORG_ALIAS" >> variables.env
-    # - echo "GitLab Merge Request Source Branch: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
   artifacts:
     reports:
       dotenv: variables.env
