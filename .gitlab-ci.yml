@@ -113,6 +113,6 @@ validate_delta:
       fi
 
 # Trigger only on Merge Requests to main, qa, or uat
-workflow:
-  rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /(main|qa|uat)/
+# workflow:
+#   rules:
+#     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /(main|qa|uat)/
