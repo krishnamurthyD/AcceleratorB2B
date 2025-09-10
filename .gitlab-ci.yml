@@ -20,18 +20,13 @@ before_script:
   - echo "Starting GitLab pipeline"
 
 # Build and Push Docker Image
-build-and-push-docker:
+kaniko-test:
   stage: docker
   image:
     name: gcr.io/kaniko-project/executor:latest
     entrypoint: [""]
-  variables:
-    DOCKER_REGISTRY: "ghcr.io"
-    IMAGE_NAME: "cloud-odyssey-docker-image"
   script:
-    - echo "{\"auths\":{\"$DOCKER_REGISTRY\":{\"username\":\"$DOCKER_USERNAME\",\"password\":\"$DOCKER_PWD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $DOCKER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME:latest
-
+    - echo "Kaniko is running ✅"
 
 
 
