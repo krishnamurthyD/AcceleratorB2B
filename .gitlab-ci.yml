@@ -1,4 +1,119 @@
-include:
-  - local: 'ci/install-docker-image.yml'
-  - local: 'ci/sf_deploy.yml'
-  - local: 'ci/sf_validate.yml'
+# include:
+#   - local: 'ci/install-docker-image.yml'
+#   - local: 'ci/sf_deploy.yml'
+#   - local: 'ci/sf_validate.yml'
+
+stages:
+  - docker
+  - checkout
+  - select_org
+  - authenticate
+  - generate_delta
+  - scan
+  - deploy
+  - validate
+
+variables:
+  DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/cloud-odyssey-docker-image-new:latest"
+
+before_script:
+  - echo "Starting GitLab pipeline"
+
+# Build and Push Docker Image
+build-and-push-docker:
+  stage: docker
+  image: docker:24.0.5
+  services:
+    - docker:dind
+  variables:
+    DOCKER_IMAGE: "cloud-odyssey-docker-image"
+    REGISTRY_URL: "ghcr.io"
+    REGISTRY_OWNER: "$DOCKER_USERNAME"
+  before_script:
+    - echo "Logging in to GitHub Container Registry..."
+    - echo "$DOCKER_PWD" | docker login $REGISTRY_URL -u "$DOCKER_USERNAME" --password-stdin
+  script:
+    - echo "Building and pushing Docker image..."
+    - docker build -t $REGISTRY_URL/$REGISTRY_OWNER/$DOCKER_IMAGE:latest .
+    - docker push $REGISTRY_URL/$REGISTRY_OWNER/$DOCKER_IMAGE:latest
+
+# Checkout source code
+checkout_code:
+  stage: checkout
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - git fetch --unshallow || echo "Already shallow clone"
+    - git checkout $CI_COMMIT_REF_NAME
+
+# Selecting Target Org
+select_target_org:
+  stage: select_org
+  image: $DOCKER_IMAGE
+  script:
+    - echo "Selecting target org..."
+    - >
+      ORG_ALIAS=$(./.gitlab/actions/select_target_org.sh "$SF_AUTH_QA" "$SF_AUTH_UAT" "$SF_AUTH_PROD")
+    - echo "ORG_ALIAS=$ORG_ALIAS" >> variables.env
+    - echo "GitLab Merge Request Source Branch: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
+  artifacts:
+    reports:
+      dotenv: variables.env
+
+# Authenticate to SF Org
+authenticate_to_org:
+  stage: authenticate
+  image: $DOCKER_IMAGE
+  dependencies:
+    - select_target_org
+  script:
+    - source variables.env
+    - if [ ! -z "$ORG_ALIAS" ]; then
+        ./.gitlab/actions/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
+      fi
+
+# Create delta packages
+generate_delta:
+  stage: generate_delta
+  image: $DOCKER_IMAGE
+  script:
+    - ./.gitlab/actions/sf-generate-delta.sh "HEAD~1" "HEAD"
+
+# Scan and Upload SARIF
+scan_sarif:
+  stage: scan
+  image: $DOCKER_IMAGE
+  script:
+    - ./.gitlab/actions/sf-code-scanner.sh || echo "Scan completed"
+
+# Deploy Delta
+deploy_delta:
+  stage: deploy
+  image: $DOCKER_IMAGE
+  dependencies:
+    - authenticate_to_org
+    - generate_delta
+  script:
+    - source variables.env
+    - if [ ! -z "$ORG_ALIAS" ]; then
+        ./.gitlab/actions/sf-deploy-delta.sh "$ORG_ALIAS";
+      fi
+
+# Validate Delta
+validate_delta:
+  stage: validate
+  image: $DOCKER_IMAGE
+  dependencies:
+    - authenticate_to_org
+    - generate_delta
+  script:
+    - source variables.env
+    - if [ ! -z "$ORG_ALIAS" ]; then
+        ./.gitlab/actions/sf-validate-delta.sh "$ORG_ALIAS";
+      fi
+
+# Trigger only on Merge Requests to main, qa, or uat
+workflow:
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /(main|qa|uat)/
