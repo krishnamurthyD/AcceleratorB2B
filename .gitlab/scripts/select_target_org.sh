@@ -4,16 +4,13 @@ echo "Branch detected: $TARGET_BRANCH"
 
 case "$TARGET_BRANCH" in
   main)
-    echo "ORG_ALIAS=PROD" >> org_output.env
-    echo "$SF_AUTH_PROD" > ./auth_file.json
+    echo "ORG_ALIAS=PROD" > variables.env
     ;;
   qa)
-    echo "ORG_ALIAS=QA" >> org_output.env
-    echo "$SF_AUTH_QA" > ./auth_file.json
+    echo "ORG_ALIAS=QA" > variables.env
     ;;
   uat)
-    echo "ORG_ALIAS=UAT" >> org_output.env
-    echo "$SF_AUTH_UAT" > ./auth_file.json
+    echo "ORG_ALIAS=UAT" > variables.env
     ;;
   *)
     echo "Unsupported branch: $TARGET_BRANCH"
@@ -21,4 +18,4 @@ case "$TARGET_BRANCH" in
     ;;
 esac
 
-echo "Org alias set and auth file created"
+echo "Org alias set in variables.env"
