@@ -13,29 +13,24 @@ stages:
   - deploy
   - validate
 
-variables:
-  DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/cloud-odyssey-docker-image-new:latest"
-
 before_script:
   - echo "Starting GitLab pipeline"
 
 # Build and Push Docker Image
-build-and-push-docker:
+kaniko-build:
   stage: docker
-  image: docker:24.0.5
-  services:
-    - docker:dind
-  variables:
-    DOCKER_IMAGE: "cloud-odyssey-docker-image"
-    REGISTRY_URL: "ghcr.io"
-    REGISTRY_OWNER: "$DOCKER_USERNAME"
-  before_script:
-    - echo "Logging in to GitHub Container Registry..."
-    - echo "$DOCKER_PWD" | docker login $REGISTRY_URL -u "$DOCKER_USERNAME" --password-stdin
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
   script:
-    - echo "Building and pushing Docker image..."
-    - docker build -t $REGISTRY_URL/$REGISTRY_OWNER/$DOCKER_IMAGE:latest .
-    - docker push $REGISTRY_URL/$REGISTRY_OWNER/$DOCKER_IMAGE:latest
+    - echo "Starting GitLab pipeline"
+    - /kaniko/executor 
+        --context $CI_PROJECT_DIR 
+        --dockerfile $CI_PROJECT_DIR/Dockerfile 
+        --no-push 
+        --tar-path /tmp/my-app-image.tar
+
+
 
 # Checkout source code
 checkout_code:
@@ -50,13 +45,13 @@ checkout_code:
 # Selecting Target Org
 select_target_org:
   stage: select_org
-  image: $DOCKER_IMAGE
+  image: docker:latest
   script:
+    - cd $CI_PROJECT_DIR
     - echo "Selecting target org..."
-    - >
-      ORG_ALIAS=$(./.gitlab/actions/select_target_org.sh "$SF_AUTH_QA" "$SF_AUTH_UAT" "$SF_AUTH_PROD")
-    - echo "ORG_ALIAS=$ORG_ALIAS" >> variables.env
-    - echo "GitLab Merge Request Source Branch: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
+    - chmod +x ./.gitlab/scripts/select_target_org.sh
+    - ORG_ALIAS=$(./.gitlab/scripts/select_target_org.sh "$CI_COMMIT_REF_NAME")
+    - echo "ORG_ALIAS=$ORG_ALIAS" > variables.env
   artifacts:
     reports:
       dotenv: variables.env
@@ -64,7 +59,7 @@ select_target_org:
 # Authenticate to SF Org
 authenticate_to_org:
   stage: authenticate
-  image: $DOCKER_IMAGE
+  image: docker:latest
   dependencies:
     - select_target_org
   script:
@@ -76,21 +71,21 @@ authenticate_to_org:
 # Create delta packages
 generate_delta:
   stage: generate_delta
-  image: $DOCKER_IMAGE
+  image: docker:latest
   script:
     - ./.gitlab/actions/sf-generate-delta.sh "HEAD~1" "HEAD"
 
 # Scan and Upload SARIF
 scan_sarif:
   stage: scan
-  image: $DOCKER_IMAGE
+  image: docker:latest
   script:
     - ./.gitlab/actions/sf-code-scanner.sh || echo "Scan completed"
 
 # Deploy Delta
 deploy_delta:
   stage: deploy
-  image: $DOCKER_IMAGE
+  image: docker:latest
   dependencies:
     - authenticate_to_org
     - generate_delta
@@ -103,7 +98,7 @@ deploy_delta:
 # Validate Delta
 validate_delta:
   stage: validate
-  image: $DOCKER_IMAGE
+  image: docker:latest
   dependencies:
     - authenticate_to_org
     - generate_delta
@@ -114,6 +109,6 @@ validate_delta:
       fi
 
 # Trigger only on Merge Requests to main, qa, or uat
-workflow:
-  rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /(main|qa|uat)/
+# workflow:
+#   rules:
+    # - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /(main|qa|uat)/  
