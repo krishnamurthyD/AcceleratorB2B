@@ -23,21 +23,25 @@ before_script:
 build-and-push-docker:
   stage: docker
   image: docker:24.0.5
-  services:
-    - docker:dind
+  # Remove docker:dind service if using shared runners
+  # services:
+  #   - docker:dind
   variables:
     DOCKER_IMAGE: "cloud-odyssey-docker-image"
     REGISTRY_URL: "ghcr.io"
     REGISTRY_OWNER: "$DOCKER_USERNAME"
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
+    DOCKER_DRIVER: overlay2
   before_script:
     - echo "Logging in to GitHub Container Registry..."
     - echo "$DOCKER_PWD" | docker login $REGISTRY_URL -u "$DOCKER_USERNAME" --password-stdin
   script:
-    - echo "Building and pushing Docker image..."
+    - echo "Building Docker image..."
     - docker build -t $REGISTRY_URL/$REGISTRY_OWNER/$DOCKER_IMAGE:latest .
+    - echo "Pushing Docker image..."
     - docker push $REGISTRY_URL/$REGISTRY_OWNER/$DOCKER_IMAGE:latest
+  tags:
+    - docker   # Make sure this job runs on a runner with Docker installed
+
 
 # Checkout source code
 checkout_code:
