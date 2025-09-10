@@ -1,4 +1,4 @@
 include:
   - local: 'ci/install-docker-image.yml'
-  - local: 'ci/sf_validate.yml'
   - local: 'ci/sf_deploy.yml'
+  - local: 'ci/sf_validate.yml'
