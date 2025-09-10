@@ -46,14 +46,12 @@ checkout_code:
 select_target_org:
   stage: select_org
   image: docker:latest
-  services:
-    - docker:dind
   script:
-    - cd $CI_PROJECT_DIR                     # Ensure correct working directory
+    - cd $CI_PROJECT_DIR
     - echo "Selecting target org..."
-    - chmod +x ./.gitlab/scripts/select_target_org.sh   # Make sure script is executable
-    - ORG_ALIAS=$(./.gitlab/scripts/select_target_org.sh "$SF_AUTH_QA" "$SF_AUTH_UAT" "$SF_AUTH_PROD")
-    - echo "ORG_ALIAS=$ORG_ALIAS" >> variables.env
+    - chmod +x ./.gitlab/scripts/select_target_org.sh
+    - ORG_ALIAS=$(./.gitlab/scripts/select_target_org.sh "$CI_COMMIT_REF_NAME")
+    - echo "ORG_ALIAS=$ORG_ALIAS" > variables.env
   artifacts:
     reports:
       dotenv: variables.env
