@@ -29,10 +29,7 @@ kaniko-build:
     - echo "Starting GitLab pipeline"
     - echo "Kaniko container started ✅"
     - /kaniko/executor version
-    - /kaniko/executor \
-        --context $CI_PROJECT_DIR \
-        --dockerfile $CI_PROJECT_DIR/Dockerfile \
-        --destination $CI_REGISTRY_IMAGE:latest
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:latest
 
 
 # Checkout source code
