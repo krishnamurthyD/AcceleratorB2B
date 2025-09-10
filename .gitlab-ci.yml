@@ -24,6 +24,7 @@ kaniko-build:
   stage: docker
   image:
     name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
   script:
     - echo "Starting GitLab pipeline"
     - echo "Kaniko container started ✅"
