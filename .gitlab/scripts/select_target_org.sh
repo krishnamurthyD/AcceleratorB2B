@@ -1,6 +1,5 @@
 #!/bin/sh
 TARGET_BRANCH="$1"
-echo "Branch detected: $TARGET_BRANCH"
 
 case "$TARGET_BRANCH" in
   main)
@@ -20,5 +19,3 @@ case "$TARGET_BRANCH" in
     exit 1
     ;;
 esac
-
-echo "Org alias set in variables.env and auth_file.json created"

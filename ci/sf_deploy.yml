@@ -25,11 +25,11 @@ checkout_code:
 # Selecting Target Org
 select_target_org:
   stage: select_org
-  image: $DOCKER_IMAGE
+  image: docker:latest
   script:
-    - echo "Selecting target org..."
-    - ORG_ALIAS=$(./.gitlab/actions/select_target_org.sh "$SF_AUTH_QA")  # Assuming you have shell scripts for GitLab
-    - echo "ORG_ALIAS=$ORG_ALIAS" >> variables.env
+    - cd $CI_PROJECT_DIR
+    - chmod +x ./.gitlab/scripts/select_target_org.sh
+    - ./.gitlab/scripts/select_target_org.sh "$CI_COMMIT_REF_NAME"
   artifacts:
     reports:
       dotenv: variables.env
