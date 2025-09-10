@@ -23,22 +23,22 @@ before_script:
 build-and-push-docker:
   stage: docker
   image: docker:24.0.5
+  services:
+    - name: docker:24.0.5-dind   # match docker client and daemon versions
+      command: ["--tls=false"]   # disable TLS so it works with tcp://docker:2375
   variables:
     DOCKER_IMAGE: "cloud-odyssey-docker-image"
     REGISTRY_URL: "ghcr.io"
-    REGISTRY_OWNER: "$DOCKER_USERNAME"
-    DOCKER_HOST: ""          # use default socket
-    DOCKER_TLS_CERTDIR: ""   # disable TLS
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
   before_script:
     - echo "Logging in to GitHub Container Registry..."
     - echo "$DOCKER_PWD" | docker login $REGISTRY_URL -u "$DOCKER_USERNAME" --password-stdin
   script:
     - echo "Building Docker image..."
-    - docker build -t $REGISTRY_URL/$REGISTRY_OWNER/$DOCKER_IMAGE:latest .
-    - echo "Pushing Docker image..."
-    - docker push $REGISTRY_URL/$REGISTRY_OWNER/$DOCKER_IMAGE:latest
-  tags:
-    - docker   # ensure this runs on a runner with Docker installed
+    - docker build -t $REGISTRY_URL/$DOCKER_USERNAME/$DOCKER_IMAGE:latest .
+    - docker push $REGISTRY_URL/$DOCKER_USERNAME/$DOCKER_IMAGE:latest
+
 
 
 
