@@ -50,8 +50,7 @@ select_target_org:
     - cd $CI_PROJECT_DIR
     - echo "Selecting target org..."
     - chmod +x ./.gitlab/scripts/select_target_org.sh
-    - ORG_ALIAS=$(./.gitlab/scripts/select_target_org.sh "$CI_COMMIT_REF_NAME")
-    - echo "ORG_ALIAS=$ORG_ALIAS" > variables.env
+    - ./.gitlab/scripts/select_target_org.sh "$CI_COMMIT_REF_NAME"
   artifacts:
     reports:
       dotenv: variables.env
