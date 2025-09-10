@@ -20,13 +20,14 @@ before_script:
   - echo "Starting GitLab pipeline"
 
 # Build and Push Docker Image
-kaniko-test:
+kaniko-build:
   stage: docker
   image:
     name: gcr.io/kaniko-project/executor:latest
     entrypoint: [""]
   script:
-    - echo "Kaniko is running ✅"
+    - echo "Kaniko container started ✅"
+    - /kaniko/executor --version
 
 
 
