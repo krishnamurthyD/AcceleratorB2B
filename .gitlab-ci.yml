@@ -27,9 +27,13 @@ kaniko-build:
     entrypoint: [""]
   script:
     - echo "Starting GitLab pipeline"
-    - echo "Kaniko container started ✅"
-    - /kaniko/executor version
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:latest
+    - mkdir -p /kaniko/.docker
+    - |
+      echo "{\"auths\":{\"ghcr.io\":{\"username\":\"$DOCKER_USERNAME\",\"password\":\"$DOCKER_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor \
+        --context $CI_PROJECT_DIR \
+        --dockerfile $CI_PROJECT_DIR/Dockerfile \
+        --destination ghcr.io/$DOCKER_USERNAME/b2b-commerce-cloud:latest
 
 
 # Checkout source code
