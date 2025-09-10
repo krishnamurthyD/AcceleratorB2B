@@ -28,6 +28,7 @@ kaniko-build:
   script:
     - echo "Kaniko container started ✅"
     - /kaniko/executor --version
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:latest
 
 
 
