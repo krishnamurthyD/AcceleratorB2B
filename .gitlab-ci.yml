@@ -27,10 +27,10 @@ kaniko-build:
     entrypoint: [""]
   script:
     - echo "Starting GitLab pipeline"
-    - /kaniko/executor \
-        --context $CI_PROJECT_DIR \
-        --dockerfile $CI_PROJECT_DIR/Dockerfile \
-        --no-push \
+    - /kaniko/executor 
+        --context $CI_PROJECT_DIR 
+        --dockerfile $CI_PROJECT_DIR/Dockerfile 
+        --no-push 
         --tar-path /tmp/my-app-image.tar
 
 
