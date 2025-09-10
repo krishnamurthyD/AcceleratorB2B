@@ -48,7 +48,7 @@ checkout_code:
 # Selecting Target Org
 select_target_org:
   stage: select_org
-  image: $DOCKER_IMAGE
+  image: docker:latest
   script:
     - echo "Selecting target org..."
     - ORG_ALIAS=$(./.gitlab/actions/select_target_org.sh "$SF_AUTH_QA" "$SF_AUTH_UAT" "$SF_AUTH_PROD")
@@ -61,7 +61,7 @@ select_target_org:
 # Authenticate to SF Org
 authenticate_to_org:
   stage: authenticate
-  image: $DOCKER_IMAGE
+  image: docker:latest
   dependencies:
     - select_target_org
   script:
@@ -73,21 +73,21 @@ authenticate_to_org:
 # Create delta packages
 generate_delta:
   stage: generate_delta
-  image: $DOCKER_IMAGE
+  image: docker:latest
   script:
     - ./.gitlab/actions/sf-generate-delta.sh "HEAD~1" "HEAD"
 
 # Scan and Upload SARIF
 scan_sarif:
   stage: scan
-  image: $DOCKER_IMAGE
+  image: docker:latest
   script:
     - ./.gitlab/actions/sf-code-scanner.sh || echo "Scan completed"
 
 # Deploy Delta
 deploy_delta:
   stage: deploy
-  image: $DOCKER_IMAGE
+  image: docker:latest
   dependencies:
     - authenticate_to_org
     - generate_delta
@@ -100,7 +100,7 @@ deploy_delta:
 # Validate Delta
 validate_delta:
   stage: validate
-  image: $DOCKER_IMAGE
+  image: docker:latest
   dependencies:
     - authenticate_to_org
     - generate_delta
