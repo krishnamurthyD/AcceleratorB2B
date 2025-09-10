@@ -22,22 +22,15 @@ before_script:
 # Build and Push Docker Image
 build-and-push-docker:
   stage: docker
-  image: docker:24.0.5
-  services:
-    - name: docker:24.0.5-dind   # match docker client and daemon versions
-      command: ["--tls=false"]   # disable TLS so it works with tcp://docker:2375
+  image:
+    name: gcr.io/kaniko-project/executor:latest
+    entrypoint: [""]
   variables:
-    DOCKER_IMAGE: "cloud-odyssey-docker-image"
-    REGISTRY_URL: "ghcr.io"
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
-  before_script:
-    - echo "Logging in to GitHub Container Registry..."
-    - echo "$DOCKER_PWD" | docker login $REGISTRY_URL -u "$DOCKER_USERNAME" --password-stdin
+    DOCKER_REGISTRY: "ghcr.io"
+    IMAGE_NAME: "cloud-odyssey-docker-image"
   script:
-    - echo "Building Docker image..."
-    - docker build -t $REGISTRY_URL/$DOCKER_USERNAME/$DOCKER_IMAGE:latest .
-    - docker push $REGISTRY_URL/$DOCKER_USERNAME/$DOCKER_IMAGE:latest
+    - echo "{\"auths\":{\"$DOCKER_REGISTRY\":{\"username\":\"$DOCKER_USERNAME\",\"password\":\"$DOCKER_PWD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $DOCKER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME:latest
 
 
 
