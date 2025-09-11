@@ -23,16 +23,16 @@ kaniko-build:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   script:
-    - echo "Checking if image already exists in Docker Hub..."
+    - echo "🔍 Checking if image already exists in Docker Hub..."
 
-    # Create Docker config.json for auth
+    # Create Docker auth config for Kaniko
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$DOCKER_USERNAME\",\"password\":\"$DOCKER_PWD\"}}}" > /kaniko/.docker/config.json
 
-    # Check if the image tag exists using Docker Hub v2 API
+    # Check if "latest" tag already exists
     - |
-      if curl -s -f -u "$DOCKER_USERNAME:$DOCKER_PWD" \
-        https://hub.docker.com/v2/repositories/$DOCKER_USERNAME/salesforce-cli/tags/latest/ > /dev/null; then
+      if wget -q --spider --user="$DOCKER_USERNAME" --password="$DOCKER_PWD" \
+        https://hub.docker.com/v2/repositories/krishnadonta/salesforce-cli/tags/latest/; then
         echo "✅ Image already exists in Docker Hub. Skipping build."
         exit 0
       else
@@ -40,10 +40,13 @@ kaniko-build:
         /kaniko/executor \
           --context "$CI_PROJECT_DIR" \
           --dockerfile "$CI_PROJECT_DIR/Dockerfile" \
-          --destination "docker.io/$DOCKER_USERNAME/salesforce-cli:latest" \
+          --destination "docker.io/krishnadonta/salesforce-cli:latest" \
           --cache=true \
-          --cache-repo="docker.io/$DOCKER_USERNAME/salesforce-cli-cache"
+          --cache-repo="docker.io/krishnadonta/salesforce-cli-cache"
       fi
+  only:
+    - main
+
 
 
 
