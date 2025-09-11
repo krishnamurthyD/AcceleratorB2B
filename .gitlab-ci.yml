@@ -4,7 +4,7 @@
 #   - local: 'ci/sf_validate.yml'
 
 stages:
-  - docker
+  # - docker # Just run this once to push the image, then comment it out
   - checkout
   - select_org
   - authenticate
@@ -16,38 +16,27 @@ stages:
 before_script:
   - echo "Starting GitLab pipeline"
 
-# Build and Push Docker Image
-kaniko-build:
-  stage: docker
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
-  script:
-    - echo "🔍 Checking if image already exists in Docker Hub..."
+# # Build and Push Docker Image   # Just run this once to push the image, then comment it out
+# kaniko-build:
+#   stage: docker
+#   image:
+#     name: gcr.io/kaniko-project/executor:debug
+#     entrypoint: [""]
+#   script:
+#     - echo "Building and pushing Docker image to Docker Hub..."
 
-    # Create Docker auth config for Kaniko
-    - mkdir -p /kaniko/.docker
-    - echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$DOCKER_USERNAME\",\"password\":\"$DOCKER_PWD\"}}}" > /kaniko/.docker/config.json
+#     # Create Docker config.json for auth
+#     - mkdir -p /kaniko/.docker
+#     - echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$DOCKER_USERNAME\",\"password\":\"$DOCKER_PWD\"}}}" > /kaniko/.docker/config.json
 
-    # Check if "latest" tag already exists
-    - |
-      if wget -q --spider --user="$DOCKER_USERNAME" --password="$DOCKER_PWD" \
-        https://hub.docker.com/v2/repositories/krishnadonta/salesforce-cli/tags/latest/; then
-        echo "✅ Image already exists in Docker Hub. Skipping build."
-        exit 0
-      else
-        echo "⏳ Image not found. Building and pushing..."
-        /kaniko/executor \
-          --context "$CI_PROJECT_DIR" \
-          --dockerfile "$CI_PROJECT_DIR/Dockerfile" \
-          --destination "docker.io/krishnadonta/salesforce-cli:latest" \
-          --cache=true \
-          --cache-repo="docker.io/krishnadonta/salesforce-cli-cache"
-      fi
-  only:
-    - main
-
-
+#     # Run Kaniko build and push
+#     - /kaniko/executor
+#         --context $CI_PROJECT_DIR
+#         --dockerfile $CI_PROJECT_DIR/Dockerfile
+#         --destination docker.io/$DOCKER_USERNAME/salesforce-cli:latest
+#         --cache=true
+#   only:
+#     - main
 
 
 
