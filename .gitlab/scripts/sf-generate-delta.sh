@@ -8,7 +8,7 @@ TO_COMMIT=$2
 echo "Generating delta between $FROM_COMMIT and $TO_COMMIT..."
 
 # Install sfdx-git-delta plugin if not already installed
-sf plugins install sfdx-git-delta || echo "Plugin already installed"
+sf plugins install sfdx-git-delta --yes || echo "Plugin already installed"
 
 # Generate the delta using sf CLI
 sf sgd generate delta \
