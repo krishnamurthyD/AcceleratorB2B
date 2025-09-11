@@ -9,7 +9,7 @@ echo "Generating delta between $FROM_COMMIT and $TO_COMMIT..."
 sfdx plugins --core | grep sfdx-git-delta || sfdx plugins:install sfdx-git-delta
 
 # Generate delta using sfdx instead of sf
-sfdx sgd:generate:delta \
+sf sgd:source:delta \
   --from "$FROM_COMMIT" \
   --to "$TO_COMMIT" \
   --output "changed-sources"
