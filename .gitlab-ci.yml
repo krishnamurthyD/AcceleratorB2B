@@ -87,12 +87,30 @@ authenticate_to_org:
 
 
 # Create delta packages
-generate_delta:
+generate_delta_debug:
   stage: generate_delta
-  image: $DOCKER_IMAGE
+  image: docker.io/krishnadonta/salesforce-cli:latest
   script:
+    - echo "=== Git Info ==="
+    - git --version
+    - git rev-parse HEAD
+    - git log -1 --oneline
+    - echo "=== Node & NPM Info ==="
+    - node -v
+    - npm -v
+    - echo "=== Salesforce CLI Info ==="
+    - sf --version
+    - sf plugins
+    - echo "=== PATH & Env ==="
+    - echo $PATH
+    - env
+    - echo "=== Listing scripts folder ==="
+    - ls -l .gitlab/scripts
+    - echo "=== Attempting to run delta script ==="
     - chmod +x .gitlab/scripts/sf-generate-delta.sh
+    - set -x   # enable debug output for all commands
     - .gitlab/scripts/sf-generate-delta.sh "HEAD~1" "HEAD"
+
 
 # Scan and Upload SARIF
 scan_sarif:
