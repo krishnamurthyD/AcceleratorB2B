@@ -132,7 +132,7 @@ validate_delta:
     - authenticate_to_org
     - generate_delta
   script:
-    - source variables.env
+    - chmod +x .gitlab/scripts/sf-validate-delta.sh
     - if [ ! -z "$ORG_ALIAS" ]; then
         ./.gitlab/actions/sf-validate-delta.sh "$ORG_ALIAS";
       fi
