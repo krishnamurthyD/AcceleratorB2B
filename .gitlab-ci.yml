@@ -64,7 +64,7 @@ authenticate_to_org:
     - echo "Authenticating to Salesforce Org..."
     - chmod +x .gitlab/scripts/authenticate-to-org.sh
     - if [ ! -z "$ORG_ALIAS" ]; then
-        ./.gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
+        cd .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
       fi
 
 # Create delta packages
