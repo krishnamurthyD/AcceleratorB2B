@@ -62,6 +62,17 @@ authenticate_to_org:
     - select_target_org
   script:
     - echo "Starting authentication job..."
+
+    # Install Salesforce CLI
+    - echo "Installing Salesforce CLI..."
+    - npm install -g @salesforce/cli
+    - echo y | sf plugins install @salesforce/sfdx-scanner
+    - echo y | sf plugins install sfdx-git-delta
+    - echo "Installed Salesforce CLI version:"
+    - sf --version
+    - echo "Installed plugins:"
+    - sf plugins
+    
     - echo "Current directory:"
     - echo $(pwd)
     - echo "Listing files in .gitlab/scripts:"
