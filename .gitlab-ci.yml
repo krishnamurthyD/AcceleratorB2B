@@ -70,7 +70,7 @@ authenticate_to_org:
     - test -f .gitlab/scripts/authenticate-to-org.sh && echo "Script exists" || echo "Script missing"
     - echo "Attempting to run the authentication script using bash..."
     - if [ ! -z "$ORG_ALIAS" ]; then
-        bash .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
+        sh .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
       fi
     - echo "Authentication job finished."
 
