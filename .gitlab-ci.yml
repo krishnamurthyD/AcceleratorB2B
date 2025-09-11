@@ -33,17 +33,20 @@ before_script:
 #     - /kaniko/executor
 #         --context $CI_PROJECT_DIR
 #         --dockerfile $CI_PROJECT_DIR/Dockerfile
-#         --destination docker.io/$DOCKER_USERNAME/salesforce-cli:latest
+#         --destination $DOCKER_IMAGE
 #         --cache=true
 #   only:
 #     - main
 
 
+variables:
+  DOCKER_IMAGE: docker.io/krishnadonta/salesforce-cli:latest
+
 
 # Checkout source code
 checkout_code:
   stage: checkout
-  image: docker.io/$DOCKER_USERNAME/salesforce-cli:latest
+  image: $DOCKER_IMAGE
   services:
     - docker:dind
   script:
@@ -53,7 +56,7 @@ checkout_code:
 # Selecting Target Org
 select_target_org:
   stage: select_org
-  image: docker.io/$DOCKER_USERNAME/salesforce-cli:latest
+  image: $DOCKER_IMAGE
   script:
     - cd $CI_PROJECT_DIR
     - echo "Selecting target org..."
@@ -66,7 +69,7 @@ select_target_org:
 # Authenticate to SF Org
 authenticate_to_org:
   stage: authenticate
-  image: docker.io/$DOCKER_USERNAME/salesforce-cli:latest
+  image: $DOCKER_IMAGE
   dependencies:
     - select_target_org
   script:
@@ -86,7 +89,7 @@ authenticate_to_org:
 # Create delta packages
 generate_delta:
   stage: generate_delta
-  image: docker.io/$DOCKER_USERNAME/salesforce-cli:latest
+  image: $DOCKER_IMAGE
   script:
     - chmod +x .gitlab/scripts/sf-generate-delta.sh
     - .gitlab/scripts/sf-generate-delta.sh "HEAD~1" "HEAD"
@@ -94,7 +97,7 @@ generate_delta:
 # Scan and Upload SARIF
 scan_sarif:
   stage: scan
-  image: docker.io/$DOCKER_USERNAME/salesforce-cli:latest
+  image: $DOCKER_IMAGE
   script:
     - chmod +x .gitlab/scripts/sf-code-scanner.sh
     - ./.gitlab/scripts/sf-code-scanner.sh || echo "Scan completed"
@@ -102,7 +105,7 @@ scan_sarif:
 # Deploy Delta
 deploy_delta:
   stage: deploy
-  image: docker.io/$DOCKER_USERNAME/salesforce-cli:latest
+  image: $DOCKER_IMAGE
   dependencies:
     - authenticate_to_org
     - generate_delta
@@ -115,7 +118,7 @@ deploy_delta:
 # Validate Delta
 validate_delta:
   stage: validate
-  image: docker.io/$DOCKER_USERNAME/salesforce-cli:latest
+  image: $DOCKER_IMAGE
   dependencies:
     - authenticate_to_org
     - generate_delta
