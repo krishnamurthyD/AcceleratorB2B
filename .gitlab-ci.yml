@@ -63,6 +63,7 @@ select_target_org:
     reports:
       dotenv: variables.env
 
+# Authenticate to SF Org
 authenticate_to_org:
   stage: authenticate
   image: docker.io/$DOCKER_USERNAME/salesforce-cli:latest
@@ -87,14 +88,16 @@ generate_delta:
   stage: generate_delta
   image: docker.io/$DOCKER_USERNAME/salesforce-cli:latest
   script:
-    - ./.gitlab/actions/sf-generate-delta.sh "HEAD~1" "HEAD"
+    - chmod +x .gitlab/scripts/sf-generate-delta.sh
+    - .gitlab/scripts/sf-generate-delta.sh "HEAD~1" "HEAD"
 
 # Scan and Upload SARIF
 scan_sarif:
   stage: scan
   image: docker.io/$DOCKER_USERNAME/salesforce-cli:latest
   script:
-    - ./.gitlab/actions/sf-code-scanner.sh || echo "Scan completed"
+    - chmod +x .gitlab/scripts/sf-code-scanner.sh
+    - ./.gitlab/scripts/sf-code-scanner.sh || echo "Scan completed"
 
 # Deploy Delta
 deploy_delta:
