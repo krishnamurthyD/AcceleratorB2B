@@ -16,4 +16,4 @@ sf sgd generate delta \
   --to "$TO_COMMIT" \
   --output changed-sources/
 
-echo "Delta generated in changed-sources/"
+echo "Delta generated in changed-sources/" 
