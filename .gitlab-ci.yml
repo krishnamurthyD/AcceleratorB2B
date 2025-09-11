@@ -62,7 +62,8 @@ authenticate_to_org:
     - select_target_org
   script:
     - echo "Starting authentication job..."
-    - echo "Current directory: $(pwd)"
+    - echo "Current directory "
+    - echo - $(pwd)
     - echo "Listing files in .gitlab/scripts:"
     - ls -l .gitlab/scripts
     - echo "Checking if authenticate-to-org.sh exists and is executable:"
