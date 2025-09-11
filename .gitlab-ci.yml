@@ -63,7 +63,7 @@ authenticate_to_org:
     - select_target_org   # ensures variables.env is downloaded
   script:
     - echo "Authenticating to Salesforce Org..."
-    - chmod +x .gitlab/scripts/authenticate-to-org.sh
+    - chmod +x ./.gitlab/scripts/authenticate-to-org.sh
     - if [ ! -z "$ORG_ALIAS" ]; then
         ./.gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
       fi
