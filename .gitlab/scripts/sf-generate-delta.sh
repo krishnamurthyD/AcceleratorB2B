@@ -9,6 +9,9 @@ echo "Generating delta between $FROM_COMMIT and $TO_COMMIT..."
 # Ensure sfdx-git-delta plugin is installed for sf
 sf plugins | grep sfdx-git-delta || echo y | sf plugins install sfdx-git-delta
 
+# Create output directory if it doesn't exist
+mkdir -p changed-sources
+
 # Generate delta using sf CLI
 sf sgd:source:delta \
   --from "$FROM_COMMIT" \
