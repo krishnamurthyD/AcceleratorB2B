@@ -87,7 +87,7 @@ authenticate_to_org:
 
 
 # Create delta packages
-generate_delta_debug:
+generate_delta:
   stage: generate_delta
   image: docker.io/krishnadonta/salesforce-cli:latest
   script:
