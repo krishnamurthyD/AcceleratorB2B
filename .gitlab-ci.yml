@@ -62,10 +62,8 @@ authenticate_to_org:
     - select_target_org
   script:
     - echo "Authenticating to Salesforce Org..."
-    - chmod +x $CI_PROJECT_DIR/.gitlab/scripts/authenticate-to-org.sh
-    - if [ ! -z "$ORG_ALIAS" ]; then
-        $CI_PROJECT_DIR/.gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
-      fi
+    - chmod +x .gitlab/scripts/authenticate-to-org.sh
+    - if [ ! -z "$ORG_ALIAS" ]; then ./gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json"; fi
 
 # Create delta packages
 generate_delta:
