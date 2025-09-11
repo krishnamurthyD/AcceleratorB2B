@@ -23,18 +23,32 @@ kaniko-build:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   script:
-    - echo "Building and pushing Docker image to Docker Hub..."
+    - echo "Checking if image already exists in Docker Hub..."
 
     # Create Docker config.json for auth
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$DOCKER_USERNAME\",\"password\":\"$DOCKER_PWD\"}}}" > /kaniko/.docker/config.json
 
-    # Run Kaniko build and push
-    - /kaniko/executor
-        --context $CI_PROJECT_DIR
-        --dockerfile $CI_PROJECT_DIR/Dockerfile
-        --destination docker.io/$DOCKER_USERNAME/salesforce-cli:latest
-        --cache=true
+    # Check if image already exists
+    - |
+      if docker run --rm curlimages/curl:8.10.1 \
+        curl -fsSL -u "$DOCKER_USERNAME:$DOCKER_PWD" \
+        https://index.docker.io/v1/repositories/$DOCKER_USERNAME/salesforce-cli/tags/latest > /dev/null 2>&1; then
+        echo "✅ Image already exists in Docker Hub. Skipping build."
+        exit 0
+      else
+        echo "⏳ Image not found. Building and pushing..."
+        /kaniko/executor \
+          --context "$CI_PROJECT_DIR" \
+          --dockerfile "$CI_PROJECT_DIR/Dockerfile" \
+          --destination "docker.io/$DOCKER_USERNAME/salesforce-cli:latest" \
+          --cache=true \
+          --cache-repo="docker.io/$DOCKER_USERNAME/salesforce-cli-cache"
+      fi
+  rules:
+    - changes:
+        - Dockerfile
+        - .gitlab-ci.yml
   only:
     - main
 
