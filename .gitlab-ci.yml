@@ -45,10 +45,6 @@ kaniko-build:
           --cache=true \
           --cache-repo="docker.io/$DOCKER_USERNAME/salesforce-cli-cache"
       fi
-  rules:
-    - changes:
-        - Dockerfile
-        - .gitlab-ci.yml
   only:
     - main
 
