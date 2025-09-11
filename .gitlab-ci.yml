@@ -65,7 +65,7 @@ select_target_org:
 
 authenticate_to_org:
   stage: authenticate
-  image: docker.io/$DOCKER_HUB_USERNAME/salesforce-cli:latest
+  image: docker.io/$DOCKER_USERNAME/salesforce-cli:latest
   dependencies:
     - select_target_org
   script:
