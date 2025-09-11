@@ -40,7 +40,7 @@ before_script:
 
 
 variables:
-  DOCKER_IMAGE: docker.io/krishnadonta/salesforce-cli:latest
+  DOCKER_IMAGE: docker.io/$DOCKER_USERNAME/salesforce-cli:latest
 
 
 # Checkout source code
