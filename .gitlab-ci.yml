@@ -61,9 +61,18 @@ authenticate_to_org:
   dependencies:
     - select_target_org
   script:
-    - echo "Authenticating to Salesforce Org..."
-    - chmod +x .gitlab/scripts/authenticate-to-org.sh
-    - if [ ! -z "$ORG_ALIAS" ]; then ./gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json"; fi
+    - echo "Starting authentication job..."
+    - echo "Current directory: $(pwd)"
+    - echo "Listing files in .gitlab/scripts:"
+    - ls -l .gitlab/scripts
+    - echo "Checking if authenticate-to-org.sh exists and is executable:"
+    - test -f .gitlab/scripts/authenticate-to-org.sh && echo "File exists" || echo "File missing"
+    - test -x .gitlab/scripts/authenticate-to-org.sh && echo "File is executable" || echo "File not executable"
+    - echo "Environment variables:"
+    - env
+    - echo "Attempting to run the script..."
+    - .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json"
+
 
 # Create delta packages
 generate_delta:
