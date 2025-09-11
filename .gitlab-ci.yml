@@ -62,6 +62,9 @@ authenticate_to_org:
     - select_target_org
   script:
     - echo "Starting authentication job..."
+    - - echo "Installing Node.js..."
+    - curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+    - apt-get update && apt-get install -y nodejs
 
     # Install Salesforce CLI
     - echo "Installing Salesforce CLI..."
