@@ -113,7 +113,6 @@ deploy_delta:
     - generate_delta
   script:
     - chmod +x .gitlab/scripts/sf-deploy-delta.sh
-    # - source variables.env
     - if [ ! -z "$ORG_ALIAS" ]; then
         ./.gitlab/scripts/sf-deploy-delta.sh "$ORG_ALIAS";
       fi
