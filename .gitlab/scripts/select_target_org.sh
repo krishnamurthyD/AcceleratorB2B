@@ -21,5 +21,7 @@ case "$BRANCH" in
 esac
 
 # Debug: show current directory and auth file content
+chmod a+rw ./auth_file.json
+ls -l ./auth_file.json
 pwd
 cat ./auth_file.json
