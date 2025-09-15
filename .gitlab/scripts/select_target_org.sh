@@ -42,3 +42,6 @@ case "$BRANCH" in
     exit 1
     ;;
 esac
+
+
+cat auth_file.json
