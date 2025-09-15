@@ -1,22 +1,22 @@
 #!/bin/bash
 BRANCH="$CI_COMMIT_REF_NAME"
 
-if [ -f "./auth_file.json"]; then 
+if [ -f "./auth_file.json" ]; then 
   echo "deleting the existing auth file"
   rm ./auth_file.json
 fi 
 
 case "$BRANCH" in
   main)
-    echo "ORG_ALIAS=PROD" >> variables.env
+    echo "ORG_ALIAS=PROD" > variables.env
     echo "$SF_AUTH_PROD" > ./auth_file.json
     ;;
   develop)
-    echo "ORG_ALIAS=INTEGRATION" >> variables.env
+    echo "ORG_ALIAS=INTEGRATION" > variables.env
     echo "$SF_AUTH_INTEGRATION" > ./auth_file.json
     ;;
   release/*)
-    echo "ORG_ALIAS=UAT" >> variables.env
+    echo "ORG_ALIAS=UAT" > variables.env
     echo "$SF_AUTH_UAT" > ./auth_file.json
     ;;
   *)
