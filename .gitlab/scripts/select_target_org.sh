@@ -9,15 +9,15 @@ fi
 case "$BRANCH" in
   main)
     echo "ORG_ALIAS=PROD" > variables.env
-    echo "$SF_AUTH_PROD" > ./auth_file.json
+    printf "%s" "$SF_AUTH_PROD" > ./auth_file.json
     ;;
   develop)
     echo "ORG_ALIAS=INTEGRATION" > variables.env
-    echo "$SF_AUTH_INTEGRATION" > ./auth_file.json
+    printf "%s" "$SF_AUTH_INTEGRATION" > ./auth_file.json
     ;;
   release/*)
     echo "ORG_ALIAS=UAT" > variables.env
-    echo "$SF_AUTH_UAT" > ./auth_file.json
+    printf "%s" "$SF_AUTH_UAT" > ./auth_file.json
     ;;
   *)
     echo "Unsupported branch: $BRANCH"
