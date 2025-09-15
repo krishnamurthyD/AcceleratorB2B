@@ -85,7 +85,7 @@ authenticate_to_org:
 # Create delta packages
 generate_delta:
   stage: generate_delta
-  image: docker.io/krishnadonta/salesforce-cli:latest
+  image: $DOCKER_IMAGE
   script:
     - chmod +x .gitlab/scripts/sf-generate-delta.sh
     - sh .gitlab/scripts/sf-generate-delta.sh "HEAD~1" "HEAD"
