@@ -26,4 +26,4 @@ else
   exit 1
 fi
 
-echo "Authenticated to org with alias: $ORG_ALIAS
+echo "Authenticated to org with alias: $ORG_ALIAS"
