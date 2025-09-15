@@ -19,6 +19,7 @@ echo "CLI found, proceeding with authentication..."
 if [ -f "auth_file.json" ]; then 
   echo "File exist"
   cat auth_file.json
+  ls -l ./auth_file.json
   sf org login sfdx-url --sfdx-url-file ./auth_file.json --alias $ORG_ALIAS 
 else
   echo "Auth file Not exist"
