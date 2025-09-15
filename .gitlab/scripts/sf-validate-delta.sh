@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Calling Validate"
 set -e
 
 # Accept ORG_ALIAS as parameter
