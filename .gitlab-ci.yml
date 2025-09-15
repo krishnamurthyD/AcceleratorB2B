@@ -129,7 +129,7 @@ validate_delta:
   script:
     - chmod +x .gitlab/scripts/sf-validate-delta.sh
     - if [ ! -z "$ORG_ALIAS" ]; then
-        sh ./.gitlab/actions/sf-validate-delta.sh "$ORG_ALIAS";
+        sh ./.gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS";
       fi
 
 # Trigger only on Merge Requests to main, qa, or uat
