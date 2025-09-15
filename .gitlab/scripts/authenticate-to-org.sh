@@ -8,7 +8,7 @@ if [ -z "$BRANCH" ]; then
   exit 1
 fi
 
-# Determine ORG_ALIAS and Base64 auth variable
+# Determine ORG_ALIAS and auth variable
 case "$BRANCH" in
   main)
     ORG_ALIAS="PROD"
@@ -31,10 +31,15 @@ esac
 echo "Selected ORG_ALIAS=$ORG_ALIAS"
 echo "ORG_ALIAS=$ORG_ALIAS" >> variables.env
 
-# Decode the Base64 auth into auth_file.json
+# Write the normal JSON to auth_file.json
 AUTH_FILE="./auth_file.json"
-echo "$AUTH_VAR" | base64 -d > $AUTH_FILE
+echo "$AUTH_VAR" > $AUTH_FILE
 echo "Auth file path: $(pwd)/$AUTH_FILE"
+
+# Debug (optional)
+pwd
+ls -l $AUTH_FILE
+cat $AUTH_FILE
 
 # Check if CLI exists
 if ! command -v sf >/dev/null 2>&1; then
