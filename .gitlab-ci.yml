@@ -131,7 +131,8 @@ validate_delta:
   script:
     - chmod +x .gitlab/scripts/sf-validate-delta.sh
     - echo "ORG_ALIAS = $ORG_ALIAS"
-    - if [ -n "$ORG_ALIAS" ]; then ./.gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS"; else echo "ORG_ALIAS is empty, skipping validation"; fi
+    - echo "$SF_AUTH_URL" > auth_file.json
+    - if [ -n "$ORG_ALIAS" ]; then ./.gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS" "auth_file.json"; else echo "ORG_ALIAS is empty, skipping validation"; fi
 
 
 # Trigger only on Merge Requests to main, qa, or uat
