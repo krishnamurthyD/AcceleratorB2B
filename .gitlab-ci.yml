@@ -57,7 +57,7 @@ select_target_org:
     - cd $CI_PROJECT_DIR
     - echo "Selecting target org..."
     - chmod +x ./.gitlab/scripts/select_target_org.sh
-    - ./.gitlab/scripts/select_target_org.sh "$CI_COMMIT_REF_NAME"
+    - sh ./.gitlab/scripts/select_target_org.sh "$CI_COMMIT_REF_NAME"
   artifacts:
     reports:
       dotenv: variables.env
@@ -88,7 +88,7 @@ generate_delta:
   image: docker.io/krishnadonta/salesforce-cli:latest
   script:
     - chmod +x .gitlab/scripts/sf-generate-delta.sh
-    - .gitlab/scripts/sf-generate-delta.sh "HEAD~1" "HEAD"
+    - sh .gitlab/scripts/sf-generate-delta.sh "HEAD~1" "HEAD"
   artifacts:
     paths:
       - changed-sources
@@ -103,7 +103,7 @@ scan_sarif:
     - generate_delta
   script:
     - chmod +x .gitlab/scripts/sf-code-scanner.sh
-    - ./.gitlab/scripts/sf-code-scanner.sh || echo "Scan completed"
+    - sh ./.gitlab/scripts/sf-code-scanner.sh || echo "Scan completed"
 
 # Deploy Delta
 deploy_delta:
@@ -115,7 +115,7 @@ deploy_delta:
   script:
     - chmod +x .gitlab/scripts/sf-deploy-delta.sh
     - if [ ! -z "$ORG_ALIAS" ]; then
-        ./.gitlab/scripts/sf-deploy-delta.sh "$ORG_ALIAS";
+        sh ./.gitlab/scripts/sf-deploy-delta.sh "$ORG_ALIAS";
       fi
 
 
@@ -129,7 +129,7 @@ validate_delta:
   script:
     - chmod +x .gitlab/scripts/sf-validate-delta.sh
     - if [ ! -z "$ORG_ALIAS" ]; then
-        ./.gitlab/actions/sf-validate-delta.sh "$ORG_ALIAS";
+        sh ./.gitlab/actions/sf-validate-delta.sh "$ORG_ALIAS";
       fi
 
 # Trigger only on Merge Requests to main, qa, or uat
