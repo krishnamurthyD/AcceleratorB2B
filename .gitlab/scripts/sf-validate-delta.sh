@@ -4,7 +4,6 @@ set -e
 
 # Accept ORG_ALIAS as parameter
 ORG_ALIAS=$1
-AUTH_FILE=auth_file.json
 
 if [ -z "$ORG_ALIAS" ]; then
   echo "ERROR: ORG_ALIAS not provided."
@@ -13,14 +12,6 @@ fi
 
 echo "Validating delta deployment to org: $ORG_ALIAS"
 
-# Import the Salesforce auth file before validation
-if [ -f "$AUTH_FILE" ]; then
-  echo "Authenticating with $AUTH_FILE ..."
-  sf org login sfdx-url --sfdx-url-file "$AUTH_FILE" --alias "$ORG_ALIAS" --set-default
-else
-  echo "ERROR: Auth file $AUTH_FILE not found!"
-  exit 1
-fi
 
 # Load TEST_CLASSES and TEST_LEVEL if a build.env exists
 if [ -f build.env ]; then
