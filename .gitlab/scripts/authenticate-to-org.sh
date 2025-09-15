@@ -1,23 +1,48 @@
 #!/bin/bash
-set -x  # <-- this prints each command before executing it
-set -e  # <-- this stops the script on first failure
+set -x
+set -e
 
-ORG_ALIAS="$1"
-AUTH_FILE="$2"
+BRANCH="$1"  # Pass CI_COMMIT_REF_NAME
+if [ -z "$BRANCH" ]; then
+  echo "BRANCH not provided!"
+  exit 1
+fi
 
-echo "Authenticating into Salesforce Org: $ORG_ALIAS"
+# Determine ORG_ALIAS and Base64 auth variable
+case "$BRANCH" in
+  main)
+    ORG_ALIAS="PROD"
+    AUTH_VAR="$SF_AUTH_PROD_B64"
+    ;;
+  develop)
+    ORG_ALIAS="INTEGRATION"
+    AUTH_VAR="$SF_AUTH_INTEGRATION_B64"
+    ;;
+  release/*)
+    ORG_ALIAS="UAT"
+    AUTH_VAR="$SF_AUTH_UAT_B64"
+    ;;
+  *)
+    echo "Unsupported branch: $BRANCH"
+    exit 1
+    ;;
+esac
+
+echo "Selected ORG_ALIAS=$ORG_ALIAS"
+echo "ORG_ALIAS=$ORG_ALIAS" >> variables.env
+
+# Decode the Base64 auth into auth_file.json
+AUTH_FILE="./auth_file.json"
+echo "$AUTH_VAR" | base64 -d > $AUTH_FILE
 echo "Auth file path: $(pwd)/$AUTH_FILE"
-pwd
-cat ./auth_file.json
 
-# Check if CLI is available
-if ! command -v sf >/dev/null 2>&1 && ! command -v sfdx >/dev/null 2>&1; then
-  echo "Salesforce CLI (sf or sfdx) not found in the container. Exiting..."
+# Check if CLI exists
+if ! command -v sf >/dev/null 2>&1; then
+  echo "Salesforce CLI not found!"
   exit 1
 fi
 
 echo "CLI found, proceeding with authentication..."
+sf org login sfdx-url --sfdx-url-file $AUTH_FILE --alias $ORG_ALIAS --set-default
 
-sf org login sfdx-url --sfdx-url-file ./auth_file.json --alias $ORG_ALIAS
-
-echo "Authenticated to org with alias: $ORG_ALIAS
+echo "Authenticated to org with alias: $ORG_ALIAS"
