@@ -16,6 +16,6 @@ fi
 
 echo "CLI found, proceeding with authentication..."
 
-sf org login sfdx-url --sfdx-url-file ./auth_file.json --alias $ORG_ALIAS
+sf org login sfdx-url --sfdx-url-file auth_file.json --alias $ORG_ALIAS
 
 echo "Authenticated to org with alias: $ORG_ALIAS
