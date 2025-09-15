@@ -7,6 +7,7 @@ AUTH_FILE="$2"
 
 echo "Authenticating into Salesforce Org: $ORG_ALIAS"
 echo "Auth file path: $(pwd)/$AUTH_FILE"
+echo auth_file.json
 
 # Check if CLI is available
 if ! command -v sf >/dev/null 2>&1 && ! command -v sfdx >/dev/null 2>&1; then
