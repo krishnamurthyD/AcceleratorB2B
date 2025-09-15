@@ -94,7 +94,6 @@ deploy_delta:
   image: $DOCKER_IMAGE
   dependencies:
     - select_target_org
-    - authenticate_to_org
     - generate_delta
   script:
     - chmod +x .gitlab/scripts/sf-deploy-delta.sh
@@ -115,7 +114,6 @@ validate_delta:
   image: $DOCKER_IMAGE
   dependencies:
     - select_target_org
-    - authenticate_to_org
     - generate_delta
   script:
     - chmod +x .gitlab/scripts/sf-validate-delta.sh
