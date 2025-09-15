@@ -99,7 +99,7 @@ deploy_delta:
     - chmod +x .gitlab/scripts/sf-deploy-delta.sh
     - if [ ! -z "$ORG_ALIAS" ]; then
         sh .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
-        sh ./.gitlab/scripts/sf-deploy-delta.sh "$ORG_ALIAS";
+        sh .gitlab/scripts/sf-deploy-delta.sh "$ORG_ALIAS";
       fi
   rules:
     # Run only when a merga request happen
@@ -119,7 +119,7 @@ validate_delta:
     - chmod +x .gitlab/scripts/sf-validate-delta.sh
     - if [ -n "$ORG_ALIAS" ]; then 
         sh .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
-        sh ./.gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS" ;
+        sh .gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS" ;
       else echo "ORG_ALIAS is empty, skipping validation"; 
       fi
   rules:
