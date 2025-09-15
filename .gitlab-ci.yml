@@ -48,12 +48,9 @@ checkout_code:
     - git fetch --unshallow || echo "Already shallow clone"
     - git checkout $CI_COMMIT_REF_NAME
   rules:
-    # Run only when a merga request happen
-    - if: '$CI_MERGE_REQUEST_IID'
-      when: on_success
-    # Run only when a branch commit happens
-    - if: '$CI_COMMIT_BRANCH'
-      when: on_success 
+  - if: '$CI_MERGE_REQUEST_IID'
+    when: on_success
+  - when: never
 
 # Selecting Target Org
 select_target_org:
@@ -70,12 +67,9 @@ select_target_org:
     paths:
       - auth_file.json
   rules:
-    # Run only when a merga request happen
-    - if: '$CI_MERGE_REQUEST_IID'
-      when: on_success
-    # Run only when a branch commit happens
-    - if: '$CI_COMMIT_BRANCH'
-      when: on_success
+  - if: '$CI_MERGE_REQUEST_IID'
+    when: on_success
+  - when: never
 
 # Create delta packages
 generate_delta:
@@ -88,12 +82,9 @@ generate_delta:
     paths:
       - changed-sources
   rules:
-    # Run only when a merga request happen
-    - if: '$CI_MERGE_REQUEST_IID'
-      when: on_success
-    # Run only when a branch commit happens
-    - if: '$CI_COMMIT_BRANCH'
-      when: on_success    
+  - if: '$CI_MERGE_REQUEST_IID'
+    when: on_success
+  - when: never   
 
 
 
@@ -107,12 +98,9 @@ scan_sarif:
     - chmod +x .gitlab/scripts/sf-code-scanner.sh
     - sh ./.gitlab/scripts/sf-code-scanner.sh || echo "Scan completed"
   rules:
-    # Run only when a merga request happen
-    - if: '$CI_MERGE_REQUEST_IID'
-      when: on_success
-    # Run only when a branch commit happens
-    - if: '$CI_COMMIT_BRANCH'
-      when: on_success
+  - if: '$CI_MERGE_REQUEST_IID'
+    when: on_success
+  - when: never
 
 # Deploy Delta
 deploy_delta:
@@ -128,9 +116,10 @@ deploy_delta:
         sh .gitlab/scripts/sf-deploy-delta.sh "$ORG_ALIAS";
       fi
   rules:
-    # Run only when a merga request happen
-    - if: '$CI_MERGE_REQUEST_IID'
+    # Run only on merge commit to target branch
+    - if: '$CI_COMMIT_BRANCH == $CI_MERGE_REQUEST_TARGET_BRANCH_NAME'
       when: on_success
+    - when: never
 
 
 # Validate Delta
@@ -148,11 +137,16 @@ validate_delta:
       else echo "ORG_ALIAS is empty, skipping validation"; 
       fi
   rules:
-    # Run only when a branch commit happens
-    - if: '$CI_COMMIT_BRANCH'
-      when: on_success
+  # Run only for open/updated MRs
+  - if: '$CI_MERGE_REQUEST_IID && $CI_COMMIT_BRANCH != $CI_MERGE_REQUEST_TARGET_BRANCH_NAME'
+    when: on_success
+  - when: never
 
 # Trigger only on Merge Requests to main, qa, or uat
-# workflow:
-#   rules:
-    # - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /(main|qa|uat)/  
+workflow:
+  rules:
+    # Run pipeline only for merge requests
+    - if: '$CI_MERGE_REQUEST_IID'
+      when: always
+    # Otherwise, don't run
+    - when: never
