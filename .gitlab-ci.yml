@@ -76,7 +76,7 @@ authenticate_to_org:
     - sf plugins
     - echo "Running authentication script..."
     - if [ ! -z "$ORG_ALIAS" ]; then
-        sh .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
+        sh .gitlab/scripts/authenticate-to-org.sh "$CI_COMMIT_REF_NAME";
       fi
     - echo "Authentication job finished."
 
