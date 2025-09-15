@@ -117,8 +117,6 @@ validate_delta:
     - generate_delta
   script:
     - chmod +x .gitlab/scripts/sf-validate-delta.sh
-    - echo "ORG_ALIAS = $ORG_ALIAS"
-    - echo "$SF_AUTH_URL" > auth_file.json
     - if [ -n "$ORG_ALIAS" ]; then 
         sh .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
         sh ./.gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS" ;
