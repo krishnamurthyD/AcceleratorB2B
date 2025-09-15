@@ -12,15 +12,15 @@ fi
 case "$BRANCH" in
   main)
     ORG_ALIAS="PROD"
-    AUTH_VAR="$SF_AUTH_PROD_B64"
+    AUTH_VAR="$SF_AUTH_PROD"
     ;;
   develop)
     ORG_ALIAS="INTEGRATION"
-    AUTH_VAR="$SF_AUTH_INTEGRATION_B64"
+    AUTH_VAR="$SF_AUTH_INTEGRATION"
     ;;
   release/*)
     ORG_ALIAS="UAT"
-    AUTH_VAR="$SF_AUTH_UAT_B64"
+    AUTH_VAR="$SF_AUTH_UAT"
     ;;
   *)
     echo "Unsupported branch: $BRANCH"
