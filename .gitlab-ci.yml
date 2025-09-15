@@ -48,6 +48,7 @@ checkout_code:
   script:
     - git fetch --unshallow || echo "Already shallow clone"
     - git checkout $CI_COMMIT_REF_NAME
+  
 
 # Selecting Target Org
 select_target_org:
@@ -61,6 +62,8 @@ select_target_org:
   artifacts:
     reports:
       dotenv: variables.env
+    paths:
+      - auth_file.json
 
 # Authenticate to SF Org
 authenticate_to_org:
