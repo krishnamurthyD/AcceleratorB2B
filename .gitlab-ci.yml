@@ -128,6 +128,7 @@ validate_delta:
     - generate_delta
   script:
     - chmod +x .gitlab/scripts/sf-validate-delta.sh
+    - echo "$ORG_ALIAS"
     - if [ ! -z "$ORG_ALIAS" ]; then
         sh ./.gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS";
       fi
