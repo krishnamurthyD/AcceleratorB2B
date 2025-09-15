@@ -1,6 +1,6 @@
 #!/bin/bash
 set -x  # <-- this prints each command before executing it
-set -e  # <-- this stops the script on first failure
+# set -e  # <-- this stops the script on first failure
 
 ORG_ALIAS="$1"
 AUTH_FILE="$2"
