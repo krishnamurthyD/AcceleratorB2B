@@ -122,6 +122,11 @@ deploy_delta:
     - if [ ! -z "$ORG_ALIAS" ]; then
         ./.gitlab/scripts/sf-deploy-delta.sh "$ORG_ALIAS";
       fi
+  rules:
+    # Run only when a merga request happen
+    - if: '$CI_MERGE_REQUEST_IID'
+      when: on_success
+  
 
 
 # Validate Delta
@@ -137,7 +142,10 @@ validate_delta:
     - echo "ORG_ALIAS = $ORG_ALIAS"
     - echo "$SF_AUTH_URL" > auth_file.json
     - if [ -n "$ORG_ALIAS" ]; then ./.gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS" ; else echo "ORG_ALIAS is empty, skipping validation"; fi
-
+  rules:
+    # Run only when a branch commit happens
+    - if: '$CI_COMMIT_BRANCH'
+      when: on_success
 
 # Trigger only on Merge Requests to main, qa, or uat
 # workflow:
