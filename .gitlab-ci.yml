@@ -47,7 +47,13 @@ checkout_code:
   script:
     - git fetch --unshallow || echo "Already shallow clone"
     - git checkout $CI_COMMIT_REF_NAME
-  
+  rules:
+    # Run only when a merga request happen
+    - if: '$CI_MERGE_REQUEST_IID'
+      when: on_success
+    # Run only when a branch commit happens
+    - if: '$CI_COMMIT_BRANCH'
+      when: on_success 
 
 # Selecting Target Org
 select_target_org:
@@ -63,7 +69,13 @@ select_target_org:
       dotenv: variables.env
     paths:
       - auth_file.json
-
+  rules:
+    # Run only when a merga request happen
+    - if: '$CI_MERGE_REQUEST_IID'
+      when: on_success
+    # Run only when a branch commit happens
+    - if: '$CI_COMMIT_BRANCH'
+      when: on_success
 
 # Create delta packages
 generate_delta:
@@ -75,6 +87,13 @@ generate_delta:
   artifacts:
     paths:
       - changed-sources
+  rules:
+    # Run only when a merga request happen
+    - if: '$CI_MERGE_REQUEST_IID'
+      when: on_success
+    # Run only when a branch commit happens
+    - if: '$CI_COMMIT_BRANCH'
+      when: on_success    
 
 
 
@@ -87,6 +106,13 @@ scan_sarif:
   script:
     - chmod +x .gitlab/scripts/sf-code-scanner.sh
     - sh ./.gitlab/scripts/sf-code-scanner.sh || echo "Scan completed"
+  rules:
+    # Run only when a merga request happen
+    - if: '$CI_MERGE_REQUEST_IID'
+      when: on_success
+    # Run only when a branch commit happens
+    - if: '$CI_COMMIT_BRANCH'
+      when: on_success
 
 # Deploy Delta
 deploy_delta:
@@ -105,7 +131,6 @@ deploy_delta:
     # Run only when a merga request happen
     - if: '$CI_MERGE_REQUEST_IID'
       when: on_success
-  
 
 
 # Validate Delta
