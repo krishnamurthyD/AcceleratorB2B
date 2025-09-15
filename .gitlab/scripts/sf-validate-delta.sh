@@ -22,8 +22,8 @@ fi
 TEST_LEVEL=${TEST_LEVEL:-RunSpecifiedTests}
 
 # Validate normal source
-if [[ -d "changed-sources/force-app" ]]; then
-  if [[ -z "$TEST_CLASSES" ]]; then
+if [ -d "changed-sources/force-app" ]; then
+  if [ -z "$TEST_CLASSES" ]; then
     echo "Validating without test classes..."
     sf project deploy start \
       --source-dir "changed-sources/force-app" \
@@ -43,7 +43,7 @@ if [[ -d "changed-sources/force-app" ]]; then
 fi
 
 # Validate destructive changes
-if [[ -d "changed-sources/destructiveChanges" ]]; then
+if [ -d "changed-sources/destructiveChanges" ]; then
   echo "Validating destructive changes..."
   sf project deploy start \
     --metadata-dir "changed-sources/destructiveChanges" \
