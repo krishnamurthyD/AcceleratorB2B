@@ -2,7 +2,6 @@ stages:
   # - docker # Just run this once to push the image, then comment it out
   - checkout
   - select_org
-  - authenticate
   - generate_delta
   - scan
   - validate
@@ -65,26 +64,6 @@ select_target_org:
     paths:
       - auth_file.json
 
-# Authenticate to SF Org
-authenticate_to_org:
-  stage: authenticate
-  image: $DOCKER_IMAGE
-  dependencies:
-    - select_target_org
-  script:
-    - echo "Starting authentication job..."
-    - echo "Installed Salesforce CLI version:"
-    - sf --version
-    - echo "Installed plugins:"
-    - sf plugins
-    - cd $CI_PROJECT_DIR
-    - echo "Running authentication script..."
-    - if [ ! -z "$ORG_ALIAS" ]; then
-        sh .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
-      fi
-    - echo "Authentication job finished."
-
-
 
 # Create delta packages
 generate_delta:
@@ -120,7 +99,8 @@ deploy_delta:
   script:
     - chmod +x .gitlab/scripts/sf-deploy-delta.sh
     - if [ ! -z "$ORG_ALIAS" ]; then
-        ./.gitlab/scripts/sf-deploy-delta.sh "$ORG_ALIAS";
+        sh .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
+        sh ./.gitlab/scripts/sf-deploy-delta.sh "$ORG_ALIAS";
       fi
   rules:
     # Run only when a merga request happen
@@ -141,7 +121,11 @@ validate_delta:
     - chmod +x .gitlab/scripts/sf-validate-delta.sh
     - echo "ORG_ALIAS = $ORG_ALIAS"
     - echo "$SF_AUTH_URL" > auth_file.json
-    - if [ -n "$ORG_ALIAS" ]; then ./.gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS" ; else echo "ORG_ALIAS is empty, skipping validation"; fi
+    - if [ -n "$ORG_ALIAS" ]; then 
+        sh .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
+        sh ./.gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS" ;
+      else echo "ORG_ALIAS is empty, skipping validation"; 
+      fi
   rules:
     # Run only when a branch commit happens
     - if: '$CI_COMMIT_BRANCH'
