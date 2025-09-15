@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Entering deploy delta"
 set -euo pipefail
 
 ORG_ALIAS=${1:?Please provide the target org alias}
