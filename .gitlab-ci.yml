@@ -116,7 +116,7 @@ deploy_delta:
   script:
     - chmod +x .gitlab/scripts/sf-deploy-delta.sh
     - if [ ! -z "$ORG_ALIAS" ]; then
-        sh .gitlab/scripts/sf-deploy-delta.sh "$ORG_ALIAS";
+        sh ./.gitlab/scripts/sf-deploy-delta.sh "$ORG_ALIAS";
       fi
 
 
@@ -131,7 +131,7 @@ validate_delta:
   script:
     - chmod +x .gitlab/scripts/sf-validate-delta.sh
     - echo "ORG_ALIAS = $ORG_ALIAS"
-    - if [ -n "$ORG_ALIAS" ]; then sh .gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS"; else echo "ORG_ALIAS is empty, skipping validation"; fi
+    - if [ -n "$ORG_ALIAS" ]; then sh ./.gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS"; else echo "ORG_ALIAS is empty, skipping validation"; fi
 
 
 # Trigger only on Merge Requests to main, qa, or uat
