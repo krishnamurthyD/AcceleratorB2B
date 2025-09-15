@@ -43,5 +43,5 @@ case "$BRANCH" in
     ;;
 esac
 
-echo $pwd
+pwd
 cat auth_file.json
