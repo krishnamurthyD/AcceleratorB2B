@@ -17,5 +17,6 @@ sf sgd:source:delta \
   --from "$FROM_COMMIT" \
   --to "$TO_COMMIT" \
   --output "changed-sources"
+ls -lR changed-sources
 
 echo "Delta generated in changed-sources/"
