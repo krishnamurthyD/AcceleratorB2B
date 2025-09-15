@@ -5,8 +5,9 @@ stages:
   - authenticate
   - generate_delta
   - scan
-  - deploy
   - validate
+  - deploy
+  
 
 before_script:
   - echo "Starting GitLab pipeline"
