@@ -12,8 +12,8 @@ FORCE_APP_DIR="$DELTA_DIR/force-app"
 DESTRUCTIVE_DIR="$DELTA_DIR/destructiveChanges"
 
 # Deploy normal source
-if [[ -d "$FORCE_APP_DIR" ]]; then
-  if [[ -z "${TEST_CLASSES:-}" ]]; then
+if [ -d "$FORCE_APP_DIR" ]; then
+  if [ -z "${TEST_CLASSES:-}" ]; then
     echo "Deploying without test classes..."
     sf project deploy start \
       --source-dir "$FORCE_APP_DIR" \
@@ -31,7 +31,7 @@ if [[ -d "$FORCE_APP_DIR" ]]; then
 fi
 
 # Deploy destructive changes if any
-if [[ -d "$DESTRUCTIVE_DIR" ]]; then
+if [ -d "$DESTRUCTIVE_DIR" ]; then
   echo "Deploying destructive changes..."
   sf project deploy start \
     --metadata-dir "$DESTRUCTIVE_DIR" \
