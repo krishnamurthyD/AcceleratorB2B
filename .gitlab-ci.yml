@@ -36,6 +36,7 @@ before_script:
 
 variables:
   DOCKER_IMAGE: docker.io/${DOCKER_USERNAME}/salesforce-cli:latest
+  GIT_DEPTH: 0   # fetch full history so delta works correctly
 
 
 # Checkout source code
