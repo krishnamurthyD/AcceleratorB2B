@@ -60,7 +60,7 @@ select_target_org:
     - cd $CI_PROJECT_DIR
     - echo "Selecting target org..."
     - chmod +x ./.gitlab/scripts/select_target_org.sh
-    - sh ./.gitlab/scripts/select_target_org.sh "$CI_COMMIT_REF_NAME"
+    - sh ./.gitlab/scripts/select_target_org.sh "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
   artifacts:
     reports:
       dotenv: variables.env
