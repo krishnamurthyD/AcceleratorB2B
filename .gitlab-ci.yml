@@ -68,7 +68,7 @@ select_target_org:
     paths:
       - auth_file.json
   rules:
-  - if: '$CI_MERGE_REQUEST_IID'
+  - if: '$CI_MERGE_REQUEST_IID || $CI_PIPELINE_SOURCE == "push"'
     when: on_success
   - when: never
 
@@ -83,9 +83,9 @@ generate_delta:
     paths:
       - changed-sources
   rules:
-  - if: '$CI_MERGE_REQUEST_IID'
+  - if: '$CI_MERGE_REQUEST_IID || $CI_PIPELINE_SOURCE == "push"'
     when: on_success
-  - when: never   
+  - when: never  
 
 
 
@@ -99,7 +99,7 @@ scan_sarif:
     - chmod +x .gitlab/scripts/sf-code-scanner.sh
     - sh ./.gitlab/scripts/sf-code-scanner.sh || echo "Scan completed"
   rules:
-  - if: '$CI_MERGE_REQUEST_IID'
+  - if: '$CI_MERGE_REQUEST_IID || $CI_PIPELINE_SOURCE == "push"'
     when: on_success
   - when: never
 
@@ -118,7 +118,7 @@ deploy_delta:
       fi
   rules:
     # Run only on merge commit to target branch
-    - if: '$CI_COMMIT_BRANCH == $CI_MERGE_REQUEST_TARGET_BRANCH_NAME'
+    - if: '$CI_PIPELINE_SOURCE == "push"'
       when: on_success
     - when: never
 
@@ -152,6 +152,9 @@ workflow:
 
     # Run pipeline when commit is merged into main, releases/*, or develop
     - if: '$CI_COMMIT_BRANCH =~ /^(main|develop|releases\/.*)$/'
+      when: always
+
+    - if: $CI_PIPELINE_SOURCE == "push"'
       when: always
 
     # Otherwise, don't run
