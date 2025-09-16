@@ -138,7 +138,7 @@ validate_delta:
       fi
   rules:
   # Run only for open/updated MRs
-  - if: '$CI_MERGE_REQUEST_IID && $CI_COMMIT_BRANCH != $CI_MERGE_REQUEST_TARGET_BRANCH_NAME'
+  - if: '$CI_COMMIT_BRANCH =~ /^(main|develop|releases\/.*)$/ && $CI_PIPELINE_SOURCE == "push"'
     when: on_success
   - when: never
 
