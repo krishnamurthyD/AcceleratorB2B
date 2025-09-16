@@ -29,7 +29,7 @@ echo "🔍 Comparing changes from $FROM_COMMIT to $TO_COMMIT..."
 sf sgd:source:delta \
   --from "$FROM_COMMIT" \
   --to "$TO_COMMIT" \
-  --output "changed-sources"
+  --output-dir "changed-sources"
 
 echo "✅ Delta generated in changed-sources/"
 ls -lR changed-sources || true
