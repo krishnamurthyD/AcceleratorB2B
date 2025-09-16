@@ -145,8 +145,14 @@ validate_delta:
 # Trigger only on Merge Requests to main, qa, or uat
 workflow:
   rules:
-    # Run pipeline only for merge requests
+    # Run MR pipelines (any source branch into develop, releases/*, or main)
     - if: '$CI_MERGE_REQUEST_IID'
       when: always
+
+    # Run pipeline when commit is merged into main, releases/*, or develop
+    - if: '$CI_COMMIT_BRANCH =~ /^(main|develop|releases\/.*)$/'
+      when: always
+
     # Otherwise, don't run
     - when: never
+
