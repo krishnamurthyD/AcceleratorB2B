@@ -46,13 +46,7 @@ checkout_code:
     - docker:dind
   script:
     - git fetch --unshallow || echo "Already shallow clone"
-    -  if [ -n "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" ]; then
-        echo "Checking out source branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
-        sh ./.gitlab/scripts/select_target_org.sh "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
-      else
-        echo "Checking source branch $CI_COMMIT_REF_NAME"
-        sh ./.gitlab/scripts/select_target_org.sh "$CI_COMMIT_REF_NAME"
-      fi
+    - git checkout $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
   rules:
   - if: '$CI_MERGE_REQUEST_IID || $CI_COMMIT_BRANCH =~ /^(main|develop|releases\/.*)$/ && $CI_PIPELINE_SOURCE == "push"'
     when: on_success
