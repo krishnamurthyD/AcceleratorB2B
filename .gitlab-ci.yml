@@ -46,7 +46,7 @@ checkout_code:
     - docker:dind
   script:
     - git fetch --unshallow || echo "Already shallow clone"
-    - git checkout $CI_COMMIT_REF_NAME
+    - git checkout $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
   rules:
   - if: '$CI_MERGE_REQUEST_IID'
     when: on_success
