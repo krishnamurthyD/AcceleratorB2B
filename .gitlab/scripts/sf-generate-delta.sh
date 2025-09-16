@@ -25,11 +25,26 @@ TO_COMMIT="$CI_COMMIT_SHA"
 
 echo "🔍 Comparing changes from $FROM_COMMIT to $TO_COMMIT..."
 
-# Run delta generation
+# Debug: show commits info
+echo "🔹 Last 5 commits on target branch ($FROM_COMMIT):"
+git log -5 --oneline "$FROM_COMMIT"
+
+echo "🔹 Commit being compared (source - $TO_COMMIT):"
+git log -1 --oneline "$TO_COMMIT"
+
+# Debug: list files changed between the commits
+echo "🔹 Files changed between $FROM_COMMIT and $TO_COMMIT:"
+git diff --name-status "$FROM_COMMIT" "$TO_COMMIT"
+
+# Run delta generation (without --verbose)
 sf sgd:source:delta \
   --from "$FROM_COMMIT" \
   --to "$TO_COMMIT" \
   --output-dir "changed-sources"
 
 echo "✅ Delta generated in changed-sources/"
+
+# List generated files
 ls -lR changed-sources || true
+
+cat changed-sources/package/package.xml
