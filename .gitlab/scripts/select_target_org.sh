@@ -1,5 +1,5 @@
 #!/bin/bash
-BRANCH="$CI_COMMIT_REF_NAME"
+BRANCH="$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
 
 if [ -f "./auth_file.json" ]; then 
   echo "deleting the existing auth file"
