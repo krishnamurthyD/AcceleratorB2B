@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+BRANCH="${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:-$CI_COMMIT_REF_NAME}"
 
 # Ensure sfdx-git-delta plugin is installed
 if ! sf plugins | grep -q sfdx-git-delta; then
@@ -13,10 +14,10 @@ sf plugins
 mkdir -p changed-sources
 
 # Fetch target branch
-git fetch origin "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+git fetch origin "$BRANCH"
 
 # Define commit range
-FROM_COMMIT="origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+FROM_COMMIT="origin/$BRANCH"
 TO_COMMIT="$CI_COMMIT_SHA"
 
 # Run delta generation
