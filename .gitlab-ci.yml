@@ -154,7 +154,7 @@ workflow:
     - if: '$CI_COMMIT_BRANCH =~ /^(main|develop|releases\/.*)$/'
       when: always
 
-    - if: $CI_PIPELINE_SOURCE == "push"'
+    - if: '$CI_PIPELINE_SOURCE == "push"'
       when: always
 
     # Otherwise, don't run
