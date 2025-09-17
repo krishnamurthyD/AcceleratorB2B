@@ -13,7 +13,6 @@ sf scanner run \
   --outfile "code-analysis-results.sarif"
 
 echo "✅ Scan completed, SARIF saved at code-analysis-results.sarif"
-cat code-analysis-results.sarif
 
 # Pretty-print violations if jq is available
 if command -v jq >/dev/null 2>&1; then
@@ -38,7 +37,6 @@ fi
 
 
 # Fail pipeline if any severity >= 3 issues are found
-# Count high severity issues (>= 3)
 high_count=$(jq '
   [
     .runs[] as $run
