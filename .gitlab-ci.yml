@@ -103,7 +103,7 @@ scan_sarif:
     - generate_delta
   script:
     - chmod +x .gitlab/scripts/sf-code-scanner.sh
-    - sh ./.gitlab/scripts/sf-code-scanner.sh || echo "Scan completed"
+    - sh ./.gitlab/scripts/sf-code-scanner.sh
   rules:
   - if: '$CI_MERGE_REQUEST_IID || $CI_COMMIT_BRANCH =~ /^(main|develop|releases\/.*)$/ && $CI_PIPELINE_SOURCE == "push"'
     when: on_success
