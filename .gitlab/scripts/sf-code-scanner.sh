@@ -59,11 +59,11 @@ fi
 
 # Run Prettier check and capture output
 PRETTIER_OUTPUT=$(npx prettier --check "changed-sources/force-app/main/default/lwc/**/*.{js,html,css}" 2>&1)
+EXIT_CODE=$?
 
-if [ $? -ne 0 ]; then
+if [ $EXIT_CODE -ne 0 ]; then
   echo "❌ Prettier formatting issues found in LWC files."
-  echo "📋 Files that need fixing:"
-  npx prettier --list-different "changed-sources/force-app/main/default/lwc/**/*.{js,html,css}"
+  echo "$PRETTIER_OUTPUT"
   echo ""
   echo "👉 Please run 'npx prettier --write changed-sources/force-app/main/default/lwc' locally to fix."
   exit 1
