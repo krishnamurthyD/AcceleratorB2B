@@ -48,6 +48,29 @@ high_count=$(jq '
   ] | length
 ' code-analysis-results.sarif)
 
+# pritter check
+echo "🔎 Checking indentation in LWC (JS/HTML/CSS)..."
+
+# Ensure Prettier is installed
+if ! command -v prettier >/dev/null 2>&1; then
+  echo "⚠️ Prettier not found, installing locally..."
+  npm install --no-save prettier
+fi
+
+# Run Prettier check and capture output
+PRETTIER_OUTPUT=$(npx prettier --check "force-app/main/default/lwc/**/*.{js,html,css}" 2>&1)
+
+if [ $? -ne 0 ]; then
+  echo "❌ Prettier formatting issues found in LWC files."
+  echo "📋 Files that need fixing:"
+  npx prettier --list-different "force-app/main/default/lwc/**/*.{js,html,css}"
+  echo ""
+  echo "👉 Please run 'npx prettier --write force-app/main/default/lwc' locally to fix."
+  exit 1
+else
+  echo "✅ LWC indentation is correct."
+fi
+
 if [ "$high_count" -gt 0 ]; then
   echo "❌ Found $high_count high severity violations (severity >= 3). Failing pipeline..."
   exit 1
