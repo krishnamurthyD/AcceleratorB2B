@@ -20,6 +20,10 @@ git fetch origin "$BRANCH"
 FROM_COMMIT="origin/$BRANCH"
 TO_COMMIT="$CI_COMMIT_SHA"
 
+# Debug: list files changed between the commits
+echo "🔹 Files changed between $FROM_COMMIT and $TO_COMMIT:"
+git diff --name-status "$FROM_COMMIT" "$TO_COMMIT"
+
 # Run delta generation
 sf sgd:source:delta \
   --from "$FROM_COMMIT" \
