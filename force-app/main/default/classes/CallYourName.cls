@@ -1,14 +1,12 @@
 /**
- * CallYourName class provides a simple greeting method.
- *
+ * @description Provides a simple greeting utility for generating personalized messages.
  * @author Krishnamurthy Donta
  * @since 2025-09-17
  */
 public with sharing class CallYourName {
   /**
-   * Returns a greeting message for the given name.
+   * @description Returns a greeting message for the given name.
    * If the name is blank, returns a default greeting.
-   *
    * @param name The name of the person to greet
    * @return A greeting string
    */
