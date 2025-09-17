@@ -19,8 +19,10 @@ cat code-analysis-results.sarif
 if command -v jq >/dev/null 2>&1; then
   echo "📋 Violations Report:"
   jq -r '
-    .runs[].results[] |
-    "Severity: \(.properties.severity // "N/A") | Category: \(.properties.category // "N/A") | Rule: \(.ruleId)\nMessage: \(.message.text)\nFile: \(.locations[0].physicalLocation.artifactLocation.uri)\nLine: \(.locations[0].physicalLocation.region.startLine)\n---"
+    .runs[] as $run |
+    $run.results[] as $res |
+    ($run.tool.driver.rules[$res.ruleIndex]) as $rule |
+    "Severity: \($rule.properties.severity) | Category: \($rule.properties.category) | Rule: \($res.ruleId)\nMessage: \($res.message.text)\nFile: \($res.locations[0].physicalLocation.artifactLocation.uri)\nLine: \($res.locations[0].physicalLocation.region.startLine)\n---"
   ' code-analysis-results.sarif || true
 else
   echo "⚠️ jq not installed, showing raw SARIF instead:"
@@ -28,7 +30,13 @@ else
 fi
 
 # Fail pipeline if any severity >= 3 issues are found
-if jq -e '[.runs[].results[] | select(.properties.severity >= 3)] | length > 0' code-analysis-results.sarif >/dev/null; then
+if jq -e '
+  [.runs[] as $run |
+   $run.results[] as $res |
+   ($run.tool.driver.rules[$res.ruleIndex]) as $rule |
+   select($rule.properties.severity >= 3)
+  ] | length > 0
+' code-analysis-results.sarif >/dev/null; then
   echo "❌ High severity violations found (severity >= 3). Failing pipeline..."
   exit 1
 else
