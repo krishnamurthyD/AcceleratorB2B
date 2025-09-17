@@ -13,3 +13,4 @@ sf scanner run \
   --outfile "code-analysis-results.sarif"
 
 echo "✅ Scan completed, SARIF saved at code-analysis-results.sarif"
+cat code-analysis-results.sarif
