@@ -1,5 +1,5 @@
 public with sharing class ApexClass {
-    public ApexClass() {
-        System.debug('ApexClass instantiated');
-    }
+  public ApexClass() {
+    System.debug('ApexClass instantiated');
+  }
 }

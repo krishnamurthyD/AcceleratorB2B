@@ -1,5 +1,5 @@
 public with sharing class TestApexClassDeployment {
-    public TestApexClassDeployment() {
-        System.debug('Hello World');
-    }
+  public TestApexClassDeployment() {
+    System.debug('Hello World');
+  }
 }

@@ -1,5 +1,5 @@
 public with sharing class TestOneCode {
-    public TestOneCode() {
-        System.debug('Constructor executed');
-    }
+  public TestOneCode() {
+    System.debug('Constructor executed');
+  }
 }

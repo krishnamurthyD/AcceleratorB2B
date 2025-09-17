@@ -1,5 +1,5 @@
 public with sharing class testBranch {
-    public testBranch() {
-        System.debug('Hello World');
-    }
+  public testBranch() {
+    System.debug('Hello World');
+  }
 }
