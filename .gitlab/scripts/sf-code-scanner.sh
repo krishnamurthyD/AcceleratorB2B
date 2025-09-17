@@ -58,14 +58,14 @@ if ! command -v prettier >/dev/null 2>&1; then
 fi
 
 # Run Prettier check and capture output
-PRETTIER_OUTPUT=$(npx prettier --check "force-app/main/default/lwc/**/*.{js,html,css}" 2>&1)
+PRETTIER_OUTPUT=$(npx prettier --check "changed-sources/force-app/main/default/lwc/**/*.{js,html,css}" 2>&1)
 
 if [ $? -ne 0 ]; then
   echo "❌ Prettier formatting issues found in LWC files."
   echo "📋 Files that need fixing:"
-  npx prettier --list-different "force-app/main/default/lwc/**/*.{js,html,css}"
+  npx prettier --list-different "changed-sources/force-app/main/default/lwc/**/*.{js,html,css}"
   echo ""
-  echo "👉 Please run 'npx prettier --write force-app/main/default/lwc' locally to fix."
+  echo "👉 Please run 'npx prettier --write changed-sources/force-app/main/default/lwc' locally to fix."
   exit 1
 else
   echo "✅ LWC indentation is correct."
