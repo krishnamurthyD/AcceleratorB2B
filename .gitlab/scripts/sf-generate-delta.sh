@@ -1,9 +1,18 @@
 #!/bin/bash
 set -e
 
-TARGET_BRANCH="${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:-$CI_COMMIT_REF_NAME}"
-SOURCE_BRANCH="${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME:-$CI_COMMIT_REF_NAME}"
+# Detect MR vs Post-merge
+if [ -n "$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME" ] && [ -n "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" ]; then
+  PIPELINE_TYPE="Merge Request"
+  TARGET_BRANCH="$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+  SOURCE_BRANCH="$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
+else
+  PIPELINE_TYPE="Post-Merge"
+  TARGET_BRANCH="$CI_COMMIT_REF_NAME"
+  SOURCE_BRANCH="$CI_COMMIT_REF_NAME"
+fi
 
+echo "🔹 Pipeline type: $PIPELINE_TYPE"
 echo "Target branch: $TARGET_BRANCH"
 echo "Source branch: $SOURCE_BRANCH"
 
@@ -18,13 +27,18 @@ fi
 # Create output directory
 mkdir -p changed-sources
 
-# Fetch latest refs
-git fetch origin "$TARGET_BRANCH"
-git fetch origin "$SOURCE_BRANCH"
+if [ "$PIPELINE_TYPE" = "Merge Request" ]; then
+  # MR pipeline: compare source vs target branch
+  git fetch origin "$TARGET_BRANCH"
+  git fetch origin "$SOURCE_BRANCH"
 
-# Define commit range correctly
-FROM_COMMIT="origin/$TARGET_BRANCH"
-TO_COMMIT="origin/$SOURCE_BRANCH"
+  FROM_COMMIT="origin/$TARGET_BRANCH"
+  TO_COMMIT="origin/$SOURCE_BRANCH"
+else
+  # Post-merge pipeline: compare last commit vs its parent
+  FROM_COMMIT=$(git rev-parse HEAD^)
+  TO_COMMIT=$(git rev-parse HEAD)
+fi
 
 echo "🔹 Diffing from $FROM_COMMIT to $TO_COMMIT"
 git diff --name-status "$FROM_COMMIT" "$TO_COMMIT"
@@ -38,5 +52,12 @@ sf sgd:source:delta \
   --generate-delta
 
 # Debug output
+echo "🔹 Changed sources generated:"
 ls -lR changed-sources || true
-cat changed-sources/package/package.xml
+
+if [ -f changed-sources/package/package.xml ]; then
+  echo "🔹 Package.xml contents:"
+  cat changed-sources/package/package.xml
+else
+  echo "⚠️ No package.xml generated (no metadata changes detected)."
+fi
