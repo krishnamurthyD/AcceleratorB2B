@@ -52,24 +52,22 @@ high_count=$(jq '
 echo "🔎 Checking indentation in LWC (JS/HTML/CSS)..."
 
 # Ensure Prettier is installed
-if ! command -v prettier >/dev/null 2>&1; then
-  echo "⚠️ Prettier not found, installing locally..."
-  npm install --no-save prettier
-fi
+npm install --no-audit --no-fund prettier prettier-plugin-apex || true
 
-# Run Prettier check and capture output
+# Run prettier check and capture output
 PRETTIER_OUTPUT=$(npx prettier --check "changed-sources/force-app/main/default/lwc/**/*.{js,html,css}" 2>&1)
 EXIT_CODE=$?
 
 if [ $EXIT_CODE -ne 0 ]; then
-  echo "❌ Prettier formatting issues found in LWC files."
+  echo "❌ Prettier formatting issues found in LWC files:"
   echo "$PRETTIER_OUTPUT"
   echo ""
-  echo "👉 Please run 'npx prettier --write changed-sources/force-app/main/default/lwc' locally to fix."
+  echo "👉 Run locally: 'npx prettier --write changed-sources/force-app/main/default/lwc'"
   exit 1
 else
   echo "✅ LWC indentation is correct."
 fi
+
 
 if [ "$high_count" -gt 0 ]; then
   echo "❌ Found $high_count high severity violations (severity >= 3). Failing pipeline..."
