@@ -62,7 +62,7 @@ if echo "$PRETTIER_OUTPUT" | grep -q "Code style issues found"; then
   echo "❌ Prettier formatting issues found in LWC files:"
   echo "$PRETTIER_OUTPUT"
   echo ""
-  echo "👉 Run locally: 'force-app/main/default/{classes,lwc}/**/*.{cls,js,html,css}'"
+  echo "👉 Run locally: 'npx prettier --write "force-app/main/default/{classes,lwc}/**/*.{cls,js,html,css}"'"
   exit 1
 else
   echo "✅ LWC indentation is correct."
