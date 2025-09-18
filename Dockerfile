@@ -16,6 +16,9 @@ RUN mkdir -p /etc/apt/keyrings && \
     apt-get update -y && \
     apt-get install -y nodejs curl unzip git default-jdk
 
+# Install Prettier and Prettier Apex globally inside the image
+RUN echo y | npm install --no-audit --no-fund -g prettier prettier-plugin-apex
+
 #Install Salesforce CLI & plugins
 RUN npm install @salesforce/cli --global
 RUN echo y | sf plugins install @salesforce/sfdx-scanner
