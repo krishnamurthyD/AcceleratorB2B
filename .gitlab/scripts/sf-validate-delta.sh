@@ -12,10 +12,18 @@ fi
 
 echo "Validating delta deployment to org: $ORG_ALIAS"
 
-
-# Load TEST_CLASSES and TEST_LEVEL if a build.env exists
-if [ -f build.env ]; then
-  export $(cat build.env | xargs)
+#Detect test classes dynamically inside changed-sources
+TEST_CLASSES=""
+if [ -d "changed-sources/force-app/main/default/classes" ]; then
+  for file in $(grep -rl '@isTest' changed-sources/force-app/main/default/classes --include "*.cls" || true); do
+    class_name=$(basename "$file" .cls)
+    echo "Found test class: $class_name"
+    if [ -n "$TEST_CLASSES" ]; then
+      TEST_CLASSES="${TEST_CLASSES} ${class_name}"
+    else
+      TEST_CLASSES="${class_name}"
+    fi
+  done
 fi
 
 # Default TEST_LEVEL if not set
