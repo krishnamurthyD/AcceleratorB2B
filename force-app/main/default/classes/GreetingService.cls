@@ -18,8 +18,7 @@ public with sharing class GreetingService {
    */
   public static String getGreeting(String name) {
     if (String.isBlank(name)) {
-      String nameOne = 'Guest!';
-      return 'Hello, ' + nameOne;
+      return 'Hello, Guest!';
     }
     return 'Hello, ' + name + '!';
   }
