@@ -39,16 +39,21 @@
 -   Copy the JSON result.
 -   Remove the `"warnings"` section and ensure no extra spaces.
 
-Example JSON (sensitive values hidden): { "status": 0, "result": { "id":
-"\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*",
-"apiVersion": "64.0", "accessToken":
-"\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*",
-"instanceUrl":
-"\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*",
-"username": "\*\*\*\*\*\*\*\*\*\*\*\*\*\*", "clientId": "PlatformCLI",
-"connectedStatus": "Connected", "sfdxAuthUrl":
-"\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*", "alias":
-"Accessalator" } }
+Example JSON (sensitive values hidden): 
+{ "status": 0, 
+"result": 
+    {  
+        "id":"\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*",
+        "apiVersion": "64.0", 
+        "accessToken":"\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*",
+        "instanceUrl":"\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*",
+        "username": "\*\*\*\*\*\*\*\*\*\*\*\*\*\*", 
+        "clientId": "PlatformCLI",
+        "connectedStatus": "Connected", 
+        "sfdxAuthUrl":"\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*", 
+        "alias":"Accessalator" 
+    } 
+}
 
 -   Save this JSON in the corresponding GitLab variable (SF_AUTH_PROD,
     SF_AUTH_UAT, SF_AUTH_INTEGRATION).
