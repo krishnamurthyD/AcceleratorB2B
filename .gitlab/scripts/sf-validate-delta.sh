@@ -32,7 +32,7 @@ TEST_LEVEL=${TEST_LEVEL:-RunSpecifiedTests}
 # Validate normal source
 if [ -d "changed-sources/force-app" ]; then
   if [ -z "$TEST_CLASSES" ]; then
-    echo "Validating won't be done without test classes..."
+    echo "Validating won't be done without Test class"
     exit 1
   else
     echo "Validating with test classes: $TEST_CLASSES"
