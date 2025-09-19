@@ -32,12 +32,8 @@ TEST_LEVEL=${TEST_LEVEL:-RunSpecifiedTests}
 # Validate normal source
 if [ -d "changed-sources/force-app" ]; then
   if [ -z "$TEST_CLASSES" ]; then
-    echo "Validating without test classes..."
-    sf project deploy start \
-      --source-dir "changed-sources/force-app" \
-      --dry-run \
-      --target-org "$ORG_ALIAS" \
-      --ignore-conflicts
+    echo "Validating won't be done without Test class"
+    exit 1
   else
     echo "Validating with test classes: $TEST_CLASSES"
     sf project deploy start \

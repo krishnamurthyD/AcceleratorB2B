@@ -21,7 +21,7 @@ Steps to setup Git with SFDX Project
 6)  Create a new feature branch from develop: git checkout -b
     feature_Branch_Name origin/develop
 
-7)  Push branch and set upstream: git push -u origin feature_Branch_Name
+7)  Push branch and set upstream: git push -u origin FeatureBranch/Name
 
 8)  After development commit and push: git add . git commit -m "your
     commit message" git push
