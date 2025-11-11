@@ -11,8 +11,7 @@ if [ -z "$ORG_ALIAS" ]; then
 fi
 
 echo "Validating delta deployment to org: $ORG_ALIAS"
-
-#Detect test classes dynamically inside changed-sources
+# Detect test classes dynamically inside changed-sources
 TEST_CLASSES=""
 if [ -d "changed-sources/force-app/main/default/classes" ]; then
   for file in $(grep -rl '@isTest' changed-sources/force-app/main/default/classes --include "*.cls" || true); do
@@ -26,14 +25,32 @@ if [ -d "changed-sources/force-app/main/default/classes" ]; then
   done
 fi
 
+# Check if LWC components exist
+HAS_LWC=false
+if [ -d "changed-sources/force-app/main/default/lwc" ] && [ -n "$(ls -A changed-sources/force-app/main/default/lwc 2>/dev/null)" ]; then
+  echo "LWC components detected"
+  HAS_LWC=true
+fi
+
 # Default TEST_LEVEL if not set
 TEST_LEVEL=${TEST_LEVEL:-RunSpecifiedTests}
 
-# Validate normal source
+# Validate source
 if [ -d "changed-sources/force-app" ]; then
-  if [ -z "$TEST_CLASSES" ]; then
-    echo "Validating won't be done without Test class"
+  # If no test classes but LWC exists, skip tests
+  if [ -z "$TEST_CLASSES" ] && [ "$HAS_LWC" = true ]; then
+    echo "No test classes found but LWC components present. Running dry-run without tests."
+    sf project deploy start \
+      --source-dir "changed-sources/force-app" \
+      --dry-run \
+      --target-org "$ORG_ALIAS" \
+      --test-level NoTestRun \
+      --ignore-conflicts
+  # If no test classes and no LWC, fail
+  elif [ -z "$TEST_CLASSES" ]; then
+    echo "Validation won't be done without Test class"
     exit 1
+  # If test classes exist, run with tests
   else
     echo "Validating with test classes: $TEST_CLASSES"
     sf project deploy start \
