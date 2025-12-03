@@ -46,25 +46,35 @@ high_count=$(jq '
   ] | length
 ' code-analysis-results.sarif)
 
-# pritter check
 echo "🔎 Checking indentation in LWC (JS/HTML/CSS)..."
 
-# Ensure Prettier + plugin installed
-npm install --no-audit --no-fund prettier prettier-plugin-apex || true
+# Get changed files only
+FILES=$(git diff --name-only origin/main | grep -E '\.(js|html|css)$' || true)
 
-# Run Prettier check, but don't let exit code kill job
-PRETTIER_OUTPUT=$(npx prettier --check "changed-sources/force-app/main/default/lwc/**/*.{js,html,css}" 2>&1 || true)
-EXIT_CODE=$?
+FAIL=0
 
-if echo "$PRETTIER_OUTPUT" | grep -q "Code style issues found"; then
-  echo "❌ Prettier formatting issues found in LWC files:"
-  echo "$PRETTIER_OUTPUT"
+for FILE in $FILES; do
+  # ❌ Rule 1: No TAB characters allowed
+  if grep -P "\t" "$FILE"; then
+    echo "❌ TAB indentation found in $FILE (use spaces only)"
+    FAIL=1
+  fi
+
+  # ❌ Rule 2: Prevent mixed indentation (tab + spaces at same line)
+  if grep -P "^\s*\t+\s+" "$FILE"; then
+    echo "❌ Mixed indentation found in $FILE"
+    FAIL=1
+  fi
+done
+
+if [ $FAIL -eq 1 ]; then
   echo ""
-  echo "👉 Run locally: 'npx prettier --write "force-app/main/default/{classes,lwc}/**/*.{cls,js,html,css}"'"
+  echo "❗ Fix indentation: replace TAB with spaces (2 spaces)"
   exit 1
 else
-  echo "✅ LWC indentation is correct."
+  echo "✅ Indentation OK (spaces only)"
 fi
+
 
 
 
