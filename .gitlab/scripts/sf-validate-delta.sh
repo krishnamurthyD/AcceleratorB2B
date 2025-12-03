@@ -26,10 +26,10 @@ if [ -d "changed-sources/force-app/main/default/classes" ]; then
 fi
 
 # Check if LWC components exist
-HAS_LWC=false
-if [ -d "changed-sources/force-app/main/default/lwc" ] && [ -n "$(ls -A changed-sources/force-app/main/default/lwc 2>/dev/null)" ]; then
-  echo "LWC components detected"
-  HAS_LWC=true
+HAS_APEX_CLASSES=false
+if [ -d "changed-sources/force-app/main/default/classes" ] && [ -n "$(ls -A changed-sources/force-app/main/default/classes 2>/dev/null)" ]; then
+  echo "Apex classes detected"
+  HAS_APEX_CLASSES=true
 fi
 
 # Default TEST_LEVEL if not set
@@ -37,28 +37,27 @@ TEST_LEVEL=${TEST_LEVEL:-RunSpecifiedTests}
 
 # Validate source
 if [ -d "changed-sources/force-app" ]; then
-  # If no test classes but LWC exists, skip tests
-  if [ -z "$TEST_CLASSES" ] && [ "$HAS_LWC" = true ]; then
-    echo "No test classes found but LWC components present. Running dry-run without tests."
+  if [ "$HAS_APEX_CLASSES" = true ]; then
+    if [ -z "$TEST_CLASSES" ]; then
+      echo "Validation won't be done without Test class"
+      exit 1
+    else
+      echo "Validating with test classes: $TEST_CLASSES"
+      sf project deploy start \
+        --source-dir "changed-sources/force-app" \
+        --dry-run \
+        --target-org "$ORG_ALIAS" \
+        --test-level "$TEST_LEVEL" \
+        -t $TEST_CLASSES \
+        --ignore-conflicts
+    fi
+  else
+    echo "No Apex classes found. Running dry-run without tests."
     sf project deploy start \
       --source-dir "changed-sources/force-app" \
       --dry-run \
       --target-org "$ORG_ALIAS" \
       --test-level NoTestRun \
-      --ignore-conflicts
-  # If no test classes and no LWC, fail
-  elif [ -z "$TEST_CLASSES" ]; then
-    echo "Validation won't be done without Test class"
-    exit 1
-  # If test classes exist, run with tests
-  else
-    echo "Validating with test classes: $TEST_CLASSES"
-    sf project deploy start \
-      --source-dir "changed-sources/force-app" \
-      --dry-run \
-      --target-org "$ORG_ALIAS" \
-      --test-level "$TEST_LEVEL" \
-      -t $TEST_CLASSES \
       --ignore-conflicts
   fi
 fi
