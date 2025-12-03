@@ -36,13 +36,13 @@ else
 fi
 
 
-# Fail pipeline if any severity >= 3 issues are found
+# Fail pipeline if any severity <= 3 issues are found
 high_count=$(jq '
   [
     .runs[] as $run
     | $run.results[] as $res
     | ($run.tool.driver.rules[$res.ruleIndex]) as $rule
-    | select(($rule.properties.severity | tonumber) >= 3)
+    | select(($rule.properties.severity | tonumber) <= 3)
   ] | length
 ' code-analysis-results.sarif)
 
@@ -79,8 +79,8 @@ fi
 
 
 if [ "$high_count" -gt 0 ]; then
-  echo "❌ Found $high_count high severity violations (severity >= 3). Failing pipeline..."
+  echo "❌ Found $high_count violations with severity <= 3. Failing pipeline..."
   exit 1
 else
-  echo "✅ No high severity violations found."
+  echo "✅ No high/medium severity violations found."
 fi
