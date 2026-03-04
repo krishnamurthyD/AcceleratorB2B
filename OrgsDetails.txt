@@ -1,0 +1,25 @@
+Orgs Details
+
+
+ 
+ 
+Org-1 (krishnamurthydonta0@gmail.com)
+Username = krishnamurthydonta0389@agentforce.com
+Password = cloudOdyssey@34&8
+Security answer =  India
+ 
+Org-2 (krishnamurthyonlinea@gmail.com)
+Username = krishnamurthyonlinea781@agentforce.com
+Password = cloudOdyssey@02&9
+Security answer = India
+
+
+Org-3 (krishnamurthydonta@gmail.com) (feature branch -dev development org)
+Username = krishnamurthydonta198@agentforce.com
+Password = 2BA17au006%$#@
+Security answer =  India
+
+Org-4 (krishnamurthydonta0@gmail.com) (develop org)
+Username = krishnamurthydonta0507@agentforce.com
+Password = cloudOdyssey@34&8
+Security answer =  India
