@@ -1,0 +1,18 @@
+{
+  "status": 0,
+  "result": [
+    {
+      "createdById": "005dL00001TmRziQAF",
+      "createdByName": "KrishnamurthyOne test",
+      "createdDate": "2025-11-28T09:40:35.000Z",
+      "fileName": "messageChannels/B2BDemoStore.messageChannel",
+      "fullName": "B2BDemoStore",
+      "id": "129dL00000IFqcjQAD",
+      "lastModifiedById": "005dL00001TmRziQAF",
+      "lastModifiedByName": "KrishnamurthyOne test",
+      "lastModifiedDate": "2025-11-28T09:40:35.000Z",
+      "manageableState": "unmanaged",
+      "type": "LightningMessageChannel"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "status": 0,
+  "result": [
+    {
+      "createdById": "005dL00001TmRziQAF",
+      "createdByName": "KrishnamurthyOne test",
+      "createdDate": "2025-10-27T05:27:48.000Z",
+      "fileName": "digitalExperiences/site/B2B_Demo_One1.digitalExperience",
+      "fullName": "site/B2B_Demo_One1",
+      "id": "0jddL000001LOMvQAO",
+      "lastModifiedById": "005dL00001TmRziQAF",
+      "lastModifiedByName": "KrishnamurthyOne test",
+      "lastModifiedDate": "2025-10-27T05:27:48.000Z",
+      "manageableState": "unmanaged",
+      "type": "DigitalExperienceBundle"
+    },
+    {
+      "createdById": "005dL00001R04EuQAJ",
+      "createdByName": "Automated Process",
+      "createdDate": "2025-10-21T07:18:10.000Z",
+      "fileName": "digitalExperiences/enablement/sfdcEnablement_EnablementWorkspace.digitalExperience",
+      "fullName": "enablement/sfdcEnablement_EnablementWorkspace",
+      "id": "0jddL000001JpHZQA0",
+      "lastModifiedById": "005dL00001R04EuQAJ",
+      "lastModifiedByName": "Automated Process",
+      "lastModifiedDate": "2025-10-21T07:18:10.000Z",
+      "manageableState": "unmanaged",
+      "type": "DigitalExperienceBundle"
+    },
+    {
+      "createdById": "005dL00001TmRziQAF",
+      "createdByName": "KrishnamurthyOne test",
+      "createdDate": "2025-10-27T05:27:59.000Z",
+      "fileName": "digitalExperiences/content/B2B_Demo_One_Managed_Content_Space_8sYVvopI.digitalExperience",
+      "fullName": "content/B2B_Demo_One_Managed_Content_Space_8sYVvopI",
+      "id": "0jddL000001LOMwQAO",
+      "lastModifiedById": "005dL00001TmRziQAF",
+      "lastModifiedByName": "KrishnamurthyOne test",
+      "lastModifiedDate": "2025-10-27T05:27:59.000Z",
+      "manageableState": "unmanaged",
+      "type": "DigitalExperienceBundle"
+    },
+    {
+      "createdById": "005dL00001R04h8QAB",
+      "createdByName": "OrgFarm EPIC",
+      "createdDate": "2025-10-27T05:24:37.000Z",
+      "fileName": "digitalExperiences/site/sfpwebhook1.digitalExperience",
+      "fullName": "site/sfpwebhook1",
+      "id": "0jddL000001LOLJQA4",
+      "lastModifiedById": "005dL00001R04h8QAB",
+      "lastModifiedByName": "OrgFarm EPIC",
+      "lastModifiedDate": "2025-10-27T05:24:37.000Z",
+      "manageableState": "unmanaged",
+      "type": "DigitalExperienceBundle"
+    }
+  ]
+}
