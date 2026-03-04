@@ -1,0 +1,92 @@
+.modal-radius {
+  border-radius: 12px;
+  background: #fff;
+  position: relative;
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.modal-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.title {
+  color: #0095A8;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background: #EAEAEA;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.close-btn lightning-icon {
+  --lwc-colorTextIconDefault: #555;
+}
+
+.description {
+  color: #5A5A5A;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+
+.required::after {
+  content: ' *';
+  color: #D92D20;
+}
+
+.custom-input {
+  border-radius: 8px;
+  border: 1px solid #DDDBDA;
+  height: 40px;
+}
+
+.custom-input:focus {
+  border-color: #0095A8;
+  box-shadow: 0 0 3px #0095a850;
+}
+
+.button-group {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.btn-cancel {
+  flex: 1;
+  border: 1px solid #0095A8;
+  color: #0095A8;
+  background: white;
+  border-radius: 8px;
+  height: 40px;
+  font-weight: 600;
+}
+
+.btn-notify {
+  flex: 1;
+  background: #0095A8;
+  color: white;
+  border: 1px solid #0095A8;
+  border-radius: 8px;
+  height: 40px;
+  font-weight: 600;
+}
+
+.btn-notify:hover {
+  background: #007a8a;
+}

@@ -1,0 +1,16 @@
+<template>
+    <template if:true={startRendering}>
+        <div class="clientele-heading">{label.heading}</div>
+            <div class="swiper" role="region" aria-label="Partner logos carousel" aria-live="off">
+                <div class="swiper-wrapper" aria-live="polite">
+                    <template for:each={cmsData} for:item="card">
+                        <div key={card.id} class="swiper-slide card-container" data-sequence={card.sequence}>
+                            <div class="card-image-wrapper">
+                                <img src={card.imageUrl} alt={card.altText} class="card-image" loading="lazy" />
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+    </template>
+</template>

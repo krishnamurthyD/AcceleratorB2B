@@ -1,0 +1,81 @@
+{
+  "type" : "sfdc_cms__themeLayout",
+  "title" : "Commerce Layout",
+  "contentBody" : {
+    "component" : {
+      "children" : [ {
+        "id" : "815d6c72-5ceb-4e44-9773-7a5975ca3a80",
+        "attributes" : {
+          "flexAlignment" : "flex-end"
+        }
+      }, {
+        "id" : "85222682-da0d-49b5-bba1-cb84c170ce6d",
+        "attributes" : {
+          "flexAlignment" : "flex-end"
+        }
+      }, {
+        "id" : "b6b8c8a6-4161-4889-bfba-6f42343e1ceb",
+        "attributes" : {
+          "flexAlignment" : "center"
+        }
+      }, {
+        "id" : "55155309-1d5b-4201-92d7-3e170271ced5",
+        "attributes" : {
+          "dxpStyle" : {
+            "isVisible" : false
+          }
+        }
+      }, {
+        "id" : "73822e43-bfab-442f-ab7a-931f95117d07",
+        "attributes" : {
+          "columnVerticalAlign" : "flex-start",
+          "columnGutterWidth" : "0rem"
+        }
+      }, {
+        "id" : "021e361d-3a09-4293-bdbb-8c1af1ded8ed",
+        "attributes" : {
+          "columnVerticalAlign" : "flex-start",
+          "columnGutterWidth" : "0rem"
+        }
+      }, {
+        "id" : "1b340dae-587f-442d-a1d6-bace8cab0c87",
+        "attributes" : {
+          "columnVerticalAlign" : "flex-start"
+        }
+      }, {
+        "id" : "781d3abf-79c1-4389-95d9-abafc6c55e11",
+        "attributes" : {
+          "textAlign" : "center"
+        }
+      }, {
+        "id" : "7b36e0fd-222e-4043-ac70-5584d174c4a4",
+        "attributes" : {
+          "dxpStyle" : {
+            "margin" : {
+              "top" : "10px",
+              "right" : "10px",
+              "bottom" : "10px",
+              "left" : "10px"
+            }
+          }
+        }
+      }, {
+        "id" : "56aac9c0-7335-44e8-848b-b030ab755fb5",
+        "attributes" : {
+          "pickerButtonAlignment" : "left"
+        }
+      }, {
+        "id" : "d0bbd776-aa83-46ed-bbee-7257b06abff3",
+        "attributes" : {
+          "columnVerticalAlign" : "center"
+        }
+      }, {
+        "id" : "d76657e3-a013-488f-9c90-67bcff1c5033",
+        "attributes" : {
+          "columnGutterWidth" : "0rem"
+        }
+      } ]
+    }
+  },
+  "urlName" : "commerce-layout"
+}

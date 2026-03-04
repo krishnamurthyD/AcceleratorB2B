@@ -1,0 +1,76 @@
+<template lwc:render-mode="light">
+    <div if:true={_showHideSearchBar}
+        class="input-container-wrapper"
+        style={_customCSSProperties}>
+        <div
+            class={inputWrapperClass}
+            style={searchInputStyle}>
+            <div class="search-icon-container">
+                <svg
+                    class="slds-icon slds-icon-text-default slds-icon_x-small search-icon"
+                    style={searchIconStyles}
+                    focusable="false"
+                    data-key="search"
+                    aria-hidden="true">
+                    <use href={searchIconPath}></use>
+                </svg>
+            </div>
+            <div class="input-container-main">
+                <input
+                    aria-autocomplete="list"
+                    aria-describedby={i18n.searchInputAriaDescribedby}
+                    autocomplete="off"
+                    onblur={handleInputBlur}
+                    onclick={handleInputClick}
+                    onfocus={handleInputFocus}
+                    oninput={handleInputChange}
+                    onsearch={handleSearchButtonClick}
+                    placeholder={inputPlaceholderText}
+                    type="search"
+                    role="combobox"
+                    value={_normalizedText}
+                    maxlength="255"
+                    style={searchInputStyle}
+                    class={searchInputClass} />
+            </div>
+            <div class="input-clear-button-container">
+                <button
+                    class="input-clear-button slds-button"
+                    onclick={handleSearchToggle}
+                    onkeydown={handleClearButtonKeyDown}
+                    data-automation="clear-button">
+                    <span class="slds-assistive-text">{i18n.clear}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={crossIconWidthAndHeightDisplay} height={crossIconWidthAndHeightDisplay} viewBox="0 0 24 24" fill="none">
+                        <path d="M13.46 12L19 17.54V19H17.54L12 13.46L6.46 19H5V17.54L10.54 12L5 6.46V5H6.46L12 10.54L17.54 5H19V6.46L13.46 12Z" fill="black"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <template if:false={_showHideSearchBar}>
+        <div>
+            <button
+                type="submit"
+                data-automation="search-button"
+                class="input-search-button slds-button slds-button_brand"
+                onclick={handleSearchToggle}
+                onkeydown={handleSearchButtonKeyDown}
+                style={searchButtonStyle}
+                onblur={handleSearchButtonBlur}
+                onfocus={handleSearchButtonFocus}
+                onmouseenter={handleSearchButtonMouseEnter}
+                onmouseleave={handleSearchButtonMouseLeave}>
+                <svg
+                    class="slds-icon slds-icon-text-default slds-icon_x-small search-icon"
+                    style={searchIconStyles}
+                    focusable="false"
+                    data-key="search"
+                    aria-hidden="true">
+                    <use href={searchIconPath}></use>
+                </svg>
+                
+                <span class="slds-assistive-text">{i18n.search}</span>
+            </button>
+        </div>
+    </template>
+</template>

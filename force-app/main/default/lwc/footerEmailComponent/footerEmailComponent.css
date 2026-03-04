@@ -1,0 +1,138 @@
+.custom-toast {
+    position: fixed;
+    top: 10px;
+    left: 50%;             
+    transform: translateX(-50%); 
+    z-index: 9999;
+    background-color: #2e844a;         
+    color: white;
+    padding: 14px 22px;
+    border-radius: 6px;
+    font-size: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    animation: fadeInOut 3s ease forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -10px); }
+    10% { opacity: 1; transform: translate(-50%, 0); }
+    90% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -10px); }
+}
+
+.email-input.error {
+    border: 2px solid red;
+    outline: none;
+}
+
+.sub-button.error {
+    border: 2px solid red;
+    outline: none;
+    background: #0095a5;
+    padding: 14px 22px;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.subscribe-container {
+   
+    border-radius: 8px;
+    width: 100%;
+    max-width: 450px;
+        align-items: center;
+
+}
+.right-container{
+	display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+}
+
+.title {
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.email-input {
+    flex: 1;
+    padding: 8px 15px;
+    border-radius: 10px;
+    border: 1px solid #19a8b9;
+    background: transparent;
+    color: black;
+    font-size: 16px;
+    outline: none;
+    margin-right: -8px;
+}
+
+.email-input::placeholder {
+    color: #888;
+    font-size: 16px;
+}
+
+.subscribe-btn {
+    background: #19a8b9;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background .2s ease;
+    margin-left: -8px;
+}
+
+.subscribe-btn:hover {
+    background: #007e8c;
+}
+
+/* Mobile View */
+@media screen and (max-width: 500px) {
+    .subscribe-container {
+        border-radius: 8px;
+        width: 100%;
+        max-width: 300px;
+    }
+    .right-container{
+        display: flex;
+    }
+    .email-input {
+        flex: 1;
+        padding: 10px;
+        border-radius: 10px;
+        background: #19a8b9;
+        background: transparent;
+        color:black;
+        font-size: 14px;
+        outline: none;
+        width:200px;
+        margin-right: -8px;
+    }
+    .subscribe-btn {
+        background: #19a8b9;
+        padding: 13px 10px;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background .2s ease;
+        margin-left: -8px;
+    }
+    .title {
+        color: #fff;
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+}

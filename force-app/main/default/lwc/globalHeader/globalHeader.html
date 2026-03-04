@@ -1,0 +1,98 @@
+<template>
+  <header class={rootClass}>
+    <!-- Unified header bar for both desktop and mobile -->
+    <div class="header-bar">
+      <div class="mobile-table-left">
+        <!-- Hamburger (shown on mobile only) -->
+        <button
+          if:true={isMobilePhone}
+          class="hamburger-btn hamburger-btn-desktop"
+          onclick={toggleMenu}
+          aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
+        >
+          <span class={hamburgerIconClass}></span>
+        </button>
+        <div class="left-side">
+          <!-- Logo (same slot for desktop and mobile) -->
+          <div class="logo-area">
+            <slot name="Site-Logo"></slot>
+          </div>
+
+          <!-- Navigation menu -->
+          <div class="nav-area">
+            <slot name="MultiLevel-Navigation"></slot>
+          </div>
+          <!-- Action Item -->
+          <template if:true={showHideActionSlot}>
+            <div class="action-item-desktop">
+              <slot name="Action"></slot>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Right-side actions (same slots reused for both views) -->
+      <div class="actions-area">
+        <div class="action-item action-country">
+          <slot name="Country-Selector"></slot>
+        </div>
+        <div class="action-item action-search">
+          <slot name="Search-Bar"></slot>
+        </div>
+        <div class="action-item action-heart">
+          <slot name="Heart-Icon"></slot>
+        </div>
+        <div class="action-item action-user">
+          <slot name="User-Menu"></slot>
+        </div>
+        <div class="action-item action-cart">
+          <slot name="Cart-Icon"></slot>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overlay for drawer -->
+    <div class={menuOverlayClass} onclick={closeMenu}></div>
+
+    <!-- Navigation container: inline center on desktop, drawer on mobile -->
+    <template if:true={isMobilePhone}>
+      <div class={mobileMenuClass}>
+        <div class="mobile-menu-header">
+          <div class="menu-header-right">
+            <button
+              class="close-btn"
+              onclick={closeMenu}
+              aria-label="Close menu"
+            >
+              ×
+            </button>
+            <slot name="Drawer-Logo"></slot>
+          </div>
+          <div class="menu-header-right">
+            <!-- Drawer-specific header slots (avoid duplicate names) -->
+            <slot name="Drawer-Country-Selector"></slot>
+            <slot name="Drawer-Country-Selector-one"></slot>
+            <slot name="Drawer-User-Menu"></slot>
+          </div>
+        </div>
+        <div class="mobile-menu-content">
+          <!-- Optional logo inside drawer body (separate slot) -->
+          <div class="drawer-body-logo">
+            <slot name="Drawer-Logo-Body"></slot>
+          </div>
+          <!-- Optional action slot shown under nav when enabled -->
+          <template if:true={showHideActionSlot}>
+            <div class="drawer-body-action">
+              <slot name="Drawer-Action"></slot>
+            </div>
+          </template>
+          <!-- Main navigation slot (single instance, inline on desktop, drawer on mobile) -->
+          <div class="drawer-body-nav">
+            <slot name="drawer-MultiLevel-Navigation"></slot>
+          </div>
+        </div>
+      </div>
+    </template>
+  </header>
+</template>

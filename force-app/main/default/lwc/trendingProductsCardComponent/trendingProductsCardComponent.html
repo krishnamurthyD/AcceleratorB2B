@@ -1,0 +1,147 @@
+<template>
+    <template if:true={startRendering}>
+        <div class="trending-section">
+            <div class="trending-section-head">
+                <h2 class="trending-section-heading">{label.heading}</h2>
+                <p class="trending-section-subtitle">{label.description}</p>
+            </div>
+
+            <div class="slider-container">
+                <div class="trending-slider swiper">
+                    <!-- swiper-wrapper -->
+                    <div class="trending-slider-inner swiper-wrapper">
+                        <template for:each={productDataList} for:item="item">
+                            <div class="swiper-slide product-card" key={item.id}>
+                                <!-- PRODUCT IMAGE -->
+                                <div class="swiper image-wrapper">
+                                    <div class="swiper-wrapper image-inner-wrapper">
+                                        <template for:each={item.images} for:item="image" for:index="index">
+                                            <div key={image.id} class="swiper-slide img-wrap">
+                                                <img src={image.url} alt={image.altText} class="product-image" />
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div class="pagination-wrapper">
+                                        <div class="img-slide swiper-pagination"></div>
+                                    </div>
+                                    <!-- wishlist heart -->
+                                    <div class="wishlist-icon">
+                                        <template if:true={item.wishlist.isWishlisted}>
+                                            <span class='heart filled' onclick={handleRemoveFromWishlist}
+                                                data-id={item.id}>
+                                                <svg width="22" height="21" viewBox="0 0 22 21" fill="#0095A8"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6.27778 1C3.36333 1 1 3.52588 1 6.64076C1 12.875 11 20 11 20C11 20 21 12.875 21 6.64076C21 2.78153 18.6367 1 15.7222 1C13.6556 1 11.8667 2.26965 11 4.11824C10.1333 2.26965 8.34444 1 6.27778 1Z"
+                                                        stroke="#0095A8" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" />
+                                                </svg>
+                                            </span>
+                                        </template>
+                                        <!-- <template if:true={item.hideWishlist}> -->
+                                            <template if:false={item.wishlist.isWishlisted}>
+                                            <span class='heart-empty' onclick={handleAddtoWishlist} data-id={item.id}>
+                                                <svg class="heart-normal" width="22" height="21" viewBox="0 0 22 21"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6.27778 1C3.36333 1 1 3.52588 1 6.64076C1 12.875 11 20 11 20C11 20 21 12.875 21 6.64076C21 2.78153 18.6367 1 15.7222 1C13.6556 1 11.8667 2.26965 11 4.11824C10.1333 2.26965 8.34444 1 6.27778 1Z"
+                                                        stroke="#0095A8" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" />
+                                                </svg>
+                                                <svg class='heart-highlight' width="35" height="35" viewBox="0 0 50 50"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect width="50" height="50" rx="20" fill="#E6F4F6" />
+                                                    <path
+                                                        d="M17.6215 10.9375C13.0677 10.9375 9.375 14.8842 9.375 19.7512C9.375 29.4922 25 40.625 25 40.625C25 40.625 40.625 29.4922 40.625 19.7512C40.625 13.7211 36.9323 10.9375 32.3785 10.9375C29.1493 10.9375 26.3542 12.9213 25 15.8097C23.6458 12.9213 20.8507 10.9375 17.6215 10.9375Z"
+                                                        fill="white" stroke="#0095A8" stroke-width="2"
+                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+
+                                            </span>
+                                        </template>
+                                        <!-- </template> -->
+
+
+                                    </div>
+
+                                    <!-- Eye icon -->
+                                    <div class="view-icon">
+                                        <span class="eye">
+                                            <svg width="22" height="15" viewBox="0 0 22 15" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M11 4.5C11.7956 4.5 12.5587 4.81607 13.1213 5.37868C13.6839 5.94129 14 6.70435 14 7.5C14 8.29565 13.6839 9.05871 13.1213 9.62132C12.5587 10.1839 11.7956 10.5 11 10.5C10.2044 10.5 9.44129 10.1839 8.87868 9.62132C8.31607 9.05871 8 8.29565 8 7.5C8 6.70435 8.31607 5.94129 8.87868 5.37868C9.44129 4.81607 10.2044 4.5 11 4.5ZM11 0C16 0 20.27 3.11 22 7.5C20.27 11.89 16 15 11 15C6 15 1.73 11.89 0 7.5C1.73 3.11 6 0 11 0ZM2.18 7.5C3.83 10.86 7.24 13 11 13C14.76 13 18.17 10.86 19.82 7.5C18.17 4.14 14.76 2 11 2C7.24 2 3.83 4.14 2.18 7.5Z"
+                                                    fill="#0095A8" />
+                                            </svg>
+
+                                        </span>
+                                    </div>
+
+
+                                </div>
+
+                                <!-- PRODUCT INFO -->
+                                <div class="info-block">
+                                    <!-- HOVER AREA -->
+                                    <div class="hover-controls-wrap">
+                                        <div class="hover-controls">
+                                            <div class="qty-selector">
+                                                <button class="qty-btn" onclick={handleDecreaseQty}
+                                                    data-id={item.id}>-</button>
+                                                <span class="qty-value">{item.quantity}</span>
+                                                <button class="qty-btn" onclick={handleIncreaseQty}
+                                                    data-id={item.id}>+</button>
+                                            </div>
+
+                                            <button class="add-cart-btn" onclick={addToCartHandler} data-id={item.id}>
+                                                Add To Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <h3 class="product-name">{item.name}</h3>
+                                    <p class="sku">
+                                        Part #{item.sku}
+                                    </p>
+
+                                    <div class="rating-row">
+                                        <span class="rating-value">{item.rating}</span>
+                                        <span class="star">
+                                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M7.5 12.0553L12.135 15L10.905 9.45L15 5.71579L9.6075 5.22632L7.5 0L5.3925 5.22632L0 5.71579L4.0875 9.45L2.865 15L7.5 12.0553Z"
+                                                    fill="#FFCC66" />
+                                            </svg>
+
+                                        </span>
+                                        <span class="rating-count">({item.ratingCount})</span>
+                                    </div>
+
+                                    <div class="price-row">
+                                        <span class="new-price">₹{item.unitPrice}</span>
+                                        <span class="old-price">₹{item.listPrice}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- arrows (controlled by JS) -->
+                    <template if:true={showArrows}>
+                        <div class="trending-slider-btn swiper-button-prev"></div>
+                        <div class="trending-slider-btn swiper-button-next"></div>
+                    </template>
+
+
+                    <!-- progressbar for mobile -->
+                    <template if:false={showArrows}>
+                        <div class="trending-slider-pagination swiper-pagination"></div>
+                    </template>
+
+                </div>
+            </div>
+
+        </div>
+    </template>
+
+</template>

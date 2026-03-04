@@ -1,0 +1,24 @@
+<template>
+    <div class="info-container">
+        <!-- Title -->
+        <h3 class="product-title" onclick={handleNavigate}>{name}</h3>
+        
+        <!-- Part Number -->
+        <p class="part-number" onclick={handleNavigate}>Part #{partNumber}</p>
+
+        <!-- Rating & Variants -->
+        <div class="rating-section">
+            <span class="rating-val">{rating}</span>
+            <lightning-icon icon-name="utility:favorite" size="x-small" class="star-icon"></lightning-icon>
+            <a href="#" class="review-count" onclick={handleNavigate}>({reviewCount})</a>
+            
+            <!-- Variants Indicator -->
+            <template if:true={variantCount}>
+                <span class="variant-indicator">
+                    <lightning-icon icon-name="utility:groups" size="xx-small"></lightning-icon>
+                    +{variantCount} variants
+                </span>
+            </template>
+        </div>
+    </div>
+</template>

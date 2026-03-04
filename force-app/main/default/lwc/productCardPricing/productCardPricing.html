@@ -1,0 +1,21 @@
+<template>
+    <div class="price-container">
+        <!-- Price Row -->
+        <div class="price-row">
+            <span class="sale-price">{salesPrice}</span>
+            <template if:true={listPrice}>
+                <span class="list-price">{listPrice}</span>
+            </template>
+        </div>
+
+        <!-- Promo / Urgency Row -->
+        <div class="promo-row">
+            <template if:true={discountText}>
+                <p class="save-text">{discountText}</p>
+            </template>
+            <template if:true={urgencyMessage}>
+                <p class={urgencyClass}>{urgencyMessage}</p>
+            </template>
+        </div>
+    </div>
+</template>

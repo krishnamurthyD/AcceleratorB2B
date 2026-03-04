@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+
+     <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="navigationDeveloperName" type="String" label="Navigation Label Name" description="Create new navigation Menu and Publish once and the Name of the navigation label to display. Replace every space with _ and add." default="Default_User_Profile_Menu"/>
+            <property name="imageArrowRight" type="ContentReference" label="Arrow Right Image" description="Image to indicate submenu presence."/>
+            <property name="downArrowImageWhite" type="ContentReference" label="Down Arrow White Image" description="Image for down arrow in mobile view."/>
+        </targetConfig>
+
+    </targetConfigs>
+
+</LightningComponentBundle>

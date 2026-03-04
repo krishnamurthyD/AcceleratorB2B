@@ -1,0 +1,12 @@
+<template>
+    <div class="plp-sort-container">
+        <lightning-combobox
+            name="sort"
+            label="Sort By"
+            value={computedValue}
+            options={options}
+            onchange={handleSortChange}
+            variant="label-hidden">
+        </lightning-combobox>
+    </div>
+</template>

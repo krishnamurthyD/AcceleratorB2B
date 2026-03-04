@@ -1,0 +1,463 @@
+:host {
+  --swiper-theme-color: #0095A8;
+  --swiper-pagination-progressbar-size: 1px;
+}
+
+.trending-section-head{
+    margin: 56px 0;
+    text-align: center;
+}
+
+.trending-section-heading{
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 500;
+    margin-bottom:12px;
+    color: #1C1F26;
+}
+
+.trending-section-subtitle{
+    font-size: 20px;
+    color: #67696E;
+    line-height: 28px;
+    font-weight: 400;
+}
+.trending-section {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header-block {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    color: #777;
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+
+
+/* PRODUCT CARD */
+.product-card {
+    position: relative;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid #E8E9E9;
+    /* padding: 18px; */
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* IMAGE WRAPPER */
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 43px 23px 43px 24px;
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+}
+
+/* HEART ICON */
+.wishlist-icon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+
+.heart {
+    font-size: 22px;
+    cursor: pointer;
+    color: #008080;
+    opacity: 0.4;
+}
+
+.heart.filled {
+    opacity: 1;
+}
+
+/* EYE ICON */
+.view-icon {
+    position: absolute;
+    top: 44px;
+    right: 12px;
+}
+
+.eye {
+    font-size: 20px;
+    position: relative;
+    z-index: 1;
+    right: 2px;
+}
+
+/* IMAGE SLIDER INDICATORS (TEAL BAR) */
+
+
+
+
+/* PRODUCT INFO */
+.info-block {
+    position: relative;
+    padding: 8px 12px 12px 12px;
+}
+
+.info-block::before{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #E8E9E9;
+    max-width: 97%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+
+.product-name {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+        min-height: 36px;            /* Your requirement */
+    max-height: 36px;            /* Ensures 2-line limit */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;       /* Show only 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2; 
+    text-wrap: wrap;
+}
+
+.sku {
+    font-size: 14px;
+    line-height: 21px;
+    color: #0095A8;
+    display: inline-block;
+}
+
+.rating-row {
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+}
+
+.rating-value {
+    font-size: 14px;
+    line-height: 16px;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.star {
+    color: gold;
+    margin-left: 5px;
+    margin-right: 11px;
+}
+
+.rating-count{
+    font-size: 14px;
+    line-height: 16px;
+    color:#0095A8;
+    font-weight: 500;
+}
+
+.price-row {
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.new-price {
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.old-price {
+    font-size: 12px;
+    line-height: 21px;
+    display: inline-block;
+    text-decoration: line-through;
+    color: #B9BABC;
+    font-weight: 500;
+}
+
+
+/* HOVER CONTROLS */
+.hover-controls {
+    position: absolute;
+    /* bottom: 0; */
+    left: 0;
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    opacity: 0;
+    transition: all 0.3s ease;
+    top: -58px;
+    z-index: 22;
+    background: white;
+    padding-bottom: 0;
+    padding-top: 2px;
+}
+
+.product-card:hover .hover-controls {
+    opacity: 1;
+    /* bottom: -5px; */
+    
+}
+
+/* QTY */
+.qty-selector {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    border: 1px solid #d5d5d5;
+    padding: 8px 12px;
+    border-radius: 12px;
+}
+
+.qty-btn {
+    font-size: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.qty-value {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ADD TO CART BUTTON */
+.add-cart-btn {
+    background: #007f7f;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.add-cart-btn:hover {
+    background: #006666;
+}
+
+
+.heart-empty{
+    width: 32px;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    position: relative;
+    transition: all;
+}
+.heart-highlight{
+    display: none;
+}
+.heart-empty:hover .heart-highlight{
+    display: block;
+}
+.heart-empty:hover .heart-normal{
+    display: none;
+}
+
+
+/* swiper css Started */
+  .swiper-btn::after,
+.swiper-btn::before{
+        background: #35abb982;
+    height: 44px;
+    width: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    position: absolute;
+    border: 2px solid #23a3b3;
+    left: 0px;
+    z-index: 11;
+    color: #000;
+    font-size: 16px;
+}
+
+.swiper-outer-wrapper{
+    position: relative;
+    max-width: 1380px;
+    margin: 0 auto;
+
+}
+
+.pagination-wrapper{
+    position: relative;
+}
+
+.swiper-wrapper.image-inner-wrapper{
+    margin-bottom: 1px;
+}
+
+/* .hover-controls-wrap{
+    position: relative;
+} */
+
+/* swiper css Ended */
+
+/* ================================
+   SLIDER OUTER WRAPPER 
+   ================================ */
+.slider-container {
+    position: relative;
+    max-width: 1370px;      /* outer container */
+    margin: 0 auto;
+    padding: 0 60px;        /* space for arrows on left/right */
+}
+
+/* ================================
+   SWIPER INNER WRAPPER (1250px)
+   ================================ */
+.swiper {
+    max-width: 1250px;       /* slider area */
+    margin: 0 auto; 
+    position: static;         /* center inside outer wrapper */
+}
+
+/* ================================
+   SLIDE WIDTH (4 per view)
+   ================================ */
+.swiper-slide {
+    /* width: calc((1250px - 63px) / 4);  */
+    /* 4 slides, 3 gaps of 21px */
+}
+
+/* ================================
+   ARROWS — 15px OUTSIDE THE SWIPER BOX
+   ================================ */
+.swiper-button-next,
+.swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    width: 44px;
+    /* transform: translateY(-50%); */
+}
+
+.swiper-button-next {
+    right: 15px;        /* 15px from outside box */
+}
+
+.swiper-button-prev {
+    left: 15px;         /* 15px from outside box */
+}
+
+/* OPTIONAL STYLING */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    background: #35abb982;
+    height: 44px;
+    width: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    border: 2px solid #23a3b3;
+    color: #000;
+    font-size: 16px;
+    content: var(--arrow-icon);
+}
+
+.swiper-button-prev::after{
+    transform: rotate(180deg);
+}
+
+.trending-slider-inner.swiper-wrapper{
+    padding-bottom: 15px;
+}
+
+
+
+/* Position the line under the slider */
+.swiper-pagination-progressbar {
+    position: absolute !important;
+    bottom: -5px;          /* adjust higher/lower */
+    left: 0;
+    width: 100%;
+    height: var(--swiper-pagination-progressbar-size);           /* thickness of bar */  /* background line */
+    left: 0;
+    right: 0;
+    top: unset !important;
+    margin: 0 auto;
+    max-width: 100px;
+    bottom: -5px;
+    background: #8ACED7;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 19px;
+    
+}
+
+/* ACTIVE blue progress */
+.swiper-pagination-progressbar-fill {
+    background: #0095A8 !important;  /* YOUR CUSTOM BLUE */
+    height: 100%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 19px;
+    height: 3px;
+    top: -1px;
+}
+
+.trending-slider-btn.swiper-button-prev{
+    left:0;
+}
+.trending-slider-btn.swiper-button-next{
+    right: 0;
+}
+
+@media screen and (max-width: 1280px) {
+    .trending-section-head{
+    margin: 32px 0 16px 0;
+    text-align: center;
+}
+
+.trending-section-heading{
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+    margin-bottom: 8px;
+
+}
+
+.trending-section-subtitle{
+    font-size: 20px;
+    color: #67696E;
+    line-height: 28px;
+    font-weight: 400;
+}
+
+.slider-container{
+    padding: 0;
+}
+}

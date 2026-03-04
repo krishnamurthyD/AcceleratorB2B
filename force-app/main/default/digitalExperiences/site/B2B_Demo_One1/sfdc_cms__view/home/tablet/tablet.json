@@ -1,0 +1,75 @@
+{
+  "type" : "sfdc_cms__view",
+  "title" : "Home",
+  "contentBody" : {
+    "component" : {
+      "children" : [ {
+        "id" : "09a57aad-88c0-4112-bf4d-d4a2587d73de",
+        "attributes" : {
+          "columnVerticalAlign" : "flex-start"
+        }
+      }, {
+        "id" : "81b2fc84-11e4-4107-8a8a-0120265bbd92",
+        "attributes" : {
+          "columnVerticalAlign" : "flex-start"
+        }
+      }, {
+        "id" : "fb979704-6e3b-4c36-a5d4-bbff44703cb2",
+        "attributes" : {
+          "columnVerticalAlign" : "flex-start"
+        }
+      }, {
+        "id" : "288ac35d-be28-4273-9219-988f89cccffd",
+        "attributes" : {
+          "columnVerticalAlign" : "center"
+        }
+      }, {
+        "id" : "79351459-fc97-4d90-b8c0-653643871c98",
+        "attributes" : {
+          "columnVerticalAlign" : "center"
+        }
+      }, {
+        "id" : "83bfcc60-e69e-4cbf-9531-2bddc0947e85",
+        "attributes" : {
+          "columnVerticalAlign" : "center"
+        }
+      }, {
+        "id" : "c29fcf5a-9fcc-4b4e-9508-3e31f3e0b07a",
+        "attributes" : {
+          "columnVerticalAlign" : "center"
+        }
+      }, {
+        "id" : "3032a002-f831-4be3-82c0-07f66b0e4d96",
+        "attributes" : {
+          "textAlign" : "center"
+        }
+      }, {
+        "id" : "62a433c2-b459-4f6c-8ba7-b6d13eadd4f1",
+        "attributes" : {
+          "textAlign" : "center"
+        }
+      }, {
+        "id" : "77544b33-2f08-49e5-a129-ff12fa5c9fdf",
+        "attributes" : {
+          "columnVerticalAlign" : "flex-start"
+        }
+      }, {
+        "id" : "e1ae97d1-1796-4c9e-be7a-d1c7410ca52d",
+        "attributes" : {
+          "pickerButtonAlignment" : "left"
+        }
+      }, {
+        "id" : "478222d3-8361-4f9a-ac40-885f44c5dd72",
+        "attributes" : {
+          "pickerButtonAlignment" : "left"
+        }
+      }, {
+        "id" : "e0fae350-1c05-42e4-9260-c5baf530ab08",
+        "attributes" : {
+          "columnVerticalAlign" : "flex-start"
+        }
+      } ]
+    }
+  },
+  "urlName" : "home"
+}

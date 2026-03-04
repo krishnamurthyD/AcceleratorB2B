@@ -1,0 +1,63 @@
+:host,
+.text-readmore-option {
+  /* Typography */
+  font-family: Poppins;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 1%;
+  /* 0% */
+  color: #67696E;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Leading-trim is experimental; keep as a no-op comment for reference */
+  /* leading-trim: none; */
+}
+
+/* container spacing */
+.text-readmore-option {
+  display: inline-block;
+  word-break: break-word;
+  white-space: normal;
+}
+
+/* Read more / show less link */
+.read-more {
+  margin-left: 8px;
+  color: #0095a8;
+  /* link accent (adjust if you have a brand token) */
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+/* Hover / focus affordances */
+.read-more:hover,
+.read-more:active {
+  text-decoration: underline;
+}
+
+.read-more:focus,
+.read-more:focus-visible {
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* When truncated text is shown ensure ellipsis (if you prefer) */
+/* Uncomment if you want single-line ellipsis instead of slicing in JS */
+/*
+.truncated {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+*/

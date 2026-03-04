@@ -1,0 +1,138 @@
+<template lwc:render-mode="light">
+    <div
+        if:true={isLoggedIn}
+        class={menuContainerClasses}
+        onkeydown={handleKeyDownOnMenu}
+        onfocusout={handleFocusOutOnMenu}
+        tabindex="-1">
+        <button
+            lwc:ref="menuButton"
+            class="slds-no-space menu-button"
+            onclick={handleMenuTriggerClick}
+            aria-haspopup="true"
+            aria-label="user-Icon-image"
+            aria-expanded={_state.isMenuExpanded}>
+            <span class={menuTriggerContainerClasses}>
+                <span
+                    if:true={showNameInTrigger}
+                    class="slds-media__body slds-show_large menu-trigger">
+                    <span class={menuTriggerUserNameClasses}>{userName}</span>
+                    <span
+                        if:true={includeCompanyName}
+                        class="menu-trigger-p slds-text-align_right slds-truncate slds-text-title_bold">
+                        {companyName}
+                    </span>
+                </span>
+                <span>
+                    <div class="user-name-icon">{userName}</div>
+                </span>
+            </span>
+        </button>
+
+        <div
+            if:true={showMenu}
+            class={menuDropDownContainerClasses}
+            style={dropDownTopAndRightStyleString}>
+            <span
+                class="menu-nubbin mobile-visible"
+                aria-hidden="true"
+                style={nubbinStyleString}></span>
+            <span
+                class="menu-nubbin desktop-visible tablet-visible"
+                aria-hidden="true"></span>
+            <ul
+                class="slds-dropdown__list user-profile-menu-list menu_ul slds-scrollable_y"
+                role="menu">
+                <template
+                    for:each={styleUserDetailsForMobileAndTablet}
+                    for:item="item"
+                    if:true={showNameInTrigger}>
+                    <li
+                        key={item.id}
+                        class="slds-dropdown__item slds-hide_large company-name">
+                        <p class={item.classes}>
+                            <span
+                                class="slds-truncate"
+                                title={item.label}>
+                                {item.label}
+                            </span>
+                        </p>
+                    </li>
+                </template>
+                <template
+                    for:each={styleMappedMenuItems}
+                    for:item="item">
+                    <li
+                        key={item.id}
+                        class="slds-dropdown__item"
+                        role="menuitem">
+                        <a
+                            href={item.hrefValue}
+                            class={item.classes}
+                            onclick={handleMenuItemClick}
+                            onmouseenter={handleFocusOrHoverOnMenuItem}
+                            tabindex="-1"
+                            data-id={item.id}>
+                            <span
+                                class="slds-truncate"
+                                title={item.label}>
+                                {item.label}
+                            </span>
+                        </a>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+    <div
+        if:false={isLoggedIn}
+        class={menuContainerClasses}
+        onkeydown={handleKeyDownOnMenu}
+        onfocusout={handleFocusOutOnMenu}
+        tabindex="-1">
+        <button
+            lwc:ref="menuButton"
+            class="slds-no-space menu-button"
+            onclick={handleMenuTriggerClick}
+            aria-haspopup="true"
+            aria-label="user-Icon-image"
+            aria-expanded={_state.isMenuExpanded}>
+            <span class={menuTriggerContainerClasses}>
+                <span>
+                    <lightning-icon if:false={showIconOrImage}
+                        src={guestUserIconToShow}
+                        alternative-text="user-Icon-image"
+                        size="small"
+                        class="icon-color slds-icon-text-default"></lightning-icon>
+                    <img if:true={showIconOrImage} src={guestUserIconToShow} alt="user-Icon-image" class="user-image-icon"/>
+                </span>
+            </span>
+        </button>
+
+        <div
+            if:true={showMenu}
+            class={menuDropDownContainerClasses}
+            style={dropDownTopAndRightStyleString}>
+            <span
+                class="menu-nubbin mobile-visible"
+                aria-hidden="true"
+                style={nubbinStyleString}></span>
+            <span
+                class="menu-nubbin desktop-visible tablet-visible"
+                aria-hidden="true"></span>
+            <ul
+                class="slds-dropdown__list user-profile-menu-list menu_ul slds-scrollable_y"
+                role="menu">
+                <div class="outer-profile-container">
+                    <div class="inner-container">
+                        <div class="welcome-message">{welcomeTextToShow}</div>
+                        <div class="login-message">{welcomeSubtextToShow}</div>
+                    </div>
+                    <a  href={_loginPageUrl} onclick={handleLoginButtonClick} class="anchor-tag">
+                        <div class="sign-up-button">{signUpButtonTextToShow}</div>
+                    </a>
+                </div>
+            </ul>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Feature-Card-Tile</masterLabel>
+        <targets>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Page_Layout</target>
+    </targets>
+    <targetConfigs>
+    <targetConfig targets="lightningCommunity__Default">
+
+        <property name="maxTilesDisplay" type="Integer" label="Max Tiles Display in Carousel" default="6" description="Max tiles to display in the carousel (2-6)" />
+        <property name="cardBackgroundColor" type="Color" label="Select Card Background Color" />
+
+        <property name="contentAlignment" type="String" label="Content Alignment"  datasource="left,center,right" default="left"/>
+        <property name="cardHeadingTextColor" type="Color" label="Heading Text Color" />
+        <property name="cardDescriptionTextColor" type="Color" label="Description Text Color"/>
+
+        <property name="borderRadius" type="String" label="Border Radius"  default="12"/>
+
+        <property name="buttonBackgroundColor" type="Color" label="Button Background Color"/>
+        <property name="buttonBackgroundHoverColor" type="Color" label="Button Background Hover Color"/>
+        <property name="buttonTextColor" type="Color" label="Button Text Color"/>
+        <property name="buttonTextHoverColor" type="Color" label="Button Text Hover Color"/>
+
+        <property name="enableAutoplay" type="Boolean" label="Enable Auto-Scroll (Autoplay)" default="false"/>
+        <property name="autoplayDelay" type="Integer" label="Autoplay Delay (ms)" default="3000" />
+
+        <property name="enableLoop" type="Boolean" label="Enable Looping" default="false"/>
+
+    </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,47 @@
+<template>
+    <div class="plp-header slds-grid slds-grid_align-spread slds-p-vertical_medium">
+        <!-- Left: Filter Toggle & Count -->
+        <div class="slds-col slds-grid slds-grid_vertical-align-center">
+            <lightning-button-icon 
+                icon-name="utility:filterList" 
+                variant="border-filled" 
+                alternative-text="Toggle Filters" 
+                onclick={handleFilterToggle}
+                class="slds-m-right_small">
+            </lightning-button-icon>
+            <h1 class="slds-text-heading_medium">Products ({totalProducts})</h1>
+        </div>
+
+        <!-- Right: Sort & View Toggle -->
+        <div class="slds-col slds-grid slds-grid_vertical-align-center">
+            <!-- Sort Dropdown -->
+            <lightning-combobox
+                name="sort"
+                label="Sort By"
+                value={sortBy}
+                placeholder="Select"
+                options={sortOptions}
+                onchange={handleSortChange}
+                variant="label-hidden"
+                class="slds-m-right_small sort-dropdown">
+            </lightning-combobox>
+
+            <!-- View Toggle -->
+            <div class="view-toggle">
+                <lightning-button-icon 
+                    icon-name="utility:apps" 
+                    variant={gridVariant} 
+                    alternative-text="Grid View" 
+                    onclick={setGridView}
+                    class="slds-m-right_xx-small">
+                </lightning-button-icon>
+                <lightning-button-icon 
+                    icon-name="utility:list" 
+                    variant={listVariant} 
+                    alternative-text="List View" 
+                    onclick={setListView}>
+                </lightning-button-icon>
+            </div>
+        </div>
+    </div>
+</template>

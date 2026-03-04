@@ -1,0 +1,47 @@
+<template>
+    <template if:true={startRendering}>
+        <div class="testimonial-heading">{label.heading}</div>
+        <div class="swiper testimonial-swiper">
+            <div class="swiper-wrapper testimonial-container">
+                <template for:each={testimonials} for:item="card">
+                    <div key={card.id} class="swiper-slide testimonial-card">
+
+                        <!-- Stars -->
+                        <div class=" stars">
+                            <template for:each={card.stars} for:item="star" for:index="index">
+                                <span key={card.id} class=" star">
+                                    <template if:true={star.filled}>
+                                        <img src={filledStar} class="rating-icon" />
+                                    </template>
+                                    <template if:true={star.half}>
+                                        <img src={halfFilledStar} class="rating-icon" />
+                                    </template>
+                                    <template if:true={star.empty}>
+                                        <img src={blankStar} class="rating-icon" />
+                                    </template>
+                                </span>
+                            </template>
+                        </div>
+
+                        <!-- Title -->
+                        <h3 class="title">{card.heading}</h3>
+
+                        <!-- Description -->
+                        <p class="description">{card.description}</p>
+
+                        <!-- Profile Section -->
+                        <div class="profile">
+                            <img src={imgSrc} alt={authorName} class="avatar" />
+                            <div class="profile-info">
+                                <p class="author-name">{card.authorName}</p>
+                                <p class="author-role">{card.authorRole}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </template>
+            </div>
+            <div class="swiper-pagination custom-pagination"></div>
+        </div>
+    </template>
+</template>

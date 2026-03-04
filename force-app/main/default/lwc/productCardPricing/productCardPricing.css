@@ -1,0 +1,40 @@
+.price-container {
+  margin-bottom: 4px;
+}
+
+.price-row {
+  margin-bottom: 4px;
+}
+
+.sale-price {
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.list-price {
+  text-decoration: line-through;
+  color: #757575;
+  font-size: 12px;
+}
+
+.promo-row {
+  min-height: 40px;
+  /* Reserve space */
+}
+
+.save-text {
+  color: #008ba3;
+  /* Teal */
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.urgency-text {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.urgency-text.red {
+  color: #D92D20;
+}

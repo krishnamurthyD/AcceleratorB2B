@@ -1,0 +1,40 @@
+{
+  "type" : "sfdc_cms__view",
+  "title" : "Checkout",
+  "contentBody" : {
+    "component" : {
+      "children" : [ {
+        "attributes" : {
+          "dxpStyle" : {
+            "margin" : {
+              "bottom" : "0%",
+              "left" : "0%",
+              "right" : "0%",
+              "top" : "0%"
+            }
+          }
+        },
+        "id" : "4e48ea07-e57a-4541-a2f3-6249479c8a48"
+      }, {
+        "attributes" : {
+          "dxpStyle" : {
+            "margin" : {
+              "bottom" : "0%",
+              "left" : "0%",
+              "right" : "0%",
+              "top" : "0%"
+            },
+            "padding" : {
+              "bottom" : "0.5rem",
+              "left" : "0.5rem",
+              "right" : "0.5rem",
+              "top" : "0.5rem"
+            }
+          }
+        },
+        "id" : "2bd17b35-7e34-4f79-8667-4dc31a89676b"
+      } ]
+    }
+  },
+  "urlName" : "checkout"
+}

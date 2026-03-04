@@ -1,0 +1,27 @@
+<template lwc:render-mode="light">
+    <div
+        class="suggestions-combobox-container"
+        onkeydown={handleKeyDown}>
+        <site-search-input-suggestions
+            input-placeholder-text={inputPlaceholderText}
+            oninputfocused={handleInputFocused}
+            oninputblur={handleInputBlur}
+            oninputclear={handleInputClear}
+            oninputclick={handleInputClick}
+            onsearchrequest={handleSearch}
+            oninputtextchange={handleInputTextChange}
+            show-activity-indicator={showActivityIndicator}
+            show-search-button={showSearchButton}
+            custom-styles={customStyles}
+            text={_normalizedTerm}
+            icon-size={iconSize}
+            input-search-width={inputSearchWidth}
+            search-icon-open-child={_isSearchOpen}></site-search-input-suggestions>
+        <site-search-listbox
+            style={_listBoxStyles}
+            items={_displayItems}
+            onsearchoptionselection={handleOptionSelection}
+            custom-styles={customListBoxStyles}
+            onsearchiconopen={handleSearchIconOpen}></site-search-listbox>
+    </div>
+</template>

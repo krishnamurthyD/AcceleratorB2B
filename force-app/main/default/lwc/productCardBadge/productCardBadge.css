@@ -1,0 +1,35 @@
+.badge {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+
+  padding: 4px 16px;
+
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.badge-stock {
+  background: #FFEBEB;
+  color: #D92D20;
+}
+
+.badge-seller,
+.badge-trending {
+  background: rgba(0, 149, 168, 0.1);
+  color: #0095A8;
+}
+
+.icon-white {
+  --lwc-colorTextIconDefault: #0095A8;
+}

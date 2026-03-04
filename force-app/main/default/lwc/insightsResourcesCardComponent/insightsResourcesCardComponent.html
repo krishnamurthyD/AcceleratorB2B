@@ -1,0 +1,57 @@
+<template>
+       <template if:true={startRendering}>
+        <div class="insight-card-head">
+            <div class="insight-card-heading">{label.heading}</div>
+            <div class="insight-card-description">{label.description}</div>
+        </div>
+            <div class="slider-container">
+                <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <template for:each={cardData} for:item="card">
+                                <div class="swiper-slide insight-card" key={card.seqence} onclick={handleTileClick} data-url={card.buttonUrl}>
+                                    <div class="insight-card-inner">
+                                        <div class="insight-card-image-wrapper">
+                                            <img src={card.imageUrl} alt="Box being taped" class="insight-card-image" />
+                                            <span class="insight-card-badge">
+                                                {card.cardTag}
+                                            </span>
+                                        </div>
+                                         <div class="insight-card-content">
+                                            <div class="insight-card-meta">
+                                                <span class="insight-card-date">
+                                                    {card.timeLineDate}
+                                                </span>
+                                                <span class="insight-card-author">
+                                                    {card.timeLineAuthor}
+                                                </span>
+                                                <span class="insight-card-readtime">
+                                                    {card.timeLineTime}
+                                                </span>
+                                            </div>
+                                            <div class="insight-card-text">
+                                                <h3 class="insight-card-title">
+                                                    {card.cardHeading}
+                                                </h3>
+                                                <p class="insight-card-description">
+                                                    {card.cardDescription}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="insight-card-footer">
+                                        <a href={card.buttonUrl} class="insight-card-read-more">{card.cardButtonLabel}</a>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                        <template if:true={showArrows}>
+                            <div class="swiper-button-next swiper-btn"></div>
+                            <div class="swiper-button-prev swiper-btn"></div>
+                        </template>
+                        <template if:false={showArrows}>
+                            <div class="swiper-pagination"></div>
+                        </template>
+                </div>
+            </div>
+       </template>
+   </template>

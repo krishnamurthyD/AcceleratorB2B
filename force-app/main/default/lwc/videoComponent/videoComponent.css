@@ -1,0 +1,73 @@
+.video-container {
+    position: relative;
+    width: 100%;
+    padding:0;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+.video-element {
+    /* width: 100vw;
+    height: 600px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-left: -2%;; */
+    height: 600px;
+    object-fit: cover;
+    width: 100%;
+    
+}
+
+/* ---- PLAY BUTTON ---- */
+.play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+
+    background:rgb(0 149 158 / 20%);
+    color:rgb(0 149 158 / 20%);
+    border: none;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    font-size: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 0.25s ease;
+}
+
+/* Hover effect */
+.play-btn:hover {
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* hide button when playing (optional) */
+.video-container.playing .play-btn {
+    opacity: 0;
+    pointer-events: none;
+}
+@media only screen and (max-width: 480px) {
+
+    .video-container {
+        width: 100%;
+        padding: 0;
+        border-radius: 12px;
+    }
+
+    .video-frame,
+    .video-element {
+        height: 460px;        /* ★ Matches your Figma size (358 × 460) */
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .play-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+}

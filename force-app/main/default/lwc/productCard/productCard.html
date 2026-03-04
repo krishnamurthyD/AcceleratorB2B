@@ -1,0 +1,69 @@
+<template>
+    <div class={containerClass}>
+        
+        <!-- 1. BADGE COMPONENT -->
+        <c-product-card-badge 
+            badges={computedBadges}>
+        </c-product-card-badge>
+
+        <!-- 2. ACTIONS COMPONENT (Floating Icons) -->
+        <c-product-card-actions 
+            is-wishlisted={isWishlisted}
+            is-out-of-stock={isOutOfStock}
+            onwishlisttoggle={handleWishlistToggle}
+            onquickview={handleQuickView}
+            onviewsimilar={handleViewSimilar}
+            onnotifyme={handleNotifyMe}>
+        </c-product-card-actions>
+
+        <!-- 3. IMAGE COMPONENT -->
+        <div class="image-wrapper">
+            <c-product-card-image 
+                images={productImages}
+                alt-text={product.name}
+                onimageclick={handleNavigate}>
+            </c-product-card-image>
+        </div>
+
+        <!-- 4. CART COMPONENT (Hover Actions) -->
+        <div class="hover-actions">
+            <c-product-card-cart 
+                is-out-of-stock={isOutOfStock}
+                max-quantity={maxQuantity}
+                onaddtocart={handleAddToCart}
+                onnotifyme={handleNotifyMe}
+                onmaxlimitreached={handleMaxLimit}>
+            </c-product-card-cart>
+        </div>
+
+        <!-- DETAILS WRAPPER -->
+        <div class="details-section">
+            
+            <!-- 5. INFO COMPONENT -->
+            <c-product-card-info 
+                name={product.name}
+                part-number={partNumber}
+                rating={product.rating}
+                review-count={product.reviewCount}
+                variant-count={product.variantCount}
+                onnavigate={handleNavigate}>
+            </c-product-card-info>
+
+            <!-- 6. PRICING COMPONENT -->
+            <c-product-card-pricing
+                sales-price={formattedNegotiatedPrice}
+                list-price={formattedListingPrice}
+                discount-text={discountText}
+                urgency-message={urgencyMessage}>
+            </c-product-card-pricing>
+
+            <!-- 6. PRICING COMPONENT -->
+            <c-product-card-pricing 
+                price={product.price}
+                list-price={product.listPrice}
+                unit-price-display={product.unitPriceDisplay}
+                urgency-message={product.urgencyMessage}>
+            </c-product-card-pricing>
+        </div>
+    </div>
+</template>
