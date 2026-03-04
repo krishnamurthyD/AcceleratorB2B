@@ -1,0 +1,38 @@
+<template lwc:render-mode="light">
+    <span
+        class="cart-container slds-dropdown-trigger"
+        data-automation="cart-badge"
+        style={customStyles}>
+        <template lwc:if={showMiniCart}>
+            <button
+                onclick={handleCartButtonIconClick}
+                class="slds-button slds-button_icon slds-button_icon-border-filled"
+                aria-expanded={displayMiniCart}>
+                <span
+                    class="slds-icon_container icon-container"
+                    title={iconAssistiveText}>
+                    <img src={iconUrlImage} />
+                    <span class="slds-assistive-text">{iconAssistiveText}</span>
+                </span>
+            </button>
+        </template>
+        <template lwc:else>
+            <a
+                onclick={handleCartButtonIconClick}
+                href={_cartPageUrl}>
+                <span
+                    class="slds-icon_container icon-container"
+                    title={iconAssistiveText}>
+                    <img src={iconUrlImage} />
+                    <span class="slds-assistive-text">{iconAssistiveText}</span>
+                </span>
+            </a>
+        </template>
+        <span
+            if:true={showBadge}
+            aria-hidden="true"
+            class="slds-notification-badge show-notification">
+            {badgeItemsCount}
+        </span>
+    </span>
+</template>

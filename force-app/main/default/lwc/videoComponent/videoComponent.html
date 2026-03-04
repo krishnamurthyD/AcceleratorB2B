@@ -1,0 +1,38 @@
+<template>
+    <div class="video-container">
+
+        <!-- YouTube -->
+        <template if:true={isYouTube}>
+            <iframe class="video-element" src={finalVideoUrl} frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        </template>
+
+        <!-- CMS Video -->
+        <template if:false={isYouTube}>
+            <video class="video-element" muted loop playsinline>
+                <source src={finalVideoUrl} type="video/mp4" />
+            </video>
+        </template>
+
+        <button class="play-btn" onclick={togglePlay}>
+
+                <!-- Play SVG (when NOT playing) -->
+                <template if:false={isPlaying}>
+                    <svg width="32" height="40" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.75 5.16224C0.75 3.14137 0.75 2.13093 1.17788 1.57393C1.55064 1.0887 2.12038 0.788424 2.73715 0.75216C3.44511 0.710533 4.29886 1.27102 6.00635 2.392L28.2267 16.9798C29.6375 17.906 30.343 18.3691 30.5888 18.9529C30.8037 19.4632 30.8037 20.0368 30.5888 20.5471C30.343 21.1309 29.6375 21.594 28.2267 22.5202L6.00635 37.108C4.29886 38.229 3.44511 38.7895 2.73715 38.7478C2.12038 38.7116 1.55064 38.4113 1.17788 37.9261C0.75 37.3691 0.75 36.3586 0.75 34.3378V5.16224Z"
+                        stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </template>
+
+                <!-- Pause SVG (when playing) -->
+                <template if:true={isPlaying}>
+                    <svg width="32" height="40" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="10" height="36" stroke="white" stroke-width="3" rx="2"/>
+                        <rect x="20" y="2" width="10" height="36" stroke="white" stroke-width="3" rx="2"/>
+                    </svg>
+                </template>
+
+            </button>
+
+    </div>
+</template>

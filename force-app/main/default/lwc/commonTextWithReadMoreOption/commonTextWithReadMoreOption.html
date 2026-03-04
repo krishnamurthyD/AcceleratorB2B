@@ -1,0 +1,15 @@
+<template>
+  <div class="text-readmore-option">
+    <template if:true={isTruncated}>
+      <span>{truncatedText}</span>
+      <button onclick={handleReadMoreClick} class="read-more">{linkLabel}</button>
+    </template>
+
+    <template if:false={isTruncated}>
+      <span>{fullText}</span>
+      <template if:true={showCollapse}>
+        <button onclick={handleReadMoreClick} class="read-more">{linkLabel}</button>
+      </template>
+    </template>
+  </div>
+</template>

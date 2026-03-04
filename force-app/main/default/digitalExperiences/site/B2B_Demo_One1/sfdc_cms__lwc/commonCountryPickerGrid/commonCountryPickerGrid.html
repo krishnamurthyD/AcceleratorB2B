@@ -1,0 +1,22 @@
+<template lwc:render-mode="light">
+  <template for:each={formattedLocales} for:item="locale">
+    <button
+      key={locale.locale}
+      class="locale"
+      data-locale={locale.locale}
+      onclick={handleLocaleClick}
+    >
+      <template lwc:if={locale.flagUrl}>
+        <img
+          src={locale.flagUrl}
+          class="locale-flag"
+          alt={locale.countryCode}
+          style="margin-right: 0.5rem; vertical-align: middle; width: 20px; height: 15px;"
+        />
+      </template>
+      <span class="locale-country">
+        {locale.localeLabel}
+      </span>
+    </button>
+  </template>
+</template>

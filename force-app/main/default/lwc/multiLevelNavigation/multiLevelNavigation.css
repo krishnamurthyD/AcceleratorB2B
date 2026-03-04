@@ -1,0 +1,161 @@
+/* ============================
+   DESKTOP MEGA NAVIGATION
+   ============================ */
+
+.nav-wrapper {
+  position: static;
+  /* ✅ Escape container */
+  width: 100%;
+}
+
+/* Top Level Navigation */
+.l1-bar {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+/* Level-1 item */
+.l1-bar .item {
+  cursor: pointer;
+  padding: 12px 14px;
+}
+
+.l1-bar .item:hover {
+  text-decoration: underline;
+  text-decoration-color: #0095a8;
+}
+
+/*  FULL WIDTH MEGA DROP */
+.mega-dropdown {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 95%;
+  min-height: 300px;
+  background: white;
+  display: flex;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  z-index: 10000;
+  box-sizing: border-box;
+  margin: 0 2.5%;
+}
+
+.main-level {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.sub-level {
+  font-size: 16px;
+  font-weight: 400;
+  display: flex !important;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.sub-level:hover {
+  font-weight: 500;
+}
+
+/* Columns */
+.column {
+  width: 33%;
+  padding: 24px 50px;
+}
+
+.mid {
+  background: #eef8f8;
+}
+
+/* Items */
+.mega-dropdown .item {
+  padding: 8px 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.mega-dropdown .item:hover {
+  text-decoration: underline;
+  text-decoration-color: #0095a8;
+}
+
+a.item {
+  display: block;
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* FORCE L3 ITEMS TO STACK VERTICALLY */
+.mega-dropdown .column a.item {
+  display: block;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+/* ============================
+   MOBILE
+   ============================ */
+
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-l1 {
+  padding: 16px;
+  font-weight: 500;
+  background-color: #0095a8;
+  color: white;
+  border-bottom: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* .mobile-l2, */
+.mobile-l3,
+.mobile-l4 {
+  margin-left: 12px;
+}
+
+.mobile-l2-item,
+.mobile-l3-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.mobile-l4-item {
+  display: block;
+  padding: 10px 18px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.mobile-l2-item:hover,
+.mobile-l3-item:hover,
+.mobile-l4-item:hover {
+  text-decoration: underline;
+  text-decoration-color: #0095a8;
+  font-weight: 500;
+}
+
+/* Hide desktop on mobile */
+@media (max-width: 768px) {
+  .l1-bar,
+  .mega-dropdown {
+    display: none;
+  }
+}
+
+.level-three-background {
+  background-color: #e6f4f6;
+}

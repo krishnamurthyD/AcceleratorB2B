@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="searchResults" type="String" label="Search Results" description="Bind to {!Search.Results}" default="{!Search.Results}" />
+            <property name="sortRules" type="String" label="Sort Rules" description="Bind to {!Search.SortRules.rules}" default="{!Search.SortRules.rules}" />
+            <property name="currentSortRuleId" type="String" label="Current Sort Rule ID" description="Bind to {!Search.SortRules.currentSortRuleId}" default="{!Search.SortRules.currentSortRuleId}" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

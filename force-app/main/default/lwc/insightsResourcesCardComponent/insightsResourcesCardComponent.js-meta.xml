@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <masterLabel>Insight-Resource-Card-Tile</masterLabel>
+    <isExposed>true</isExposed>
+        <targets>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Page_Layout</target>
+    </targets>
+    <targetConfigs>
+    <targetConfig targets="lightningCommunity__Default">
+
+
+ 
+        <property name="cmsCollectionRef" type="ContentReference" label="Select CMS Collection" />
+        <property name="spaceBetween" type="Integer" label="Space Between Slides" default="21" />
+        <property name="maxTilesDisplay" type="Integer" label="Max Tiles Display in Carousel" default="6" description="must ensure data should be present" />
+        <property name="cardBackgroundColor" type="Color" label="Select Card Background Color" />
+        <!-- <property name="cardButtonColor" type="Color" label="Select Card Button Color" /> -->
+ 
+        <!-- <property name="CardTileImage" type="ContentReference" label="Select Card Tile Image"/> -->
+        <!-- <property name="baseUrl" type="String" label="Base Url"/> -->
+ 
+        <property name="timeLineTextColor" type="Color" label="Timeline Text Color" />
+        <property name="cardHeadingTextColor" type="Color" label="Heading Text Color" />
+        <property name="cardDescriptionTextColor" type="Color" label="Description Text Color"/>
+
+        <property name="buttonBackgroundColor" type="Color" label="Button Background Color"/>
+        <property name="buttonBackgroundHoverColor" type="Color" label="Button Background Hover Color"/>
+        <property name="buttonTextColor" type="Color" label="Button Text Color"/>
+        <property name="buttonTextHoverColor" type="Color" label="Button Text Hover Color"/>
+
+        <property name="enableAutoplay" type="Boolean" label="Enable Auto-Scroll (Autoplay)" default="false"/>
+        <property name="autoplayDelay" type="Integer" label="Autoplay Delay (ms)" default="3000" />
+
+        <property name="enableLoop" type="Boolean" label="Enable Looping" default="false"/>
+
+    </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

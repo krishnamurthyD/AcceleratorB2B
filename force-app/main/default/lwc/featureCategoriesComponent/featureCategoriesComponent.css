@@ -1,0 +1,363 @@
+:host {
+    --font1: "Poppins", sans-serif;
+    --color1: #0095a8;
+
+    --card-background-color: #ffffff;
+    --card-text-color: #67696E;
+    --card-title-text-color: #000000;
+    --card-description-text-color: #67696E;
+    --content-alignment: left;
+
+    --card-border-color: #ffffff;
+    --card-border-width: 1px;
+    --card-border-style: solid;
+    --card-border-radius: 10px;
+    --card-box-shadow: 0px 4px 8px 0px #67696e29;
+    --card-padding: 16px 16px 0 16px;
+
+    --card-button-background-color: #ffffff;
+    ;
+    --card-button-background-color-hover: #0095a8;
+    --card-button-text-color: #0095a8;
+    --card-button-text-color-hover: #fff;
+    --card-button-border-color: #ffffff;
+
+
+    --arrow-button-border-color: #0095A8;
+    --font-size-featured: 16px;
+    --line-height-featured: 27px;
+    --font-weight-featured: 600;
+    --link-icon: '➔';
+    --arrow-icon: url('/resource/insightResourceSliderArrow/arrow-icon.svg');
+    --swiper-theme-color: #0095A8;
+    --swiper-pagination-progressbar-size: 1px;
+    --progress-bar-background-color: #8ACED7;
+    --progress-bar-color: #0095A8;
+  }
+
+
+  .feature-category-head {
+    margin: 80px 0 52px 0;
+    font-family: var(--font1);
+  }
+
+  .feature-category-heading {
+
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 500;
+    color: #1C1F26;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .feature-category-description {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    color: #67696E;
+    text-align: center;
+  }
+
+  /* card-styling-start*/
+  .feature-card {
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px 0px #67696e29;
+    /* max-width: 297px; */
+    position: relative;
+    background-color: var(--card-background-color);
+    cursor: pointer;
+
+    font-size: var(--font-size-featured);
+    line-height: var(--line-height-featured);
+    font-weight: var (--font-weight-featured);
+    border-radius: var(--card-border-radius);
+  }
+
+  .feature-card-badge {
+    position: absolute;
+    top: 27px;
+    right: 27px;
+    background: white;
+    padding: 0px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+    color: #1ba0b0;
+    font-family: var(--font1);
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+
+
+  .feature-card-inner {
+    padding: 16px 16px 0 16px;
+  }
+
+  .feature-card-title {
+    font-family: var(--font1);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 8px;
+    color: var(--card-title-text-color);
+
+    font-size: 18px;
+    line-height: 27px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    text-align: var(--content-alignment);
+  }
+
+  .feature-card-description {
+    font-family: var(--font1);
+    color: var(--card-description-text-color);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* 👈 Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: #67696E;
+    font-size: 14px;
+    line-height: 17px;
+    -webkit-line-clamp: 3;
+    /* keep on one line */
+    text-wrap: wrap;
+    text-align: var(--content-alignment);
+  }
+
+  .feature-card-image-wrapper {
+    margin-bottom: 12px;
+    min-width: 265px;
+    width: 100%;
+
+  }
+
+
+  .feature-card-read-more {
+    font-family: var(--font1);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 20px 16px 16px 16px;
+    display: block;
+    width: 100%;
+    border: none;
+    position: relative;
+    bottom: -1px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: var(--card-button-background-color) !important;
+    color: var(--card-button-text-color) !important;
+    text-align: left;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    text-align: var(--content-alignment);
+    line-height: 19px;
+  }
+
+  .feature-card:hover .feature-card-read-more {
+
+    background: var(--card-button-background-color-hover) !important;
+    color: var(--card-button-text-color-hover) !important;
+    text-decoration: none;
+  }
+
+  .message {
+    text-align: center;
+    border: 2px solid black;
+    padding: 10px;
+    background: var(--card-button-background-color-hover);
+    border-radius: 9px;
+  }
+
+
+  .feature-card-read-more::after {
+    content: var(--link-icon);
+    position: absolute;
+    margin-left: 8px;
+    top: 50%;
+    transform: translateY(-25%);
+  }
+
+  .feature-card:hover .feature-card-read-more::after {
+    filter: brightness(0) invert(1);
+  }
+
+  .feature-card-read-more {
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+
+
+  /* card-styling-end*/
+
+
+  /* swiper css Started */
+  .swiper-btn::after,
+  .swiper-btn::before {
+    background: #35abb982;
+    height: 44px;
+    width: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    position: absolute;
+    border: 2px solid #23a3b3;
+    left: 0px;
+    z-index: 11;
+    color: #000;
+    font-size: 16px;
+  }
+
+  .swiper-outer-wrapper {
+    position: relative;
+    max-width: 1380px;
+    margin: 0 auto;
+
+  }
+
+
+  /* swiper css Ended */
+
+  /* ================================
+    SLIDER OUTER WRAPPER 
+    ================================ */
+  .slider-container {
+    position: relative;
+    max-width: 1370px;
+    /* outer container */
+    margin: 0 auto;
+    padding: 0 60px;
+    /* space for arrows on left/right */
+  }
+
+  /* ================================
+    SWIPER INNER WRAPPER (1250px)
+    ================================ */
+  .swiper {
+    max-width: 1250px;
+    /* slider area */
+    margin: 0 auto;
+    position: static;
+    /* center inside outer wrapper */
+  }
+
+  /* ================================
+    SLIDE WIDTH (4 per view)
+    ================================ */
+  .swiper-slide {
+    /* width: calc((1250px - 63px) / 4);  */
+    /* 4 slides, 3 gaps of 21px */
+  }
+
+  /* ================================
+    ARROWS — 15px OUTSIDE THE SWIPER BOX
+    ================================ */
+  .swiper-button-next,
+  .swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    /* transform: translateY(-50%); */
+  }
+
+  .swiper-button-next {
+    right: 15px;
+    /* 15px from outside box */
+  }
+
+  .swiper-button-prev {
+    left: 0;
+    /* 15px from outside box */
+  }
+
+  /* OPTIONAL STYLING */
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    background: transparent;
+    height: 44px;
+    width: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    border: 2px solid var(--arrow-button-border-color);
+    color: #000;
+    font-size: 16px;
+    content: var(--arrow-icon);
+  }
+
+  .swiper-button-prev::after {
+    transform: rotate(180deg);
+  }
+
+  .swiper-wrapper {
+    padding-bottom: 80px;
+  }
+
+
+
+  /* Position the line under the slider */
+  .swiper-pagination-progressbar {
+    position: absolute !important;
+    bottom: -5px;
+    /* adjust higher/lower */
+    left: 0;
+    width: 100%;
+    height: var(--swiper-pagination-progressbar-size);
+    /* thickness of bar */
+    /* background line */
+    left: 0;
+    right: 0;
+    top: unset !important;
+    margin: 0 auto;
+    max-width: 100px;
+    bottom: -5px;
+    background: var(--progress-bar-background-color, #8ACED7);
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 19px;
+    bottom: 48px;
+
+  }
+
+  /* ACTIVE blue progress */
+  .swiper-pagination-progressbar-fill {
+    background: var(--progress-bar-color,#0095A8) !important;
+    height: 100%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 19px;
+  }
+
+
+  @media screen and (max-width: 1280px) {
+    .feature-category-head {
+      margin: 32px 0 16px 0;
+    }
+
+    .feature-category-heading {
+      font-size: 20px;
+      line-height: 28px;
+      margin-bottom: 8px;
+    }
+
+    .feature-category-description {
+      font-size: 12px;
+      line-height: 20px;
+    }
+
+    .swiper-wrapper {
+      padding-bottom: 60.22px;
+    }
+
+    .slider-container {
+      padding: 0;
+    }
+  }

@@ -1,0 +1,388 @@
+:root {
+  /* Typography */
+  --lwr--font-header: 'Poppins', sans-serif;
+  --lwr--font-body: 'Inter', sans-serif;
+
+  /* Typography Scale */
+  --lwr-font-size-xxs: 10px;
+  --lwr-font-size-xs: 12px;
+  --lwr-font-size-sm: 14px;
+  --lwr-font-size-md: 16px;
+  --lwr-font-size-lmd: 18px;
+  --lwr-font-size-lg: 20px;
+  --lwr-font-size-xl: 24px;
+  --lwr-font-size-2xl: 32px;
+  --lwr-font-size-3xl: 40px;
+  --lwr-font-size-4xl: 56px;
+
+  /* Blue Shades */
+  --lwr--color-blue-50: #e6f4f6;
+  --lwr--color-blue-50-rgb: 230, 244, 246;
+
+  --lwr--color-blue-100: #b0dee4;
+  --lwr--color-blue-100-rgb: 176, 222, 228;
+
+  --lwr--color-blue-200: #8acedd;
+  --lwr--color-blue-200-rgb: 138, 206, 215;
+
+  --lwr--color-blue-300: #54b8c5;
+  --lwr--color-blue-300-rgb: 84, 184, 197;
+
+  --lwr--color-blue-400: #33aab9;
+  --lwr--color-blue-400-rgb: 51, 170, 185;
+
+  --lwr--color-blue-500: #0095a8;
+  --lwr--color-blue-500-rgb: 0, 149, 168;
+
+  --lwr--color-blue-600: #008899;
+  --lwr--color-blue-600-rgb: 0, 136, 153;
+
+  --lwr--color-blue-700: #006a77;
+  --lwr--color-blue-700-rgb: 0, 106, 119;
+
+  --lwr--color-blue-800: #00525c;
+  --lwr--color-blue-800-rgb: 0, 82, 92;
+
+  --lwr--color-blue-900: #003747;
+  --lwr--color-blue-900-rgb: 0, 63, 71;
+
+  /* Black Shades */
+  --lwr--color-black-50: #e8e9e9;
+  --lwr--color-black-50-rgb: 232, 233, 233;
+
+  --lwr--color-black-100: #b9babc;
+  --lwr--color-black-100-rgb: 185, 186, 188;
+
+  --lwr--color-black-200: #97989b;
+  --lwr--color-black-200-rgb: 151, 152, 155;
+
+  --lwr--color-black-300: #67696e;
+  --lwr--color-black-300-rgb: 103, 105, 110;
+
+  --lwr--color-black-400: #494c51;
+  --lwr--color-black-400-rgb: 73, 76, 81;
+
+  --lwr--color-black-500: #1c1f26;
+  --lwr--color-black-500-rgb: 28, 31, 38;
+
+  --lwr--color-black-600: #191c23;
+  --lwr--color-black-600-rgb: 25, 28, 35;
+
+  --lwr--color-black-700: #14161b;
+  --lwr--color-black-700-rgb: 20, 22, 27;
+
+  --lwr--color-black-800: #0f1115;
+  --lwr--color-black-800-rgb: 15, 17, 21;
+
+  --lwr--color-black-900: #0c0d10;
+  --lwr--color-black-900-rgb: 12, 13, 16;
+
+  /* Red Shades */
+  --lwr--color-red-100: #ffd8d8;
+  --lwr--color-red-100-rgb: 255, 216, 216;
+
+  --lwr--color-red-500: #ea4d4b;
+  --lwr--color-red-500-rgb: 234, 77, 75;
+
+  /* Green Shades */
+  --lwr--color-green-100: #edffec;
+  --lwr--color-green-100-rgb: 237, 255, 236;
+
+  --lwr--color-green-500: #3d914d;
+  --lwr--color-green-500-rgb: 61, 145, 77;
+
+  /* Yellow Shades */
+  --lwr--color-yellow-500: #ffcc66;
+  --lwr--color-yellow-500-rgb: 255, 204, 102;
+
+  /* White Shades */
+  --lwr--color-white-500: #ffffff;
+}
+
+
+/* Request a call Back  */
+.request-a-call-Back .slds-button {
+  width: 201px;
+}
+
+@media (max-width: 600px) {
+  .request-a-call-Back .slds-button {
+    width: 150px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+}
+
+/*columnrounder styles*/
+.rounded-corners {
+  border-radius: 12px;
+}
+
+/*IconColor styles*/
+.global-header-Hear-Icon {
+  fill: var(--lwr--color-black-900, Black);
+}
+
+/* Get Your Quote Section Styles */
+.get-your-quote h1 {
+  font-weight: 600 !important;
+  font-size: 32px;
+  line-height: 40px;
+}
+
+@media (max-width: 600px) {
+  .get-your-quote h1 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}
+
+/* Subtext styles */
+.get-your-quote-subtext {
+  font-weight: 400 !important;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+@media (max-width: 600px) {
+  .get-your-quote-subtext h3 {
+    font-size: 12px;
+    line-height: 20px;
+  }
+}
+
+/* Request a Quote link styles */
+@media (max-width: 600px) {
+  .request-a-quote a {
+    font-size: 12px;
+    line-height: 20px;
+  }
+}
+
+
+/* ===== PDP ICON Styles ===== */
+
+     .get-quote-today .container{
+            padding:5px !important;
+        }
+        .get-quote-today .quote-subtext h5{
+            font-size: 12px !important;
+    		font-weight: 400;
+        }
+        
+       .get-quote-today{
+            border: 1px solid #B0DEE4 !important;
+            border-radius:12px !important;
+        }
+        .quote-button .slds-button{
+            border-radius:12px !important;
+            font-size:14px !important;
+			font-weight:400 !important;
+        }
+       
+
+.container {
+  max-width: 1288px;
+  margin: 0 auto;
+  padding: 20px 20px;
+}
+
+@media (max-width: 960px) {
+  .container {
+    padding: 0px;
+    max-width: 100%;
+  }
+}
+
+.right-container {
+  display: flex !important;
+  flex-direction: row-reverse !important;
+padding: 0px 15px !important;
+ 
+}
+ 
+
+/* ===== Quick Actions Wrapper ===== */
+.quick-actions-wrapper {
+  display: flex !important;
+  justify-content: center;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* ===== Each Quick Actions Tile ===== */
+.quick-actions-tile {
+
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  /* ensures full horizontal centering */
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+  width: 297px;
+  height: 179px;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+}
+
+.tile-column .dxp-block-flexible-container {
+  background-color: #ffffff00 !important
+}
+
+/* ===== Blue Bar (Hover Line) ===== */
+.quick-actions-tile::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 7px;
+  background-color: var(--lwr--color-white-500, #ffffff);
+  transition: background-color 0.5s ease;
+}
+
+/* ===== Hover Effect ===== */
+.quick-actions-tile:hover::after {
+  box-shadow: 0px 4px 8px 0px #67696E29;
+  background-color: var(--lwr--color-blue-600, #008899);
+}
+
+/* ===== Icon/Image inside Tile ===== */
+.quick-actions-tile img,
+.quick-actions-tile dxp_content_layout-block-background-image {
+  display: block;
+  margin: 17.5px auto 28px auto;
+  /* centers horizontally */
+  width: 60px !important;
+  height: 60px !important;
+  object-fit: contain;
+}
+
+h4.quick-actions-title {
+  font-size: 40px;
+
+}
+
+
+/* ===== Tile Text (Center Align) ===== */
+.quick-actions-tile p,
+.quick-actions-tile span,
+.quick-actions-tile h3,
+.quick-actions-tile h4,
+.quick-actions-tile h5 {
+  text-align: center;
+  color: #222;
+  margin: 0;
+  font-weight: 500;
+}
+
+.footer-heading h4 {
+  font-size: 18px !important;
+  font-weight: 600;
+  color: var(--lwr--color-green-500, #3d914d)
+}
+
+.footer-subtext p {
+  font-size: 16px !important;
+}
+
+.footer-contact-us h4 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.right-container {
+  display: flex !important;
+  flex-direction: row-reverse !important;
+}
+
+
+
+.center-container {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.center-container .email-input {
+        background-color: #E6F4F6;
+    }
+
+    .hero-banner .slds-button{
+      border-radius:10px !important;
+    }
+
+      
+    .bannter-heading h1{
+            font-size: 56px !important;
+            font-weight: 500 !important;
+            line-height: 64px !important;
+        }
+        .banner-subheading h3{
+            font-size: 24px !important;
+            font-weight: 400 !important;
+            line-height: 32px !important;
+        }
+        
+        @media (max-width: 600px){
+         .bannter-heading h1{
+            font-size: 24px !important;
+            font-weight: 500 !important;
+            line-height: 32px !important;
+        }
+        .banner-subheading h3{
+            font-size: 12px !important;
+            font-weight: 400 !important;
+            line-height: 20px !important;
+        }
+        .hero-banner .slds-button{
+            font-size:12px !important;
+            width: 180px !important;
+        }
+        .sub-subtext p {
+            font-size: 12px !important
+          }
+        }
+
+
+
+/* ====== RESPONSIVE DESIGN ====== */
+
+/* --- Mobile (1 per row) --- */
+@media (max-width: 960px) {
+  .quick-actions-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 0px
+  }
+
+  .quick-actions-tile {
+    width: 100%;
+    height: 160px;
+    transform: none;
+  }
+
+  .quick-actions-tile::after {
+    display: none;
+  }
+
+
+}
+
+@media (max-width: 1280px) {
+  .quick-actions-tile {
+    width: 100%;
+    height: 160px;
+    transform: none;
+  }
+
+  .tile-column .dxp-block-flexible-container{
+      background-color: #ffffff00 !important
+    }
+
+  }

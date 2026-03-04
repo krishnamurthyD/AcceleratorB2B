@@ -1,0 +1,42 @@
+<template>
+    <div class="plp-filter-container">
+        <template if:true={processedFacets}>
+            <div class="filter-list">
+                <template for:each={processedFacets} for:item="facet">
+                    <div key={facet.id} class="filter-section">
+                        <button 
+                            class="filter-section-header"
+                            onclick={toggleSection}
+                            data-id={facet.nameOrId}>
+                            <span class="filter-label">{facet.displayName}</span>
+                            <lightning-icon 
+                                icon-name="utility:chevronright" 
+                                size="x-small"
+                                class={facet.iconClass}>
+                            </lightning-icon>
+                        </button>
+                        
+                        <div if:true={facet.isExpanded} class="filter-section-content">
+                            <ul class="slds-list_vertical">
+                                <template for:each={facet.values} for:item="value">
+                                    <li key={value.id} class="slds-item slds-m-bottom_xx-small">
+                                        <lightning-input 
+                                            type="checkbox" 
+                                            label={value.name} 
+                                            name={facet.nameOrId}
+                                            value={value.name}
+                                            data-facet-type={facet.facetType}
+                                            data-attribute-type={facet.attributeType}
+                                            checked={value.checked}
+                                            onchange={handleFilterChange}>
+                                        </lightning-input>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,12 @@
+{
+  "type" : "sfdc_cms__trustedSites",
+  "title" : "trustedSites",
+  "contentBody" : {
+    "trustedSites" : [ {
+      "isActive" : true,
+      "source" : "https://flagcdn.com/20x15/fr.png",
+      "sourceName" : "Flag Image"
+    } ]
+  },
+  "urlName" : "trustedsites"
+}

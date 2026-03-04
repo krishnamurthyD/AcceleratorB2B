@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="showActionSlot" type="Boolean" default="false" label="Show Action Slot" description="Determines whether the Action slot is displayed in the header."/>
+            <property name="isMobilePhone" type="Boolean" default="false" label="Show Mobile Phone Slots" description="Force the mobile layout to expose mobile-only drawer slots (Drawer-Logo, Drawer-Country-Selector, Drawer-User-Menu, Drawer-Logo-Body, Drawer-Action) for configuration. Disable after adding content; the mobile layout is applied automatically on screens 600px or smaller."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

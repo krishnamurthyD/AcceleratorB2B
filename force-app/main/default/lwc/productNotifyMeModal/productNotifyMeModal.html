@@ -1,0 +1,57 @@
+<template>
+    <template if:true={isOpen}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal Content -->
+                <div class="slds-modal__content slds-p-around_medium modal-radius">
+                    
+                    <!-- Header with Close Button -->
+                    <div class="modal-header">
+                        <h2 class="slds-text-heading_medium title">Notify Me</h2>
+                        <button class="slds-button slds-button_icon close-btn" title="Close" onclick={handleClose}>
+                            <lightning-icon icon-name="utility:close" size="small" variant="inverse"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="description slds-text-align_center slds-m-vertical_medium">
+                        Please enter your details and we will contact you when this product is back in stock.
+                    </p>
+
+                    <!-- Form -->
+                    <div class="form-content">
+                        <div class="slds-form-element slds-m-bottom_small">
+                            <label class="slds-form-element__label required" for="fname">First Name</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="fname" class="slds-input custom-input" value={firstName} onchange={handleInputChange} name="firstName" />
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element slds-m-bottom_small">
+                            <label class="slds-form-element__label required" for="lname">Last Name</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="lname" class="slds-input custom-input" value={lastName} onchange={handleInputChange} name="lastName" />
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element slds-m-bottom_medium">
+                            <label class="slds-form-element__label required" for="email">Email ID</label>
+                            <div class="slds-form-element__control">
+                                <input type="email" id="email" class="slds-input custom-input" value={email} onchange={handleInputChange} name="email" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Buttons -->
+                    <div class="button-group">
+                        <button class="slds-button btn-cancel" onclick={handleClose}>Cancel</button>
+                        <button class="slds-button btn-notify" onclick={handleSubmit}>Notify Me</button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

@@ -1,0 +1,19 @@
+<template>
+    <div class="cart-actions">
+        <template if:true={isOutOfStock}>
+            <button class="slds-button slds-button_brand full-width" onclick={handleNotifyMe}>Notify Me</button>
+        </template>
+        <template if:false={isOutOfStock}>
+            <div class="qty-add-row">
+                <!-- Quantity Selector -->
+                <div class="qty-selector">
+                    <button onclick={handleQtyMinus}>-</button>
+                    <span>{quantity}</span>
+                    <button onclick={handleQtyPlus}>+</button>
+                </div>
+                <!-- Add To Cart -->
+                <button class="slds-button slds-button_brand add-btn" onclick={handleAddToCart}>Add To Cart</button>
+            </div>
+        </template>
+    </div>
+</template>

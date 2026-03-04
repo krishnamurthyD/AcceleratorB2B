@@ -1,0 +1,129 @@
+<template>
+    <div class="plp-container">
+        
+        <!-- HEADER: Sort & View Toggle -->
+        <div class="plp-header-bar">
+            <div class="header-left">
+                 <!-- Filter Toggle Button -->
+                 <button class="filter-btn" onclick={toggleFilter}>
+                    <span class="filter-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16" fill="none">
+                            <path d="M0.75 3.75L12.75 3.75M12.75 3.75C12.75 5.40686 14.0931 6.75 15.75 6.75C17.4069 6.75 18.75 5.40685 18.75 3.75C18.75 2.09315 17.4069 0.75 15.75 0.75C14.0931 0.75 12.75 2.09315 12.75 3.75ZM6.75 11.75L18.75 11.75M6.75 11.75C6.75 13.4069 5.40685 14.75 3.75 14.75C2.09315 14.75 0.75 13.4069 0.75 11.75C0.75 10.0931 2.09315 8.75 3.75 8.75C5.40685 8.75 6.75 10.0931 6.75 11.75Z" stroke="#1C1F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    {filterButtonLabel}
+                </button>
+            </div>
+            
+            <div class="header-right">
+                <button class="action-btn">Bulk Order</button>
+                <button class="action-btn">Compare</button>
+
+                <!-- View Toggle -->
+                <div class="view-toggle-group">
+                    <button class={listViewClass} onclick={setListView} title="List View">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 13C4.55 13 5 12.55 5 12C5 11.45 4.55 11 4 11C3.45 11 3 11.45 3 12C3 12.55 3.45 13 4 13ZM4 17C4.55 17 5 16.55 5 16C5 15.45 4.55 15 4 15C3.45 15 3 15.45 3 16C3 16.55 3.45 17 4 17ZM4 9C4.55 9 5 8.55 5 8C5 7.45 4.55 7 4 7C3.45 7 3 7.45 3 8C3 8.55 3.45 9 4 9ZM8 13H20C20.55 13 21 12.55 21 12C21 11.45 20.55 11 20 11H8C7.45 11 7 11.45 7 12C7 12.55 7.45 13 8 13ZM8 17H20C20.55 17 21 16.55 21 16C21 15.45 20.55 15 20 15H8C7.45 15 7 15.45 7 16C7 16.55 7.45 17 8 17ZM7 8C7 8.55 7.45 9 8 9H20C20.55 9 21 8.55 21 8C21 7.45 20.55 7 20 7H8C7.45 7 7 7.45 7 8ZM4 13C4.55 13 5 12.55 5 12C5 11.45 4.55 11 4 11C3.45 11 3 11.45 3 12C3 12.55 3.45 13 4 13ZM4 17C4.55 17 5 16.55 5 16C5 15.45 4.55 15 4 15C3.45 15 3 15.45 3 16C3 16.55 3.45 17 4 17ZM4 9C4.55 9 5 8.55 5 8C5 7.45 4.55 7 4 7C3.45 7 3 7.45 3 8C3 8.55 3.45 9 4 9ZM8 13H20C20.55 13 21 12.55 21 12C21 11.45 20.55 11 20 11H8C7.45 11 7 11.45 7 12C7 12.55 7.45 13 8 13ZM8 17H20C20.55 17 21 16.55 21 16C21 15.45 20.55 15 20 15H8C7.45 15 7 15.45 7 16C7 16.55 7.45 17 8 17ZM7 8C7 8.55 7.45 9 8 9H20C20.55 9 21 8.55 21 8C21 7.45 20.55 7 20 7H8C7.45 7 7 7.45 7 8Z" fill="#0095A8"/>
+                        </svg>
+                    </button>
+                    <button class={gridViewClass} onclick={setGridView} title="Grid View">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 6.75C3 4.982 3 4.098 3.55 3.55C4.097 3 4.981 3 6.75 3C8.519 3 9.402 3 9.95 3.55C10.5 4.098 10.5 4.982 10.5 6.75C10.5 8.518 10.5 9.402 9.95 9.95C9.402 10.5 8.518 10.5 6.75 10.5C4.982 10.5 4.098 10.5 3.55 9.95C3 9.403 3 8.519 3 6.75ZM3 17.257C3 15.489 3 14.605 3.55 14.057C4.098 13.507 4.982 13.507 6.75 13.507C8.518 13.507 9.402 13.507 9.95 14.057C10.5 14.605 10.5 15.489 10.5 17.257C10.5 19.025 10.5 19.909 9.95 20.457C9.402 21.007 8.518 21.007 6.75 21.007C4.982 21.007 4.098 21.007 3.55 20.457C3 19.91 3 19.025 3 17.257ZM13.5 6.75C13.5 4.982 13.5 4.098 14.05 3.55C14.598 3 15.482 3 17.25 3C19.018 3 19.902 3 20.45 3.55C21 4.098 21 4.982 21 6.75C21 8.518 21 9.402 20.45 9.95C19.902 10.5 19.018 10.5 17.25 10.5C15.482 10.5 14.598 10.5 14.05 9.95C13.5 9.402 13.5 8.518 13.5 6.75ZM13.5 17.257C13.5 15.489 13.5 14.605 14.05 14.057C14.598 13.507 15.482 13.507 17.25 13.507C19.018 13.507 19.902 13.507 20.45 14.057C21 14.605 21 15.489 21 17.257C21 19.025 21 19.909 20.45 20.457C19.902 21.007 19.018 21.007 17.25 21.007C15.482 21.007 14.598 21.007 14.05 20.457C13.5 19.909 13.5 19.025 13.5 17.257Z" stroke="#0095A8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-wrap">
+            <!-- Filter Sidebar -->
+            <template if:true={isFilterVisible}>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-p-right_medium">
+                    <div class="slds-m-bottom_medium">
+                        <c-plp-sort 
+                            options={sortOptions} 
+                            value={sortBy} 
+                            onsortchange={handleSortChange}>
+                        </c-plp-sort>
+                    </div>
+
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                         <span class="slds-text-title_bold">Filter By</span>
+                         <a href="javascript:void(0);" onclick={handleClearFilters} class="slds-text-link_reset slds-text-color_weak">Clear Filters</a>
+                    </div>
+
+                    <c-plp-filter 
+                        facets={facets} 
+                        onfilterchange={handleFilterChange}>
+                    </c-plp-filter>
+                </div>
+            </template>
+
+            <!-- MAIN GRID -->
+            <div class={mainContentClass}>
+                <div class={gridClass}>
+                    <template for:each={processedItems} for:item="item">
+                        
+                        <!-- CASE 1: REGULAR PRODUCT -->
+                        <template if:true={item.isProduct}>
+                            <div key={item.id} class="grid-item product-item">
+                                <c-product-card 
+                                    product={item.data} 
+                                    display-mode={viewMode}
+                                    onquickview={handleQuickView}
+                                    onnotifyme={handleNotifyMe}>
+                                </c-product-card>
+                            </div>
+                        </template>
+
+                        <!-- CASE 2: INJECTION (Banner/Filter/Trending) -->
+                        <template if:true={item.isInjection}>
+                            <div key={item.id} class="grid-item injection-item">
+                                <!-- Dynamic Injection Content -->
+                                <div class="injection-content">
+                                    <template if:true={item.isBanner}>
+                                        <c-plp-banner 
+                                            title="Summer Sale Event" 
+                                            subtitle="Get 20% off on all industrial tools" 
+                                            cta-label="Shop Now">
+                                        </c-plp-banner>
+                                    </template>
+                                    
+                                    <template if:true={item.isConceptualFilter}>
+                                        <c-plp-conceptual-filter></c-plp-conceptual-filter>
+                                    </template>
+
+                                    <template if:true={item.isTrending}>
+                                        <c-plp-trending-products></c-plp-trending-products>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOADING SPINNER -->
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+
+        <!-- QUICK VIEW MODAL -->
+        <c-product-quick-view
+            product-id={selectedProductId}
+            is-open={isQuickViewOpen}
+            onclose={handleCloseQuickView}>
+        </c-product-quick-view>
+
+        <!-- NOTIFY ME MODAL -->
+        <c-product-notify-me-modal
+            product-id={notifyProductId}
+            is-open={isNotifyMeOpen}
+            onclose={handleCloseNotifyMe}
+            onsubmit={handleSubmitNotifyMe}>
+        </c-product-notify-me-modal>
+
+    </div>
+</template>

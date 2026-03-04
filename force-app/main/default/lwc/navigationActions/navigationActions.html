@@ -1,0 +1,74 @@
+<template>
+
+    <!-- If only one item -->
+    <template if:true={hasSingleItem}>
+        <a class="single-link"
+           onclick={closeFlyout}
+           href={firstItem.actionValue}>
+            <span>
+               {firstItem.label}
+           </span>
+            <span if:true={isMobile}>
+                <img src={downArrowImageToShow}  class="arrow-icon"/>
+            </span>
+        </a>
+    </template>
+
+    <!-- If more than one item -->
+    <template if:false={isMobile}>
+        <template if:true={hasMultipleItems}>
+            <div class="menu-container">
+                <div class="main-item">
+                    {firstItem.label}
+                </div>
+
+                <div class="flyout">
+                    <template for:each={menuItems} for:item="item" for:index="index">
+                        <template if:true={index}>
+                            <a key={item.label}
+                            onclick={closeFlyout}
+                            href={item.actionValue}
+                            class="submenu-item">
+                            {item.label}
+                            </a>
+                        </template>
+                    </template>
+                </div>
+            </div>
+        </template>
+    </template>
+
+    <!-- =============== MOBILE MENU =============== -->
+    <template if:true={isMobile}>
+        <template if:true={hasMultipleItems}>
+            <div class="mobile-main" onclick={toggleDropdown}>
+                <span>
+                    {firstItem.label}
+                </span>
+                <span>
+                    <img src={downArrowImageToShow}  class="arrow-icon"/>
+                </span>
+            </div>
+
+            <template if:true={showDropdown}>
+                <div class="mobile-dropdown">
+                    <template for:each={menuItems} for:item="item" for:index="index">
+                        <template if:true={index}>
+                            <div key={item.label}
+                                class="mobile-item"
+                                data-url={item.actionValue}
+                                onclick={mobileNavigate}>
+                                <span>
+                                    {item.label}
+                                </span>
+                                <span>
+                                    <img src={arrowImagetoShow}  class="arrow-icon"/>
+                                </span>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+            </template>
+    </template>
+
+</template>

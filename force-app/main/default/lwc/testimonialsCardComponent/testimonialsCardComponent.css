@@ -1,0 +1,198 @@
+:host {
+    --swiper-pagination-bullet-width: 15px;
+    --swiper-pagination-bullet-height: 15px;
+    --swiper-pagination-bullet-inactive-color: #8ACED7;
+    --swiper-pagination-color: #0095A8;
+    --swiper-theme-color: #0095A8;
+    --swiper-pagination-progressbar-size: 1px;
+}
+
+
+.testimonial-heading {
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 48px;
+    text-align: center;
+    margin: 38px 0 40px 0;
+
+}
+
+.testimonial-container {
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    padding-bottom: 40px;
+}
+
+/* Card Styling */
+.testimonial-card {
+    width: 360px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 8px #67696E29;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.star {
+    display: inline-block;
+    line-height: 14px;
+}
+
+.rating-icon {
+    width: 13.64px;
+    height: 13.64px;
+    margin-right: 6px;
+}
+
+.testimonial-card:hover {
+    /* transform: translateY(-4px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12); */
+}
+
+/* Stars */
+.stars {
+    color: #f4b400;
+    /* yellow star color */
+    font-size: 13.63px;
+    margin-bottom: 20px;
+}
+
+.star {
+    margin-right: 4px;
+}
+
+/* Title */
+.title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1b1b1b;
+    margin-bottom: 1px;
+    line-height: 24px;
+}
+
+/* Description */
+.description {
+    font-size: 11px;
+    color: #67696E;
+    line-height: 17px;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+/* Profile Section */
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111;
+    line-height: 20px;
+}
+
+.author-role {
+    font-size: 16px;
+    color: #494C51B2;
+    line-height: 20px;
+}
+
+
+
+.custom-pagination.swiper-pagination {
+    position: relative;
+    bottom: 0;
+    /* margin-top: 20px; */
+    text-align: center;
+    margin-bottom: 60.5px;
+}
+
+.custom-pagination .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: #96D0D8;
+    /* light teal */
+    opacity: 1;
+    margin: 0 6px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.custom-pagination .swiper-pagination-bullet-active {
+    background-color: #028A9E;
+    /* dark teal (active one) */
+    transform: scale(1.2);
+}
+
+
+/* Position the line under the slider */
+.swiper-pagination-progressbar {
+    position: absolute !important;
+    bottom: -5px;
+    /* adjust higher/lower */
+    left: 0;
+    width: 100%;
+    height: var(--swiper-pagination-progressbar-size);
+    /* thickness of bar */
+    /* background line */
+    left: 0;
+    right: 0;
+    top: unset !important;
+    margin: 0 auto;
+    max-width: 100px;
+    bottom: -5px;
+    background: #8ACED7;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 19px;
+
+}
+
+/* ACTIVE blue progress */
+.swiper-pagination-progressbar-fill {
+    background: #0095A8 !important;
+    /* YOUR CUSTOM BLUE */
+    height: 100%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 19px;
+}
+
+.swiper-wrapper {
+    transition-timing-function: linear !important;
+}
+
+
+@media screen and (max-width: 1280px) {
+    .testimonial-heading {
+        font-size: 20px;
+        line-height: 28px;
+        margin: 32px 0 16px 0;
+    }
+
+    .testimonial-container {
+        padding-bottom: 20px;
+    }
+
+    .custom-pagination.swiper-pagination {
+        margin-bottom: 32px;
+    }
+
+    .swiper-wrapper {
+        padding-bottom: 52px;
+    }
+}

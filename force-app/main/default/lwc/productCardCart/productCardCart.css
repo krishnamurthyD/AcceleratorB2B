@@ -1,0 +1,40 @@
+.cart-actions {
+  margin-top: auto;
+  width: 100%;
+}
+
+.qty-add-row {
+  display: flex;
+  gap: 8px;
+}
+
+.qty-selector {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.qty-selector button {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.qty-selector span {
+  padding: 0 8px;
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
+.add-btn {
+  flex-grow: 1;
+}
+
+.full-width {
+  width: 100%;
+}

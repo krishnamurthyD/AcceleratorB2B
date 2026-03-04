@@ -1,0 +1,28 @@
+<template>
+    <template if:true={showSuccess}>
+        <div class="custom-toast">
+             {successMessage}
+        </div>
+    </template>
+
+        <div class="subscribe-container"> 
+            <div class="input-wrapper">
+                <input type="email"
+                       class="email-input"
+                       placeholder="Your Email Address"
+                       value={email}
+                       oninput={handleChange} />
+
+                <button class="subscribe-btn" onclick={handleSubscribe}>
+                    Subscribe
+                </button>
+            </div>
+
+            <template if:true={errorMessage}>
+                <p class="error-text">
+                    {errorMessage}
+                </p>
+            </template>
+        </div>
+    
+</template>

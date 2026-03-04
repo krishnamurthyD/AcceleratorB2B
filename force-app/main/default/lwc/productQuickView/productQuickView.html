@@ -1,0 +1,151 @@
+<template>
+    <template if:true={isOpen}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleClose}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                
+                <div class="slds-modal__content slds-p-around_medium modal-content-radius">
+                    <div class="slds-grid slds-wrap">
+                        <!-- Left Column: Images -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-right_medium">
+                            <div class="image-container">
+                                <div class="wishlist-container" onclick={handleWishlistToggle}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="21" viewBox="0 0 22 21" fill="none" class={wishlistIconClass}>
+                                        <path d="M6.27778 1C3.36333 1 1 3.52588 1 6.64076C1 12.875 11 20 11 20C11 20 21 12.875 21 6.64076C21 2.78153 18.6367 1 15.7222 1C13.6556 1 11.8667 2.26965 11 4.11824C10.1333 2.26965 8.34444 1 6.27778 1Z" stroke="#0095A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span class="slds-m-left_x-small">Add to Wishlist</span>
+                                </div>
+                                
+                                <div class="carousel-wrapper">
+                                    <template if:true={showArrows}>
+                                        <button class={prevButtonClass} onclick={handlePrevImage}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                                                <g filter="url(#filter0_d_7937_82234)">
+                                                <circle cx="12" cy="12" r="12" transform="matrix(-1 0 0 1 26 1)" fill="#E6F4F6"/>
+                                                <circle cx="12" cy="12" r="11.5" transform="matrix(-1 0 0 1 26 1)" stroke="#0095A8"/>
+                                                </g>
+                                                <g clip-path="url(#clip0_7937_82234)">
+                                                <path d="M15.6647 16.9994C15.7086 16.9997 15.7521 16.9912 15.7927 16.9747C15.8333 16.9581 15.8703 16.9336 15.9014 16.9027C15.9326 16.8717 15.9574 16.8349 15.9744 16.7943C15.9913 16.7536 16 16.7101 16 16.6661C16 16.6221 15.9913 16.5785 15.9744 16.5379C15.9574 16.4973 15.9326 16.4604 15.9014 16.4294L13.1781 13.7061C12.9908 13.5186 12.8856 13.2644 12.8856 12.9994C12.8856 12.7344 12.9908 12.4802 13.1781 12.2927L15.9014 9.56941C15.9642 9.50664 15.9994 9.42151 15.9994 9.33274C15.9994 9.24398 15.9642 9.15885 15.9014 9.09608C15.8386 9.03331 15.7535 8.99805 15.6647 8.99805C15.576 8.99805 15.4908 9.03331 15.4281 9.09608L12.7047 11.8194C12.5495 11.9742 12.4264 12.1581 12.3424 12.3606C12.2583 12.5631 12.2151 12.7802 12.2151 12.9994C12.2151 13.2186 12.2583 13.4357 12.3424 13.6382C12.4264 13.8407 12.5495 14.0246 12.7047 14.1794L15.4281 16.9027C15.4592 16.9336 15.4962 16.9581 15.5368 16.9747C15.5774 16.9912 15.6209 16.9997 15.6647 16.9994Z" fill="#1C1F26"/>
+                                                </g>
+                                                <defs>
+                                                <filter id="filter0_d_7937_82234" x="0" y="0" width="28" height="28" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                                <feOffset dy="1"/>
+                                                <feGaussianBlur stdDeviation="1"/>
+                                                <feComposite in2="hardAlpha" operator="out"/>
+                                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+                                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_7937_82234"/>
+                                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_7937_82234" result="shape"/>
+                                                </filter>
+                                                <clipPath id="clip0_7937_82234">
+                                                <rect width="8" height="8" fill="white" transform="matrix(-1 0 0 1 18 9)"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </button>
+                                    </template>
+                                    
+                                    <img src={currentImageUrl} alt={productName} class="product-image" />
+                                    
+                                    <template if:true={showArrows}>
+                                        <button class={nextButtonClass} onclick={handleNextImage}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                                                <g filter="url(#filter0_d_7937_102777)">
+                                                <circle cx="14" cy="13" r="12" fill="#E6F4F6"/>
+                                                <circle cx="14" cy="13" r="11.5" stroke="#0095A8"/>
+                                                </g>
+                                                <g clip-path="url(#clip0_7937_102777)">
+                                                <path d="M12.3353 16.9994C12.2914 16.9997 12.2479 16.9912 12.2073 16.9747C12.1667 16.9581 12.1297 16.9336 12.0986 16.9027C12.0674 16.8717 12.0426 16.8349 12.0256 16.7943C12.0087 16.7536 12 16.7101 12 16.6661C12 16.6221 12.0087 16.5785 12.0256 16.5379C12.0426 16.4973 12.0674 16.4604 12.0986 16.4294L14.8219 13.7061C15.0092 13.5186 15.1144 13.2644 15.1144 12.9994C15.1144 12.7344 15.0092 12.4802 14.8219 12.2927L12.0986 9.56941C12.0358 9.50664 12.0006 9.42151 12.0006 9.33274C12.0006 9.24398 12.0358 9.15885 12.0986 9.09608C12.1614 9.03331 12.2465 8.99805 12.3353 8.99805C12.424 8.99805 12.5092 9.03331 12.5719 9.09608L15.2953 11.8194C15.4505 11.9742 15.5736 12.1581 15.6576 12.3606C15.7417 12.5631 15.7849 12.7802 15.7849 12.9994C15.7849 13.2186 15.7417 13.4357 15.6576 13.6382C15.5736 13.8407 15.4505 14.0246 15.2953 14.1794L12.5719 16.9027C12.5408 16.9336 12.5038 16.9581 12.4632 16.9747C12.4226 16.9912 12.3791 16.9997 12.3353 16.9994Z" fill="#1C1F26"/>
+                                                </g>
+                                                <defs>
+                                                <filter id="filter0_d_7937_102777" x="0" y="0" width="28" height="28" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                                <feOffset dy="1"/>
+                                                <feGaussianBlur stdDeviation="1"/>
+                                                <feComposite in2="hardAlpha" operator="out"/>
+                                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+                                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_7937_102777"/>
+                                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_7937_102777" result="shape"/>
+                                                </filter>
+                                                <clipPath id="clip0_7937_102777">
+                                                <rect width="8" height="8" fill="white" transform="translate(10 9)"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </button>
+                                    </template>
+                                </div>
+
+                                <!-- Carousel Dots -->
+                                <div class="carousel-dots" if:true={showArrows}>
+                                    <template for:each={images} for:item="img">
+                                        <span key={img.id} class={img.dotClass}></span>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Details -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-left_medium">
+                            <h2 class="product-title">{productName}</h2>
+                            <p class="product-sku">Part #{sku}</p>
+                            
+                            <div if:true={description} class="product-description slds-m-top_small">
+                                <lightning-formatted-rich-text value={description}></lightning-formatted-rich-text>
+                            </div>
+
+                            <template if:true={hasVariations}>
+                                <div class="variations slds-m-top_medium">
+                                    <template for:each={variationAttributes} for:item="attr">
+                                        <div key={attr.apiName} class="variation-group">
+                                            <label>{attr.label}</label>
+                                            <div class="options">
+                                                <template for:each={attr.options} for:item="option">
+                                                    <span 
+                                                        key={option.value} 
+                                                        class={option.class}
+                                                        data-api-name={attr.apiName}
+                                                        data-value={option.value}
+                                                        onclick={handleVariationSelection}>
+                                                        {option.label}
+                                                    </span>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+
+                            <!-- Quantity & Actions -->
+                            <div class="actions-row slds-m-top_large">
+                                <div class="quantity-selector-container">
+                                    <div class="qty-selector">
+                                        <button class="qty-btn" data-action="decrease" onclick={handleQuantityChange}>-</button>
+                                        <span class="qty-value">{quantity}</span>
+                                        <button class="qty-btn" data-action="increase" onclick={handleQuantityChange}>+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="buttons-row slds-m-top_medium">
+                                <button class="slds-button slds-button_neutral add-cart-btn" onclick={handleAddToCart}>Add To Cart</button>
+                                <button class="slds-button slds-button_brand quick-buy-btn" onclick={handleQuickBuy}>Quick Buy</button>
+                            </div>
+
+                            <div class="price-row slds-m-top_medium">
+                                <span class="price">{price}</span>
+                                <span class="list-price" if:true={listPrice}>{listPrice}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

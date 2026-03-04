@@ -1,0 +1,49 @@
+<template>
+    <template if:true={startRendering}>
+        <div class="feature-category-head">
+            <div class="feature-category-heading">{label.heading}</div>
+            <div class="feature-category-description">{label.description}</div>
+        </div>
+        <div class="slider-container">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <template for:each={cardData} for:item="card">
+                        <div class="swiper-slide feature-card" key={card.categorySequence} onclick={handleTileClick}
+                            data-url={card.categoryRedirectUrl} data-category-id={card.categoryId}>
+                            <div class="feature-card-inner">
+                                <div class="feature-card-image-wrapper">
+                                    <img src={card.categoryImageUrl} alt="Box being taped" class="feature-card-image" />
+                                    <span class="feature-card-badge">
+                                        {card.categoryTag}
+                                    </span>
+                                </div>
+                                <div class="feature-card-content">
+                                    <div class="feature-card-text">
+                                        <h3 class="feature-card-title">
+                                            {card.categoryHeading}
+                                        </h3>
+                                        <p class="feature-card-description">
+                                            {card.categoryDescription}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feature-card-footer">
+                                <a href={card.categoryRedirectUrl} onclick={handleTileClick}
+                                    class="feature-card-read-more"
+                                    data-category-id={card.categoryId}>{card.categoryButtonLabel}</a>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <template if:true={showArrows}>
+                    <div class="swiper-button-next swiper-btn"></div>
+                    <div class="swiper-button-prev swiper-btn"></div>
+                </template>
+                <template if:false={showArrows}>
+                    <div class="swiper-pagination"></div>
+                </template>
+            </div>
+        </div>
+    </template>
+</template>

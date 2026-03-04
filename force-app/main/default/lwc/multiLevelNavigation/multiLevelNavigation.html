@@ -1,0 +1,181 @@
+<template>
+  <!-- =============== MOBILE =============== -->
+  <template if:true={isMobile}>
+    <div class="mobile-menu">
+      <!-- L1 -->
+      <template for:each={menu} for:item="l1" for:index="i">
+        <div key={l1.label} class="mobile-item">
+          <div
+            class="mobile-l1"
+            data-index={i}
+            onclick={selectMobileL1}
+            data-link={l1.actionValue}
+          >
+            <span> {l1.label} </span>
+            <span>
+              <img src={downArrowImageToShow} class="arrow-icon" />
+            </span>
+          </div>
+
+          <!-- L2 -->
+          <template if:true={l1.isOpen}>
+            <div class="mobile-l2" key={l1.label}>
+              <template for:each={l1.subMenu} for:item="l2" for:index="j">
+                <div
+                  key={l2.label}
+                  class="mobile-l2-item"
+                  data-index={j}
+                  data-parent={i}
+                  onclick={selectMobileL2}
+                  data-link={l2.actionValue}
+                >
+                  {l2.label}
+                  <template if:true={l2.subMenu.length}>
+                    <span class="arrow">
+                      <img src={arrowImagetoShow} alt="›" class="arrow-icon" />
+                    </span>
+                  </template>
+                </div>
+
+                <!-- L3 -->
+                <template if:true={l2.isOpen}>
+                  <div class="level-three-background" key={l2.label}>
+                    <div class="mobile-l3" key={l2.label}>
+                      <template
+                        for:each={l2.subMenu}
+                        for:item="l3"
+                        for:index="k"
+                      >
+                        <div
+                          key={l3.label}
+                          class="mobile-l3-item"
+                          data-index={k}
+                          data-parent={i}
+                          data-parent2={j}
+                          onclick={selectMobileL3}
+                          data-link={l3.actionValue}
+                        >
+                          {l3.label}
+                          <template if:true={l3.subMenu.length}>
+                            <span class="arrow">
+                              <img
+                                src={arrowImagetoShow}
+                                alt="›"
+                                class="arrow-icon"
+                              />
+                            </span>
+                          </template>
+                        </div>
+
+                        <!-- L4 -->
+                        <template if:true={l3.isOpen}>
+                          <div class="mobile-l4" key={l3.label}>
+                            <template for:each={l3.subMenu} for:item="l4">
+                              <span
+                                key={l4.label}
+                                onclick={mobileClickHandler}
+                                data-set={l4.actionValue}
+                                class="mobile-l4-item"
+                              >
+                                {l4.label}
+                              </span>
+                            </template>
+                          </div>
+                        </template>
+                      </template>
+                    </div>
+                  </div>
+                </template>
+              </template>
+            </div>
+          </template>
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <!-- =============== DESKTOP MEGA MENU =============== -->
+  <template if:false={isMobile}>
+    <div class="nav-wrapper" onmouseleave={hideMenu}>
+      <!-- L1 BAR -->
+      <div class="l1-bar">
+        <template for:each={menu} for:item="item" for:index="i">
+          <a
+            key={item.label}
+            class="item main-level"
+            data-index={i}
+            href={item.actionValue}
+            onmouseover={selectLevel1}
+          >
+            {item.label}
+          </a>
+        </template>
+      </div>
+
+      <!-- DROPDOWN PANEL -->
+      <template if:true={showLevel2}>
+        <div class="mega-dropdown">
+          <!-- L2 COLUMN -->
+          <div class="column">
+            <template for:each={level2} for:item="item" for:index="i">
+              <a
+                key={item.label}
+                class="item sub-level"
+                data-index={i}
+                href={item.actionValue}
+                onmouseover={selectLevel2}
+                onclick={hideMenu}
+              >
+                <span> {item.label} </span>
+                <template if:true={item.subMenu.length}>
+                  <span>
+                    <img src={arrowImagetoShow} alt="›" class="arrow-icon" />
+                  </span>
+                </template>
+              </a>
+            </template>
+          </div>
+
+          <!-- L3 COLUMN -->
+          <template if:true={showLevel3}>
+            <div class="column mid">
+              <template for:each={level3} for:item="item" for:index="i">
+                <a
+                  key={item.label}
+                  class="item sub-level"
+                  data-index={i}
+                  href={item.actionValue}
+                  onmouseover={selectLevel3}
+                  onclick={hideMenu}
+                >
+                  <span> {item.label} </span>
+                  <template if:true={item.subMenu.length}>
+                    <span>
+                      <img src={arrowImagetoShow} alt="›" class="arrow-icon" />
+                    </span>
+                  </template>
+                </a>
+              </template>
+            </div>
+          </template>
+
+          <!--  L4 COLUMN -->
+          <template if:true={showLevel4}>
+            <div class="column">
+              <template for:each={level4} for:item="item">
+                <a
+                  key={item.label}
+                  href={item.actionValue}
+                  class="item sub-level"
+                  onclick={hideMenu}
+                >
+                  {item.label}
+                </a>
+              </template>
+            </div>
+          </template>
+        </div>
+      </template>
+    </div>
+  </template>
+</template>

@@ -1,0 +1,87 @@
+.product-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #E8E9E9;
+  border-radius: 12px;
+  padding: 16px;
+  transition: box-shadow 0.2s;
+  width: 100%;
+  height: 502px;
+  /* Fixed height from design */
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.image-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.details-section {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #E8E9E9;
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+/* --- HOVER ACTIONS --- */
+.hover-actions {
+  margin-bottom: 12px;
+  opacity: 0;
+  /* Hidden by default */
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.product-card:hover .hover-actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- LIST VIEW OVERRIDES --- */
+.product-card.list {
+  flex-direction: row;
+  align-items: center;
+  height: auto;
+}
+
+.product-card.list .image-wrapper {
+  width: 200px;
+  height: 150px;
+  margin-bottom: 0;
+  margin-right: 24px;
+}
+
+.product-card.list .details-section {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+
+/* In List View, Info takes left side */
+.product-card.list c-product-card-info {
+  width: 50%;
+}
+
+/* Price/Actions take right side */
+.product-card.list c-product-card-pricing,
+.product-card.list .hover-actions {
+  width: 40%;
+  margin-left: auto;
+  text-align: right;
+}
+
+.product-card.list .hover-actions {
+  opacity: 1;
+  /* Always visible in List View */
+  pointer-events: auto;
+}

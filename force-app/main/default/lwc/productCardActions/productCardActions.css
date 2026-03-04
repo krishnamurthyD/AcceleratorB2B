@@ -1,0 +1,27 @@
+.action-icons {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 2;
+}
+
+.icon-wrapper {
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-wrapper:hover {
+  transform: scale(1.1);
+}
+
+.wishlist-icon.active path {
+  fill: #D92D20;
+  stroke: #D92D20;
+}

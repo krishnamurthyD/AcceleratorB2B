@@ -1,0 +1,165 @@
+stages:
+  # - docker # Just run this once to push the image, then comment it out
+  - checkout
+  - select_org
+  - generate_delta
+  - scan
+  - validate
+  - deploy
+  
+
+before_script:
+  - echo "Starting GitLab pipeline"
+
+# # Build and Push Docker Image   # Just run this once to push the image, then comment it out
+# kaniko-build:
+#   stage: docker
+#   image:
+#     name: gcr.io/kaniko-project/executor:debug
+#     entrypoint: [""]
+#   script:
+#     - echo "Building and pushing Docker image to Docker Hub..."
+
+#     # Create Docker config.json for auth
+#     - mkdir -p /kaniko/.docker
+#     - echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$DOCKER_USERNAME\",\"password\":\"$DOCKER_PWD\"}}}" > /kaniko/.docker/config.json
+
+#     # Run Kaniko build and push
+#     - /kaniko/executor
+#         --context $CI_PROJECT_DIR
+#         --dockerfile $CI_PROJECT_DIR/Dockerfile
+#         --destination $DOCKER_IMAGE
+#         --cache=true
+#   only:
+#     - main
+
+
+variables:
+  DOCKER_IMAGE: docker.io/${DOCKER_USERNAME}/salesforce-cli:latest
+
+
+# Checkout source code
+checkout_code:
+  stage: checkout
+  image: $DOCKER_IMAGE
+  services:
+    - docker:dind
+  script:
+    - git fetch --unshallow || echo "Already shallow clone"
+    # - git checkout $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - if [ -n "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" ]; then
+        echo "Checking out source branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME";
+        sh ./.gitlab/scripts/select_target_org.sh "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME";
+      else
+        echo "Checking source branch $CI_COMMIT_REF_NAME";
+        sh ./.gitlab/scripts/select_target_org.sh "$CI_COMMIT_REF_NAME";
+      fi
+  rules:
+  - if: '$CI_MERGE_REQUEST_IID || $CI_COMMIT_BRANCH =~ /^(main|develop|releases\/.*)$/ && $CI_PIPELINE_SOURCE == "push"'
+    when: on_success
+  - when: never
+
+# Selecting Target Org
+select_target_org:
+  stage: select_org
+  image: $DOCKER_IMAGE
+  script:
+    - cd $CI_PROJECT_DIR
+    - echo "Selecting target org..."
+    - chmod +x ./.gitlab/scripts/select_target_org.sh
+    - sh ./.gitlab/scripts/select_target_org.sh "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+  artifacts:
+    reports:
+      dotenv: variables.env
+    paths:
+      - auth_file.json
+  rules:
+  - if: '$CI_MERGE_REQUEST_IID || $CI_COMMIT_BRANCH =~ /^(main|develop|releases\/.*)$/ && $CI_PIPELINE_SOURCE == "push"'
+    when: on_success
+  - when: never
+
+# Create delta packages
+generate_delta:
+  stage: generate_delta
+  image: $DOCKER_IMAGE
+  script:
+    - chmod +x .gitlab/scripts/sf-generate-delta.sh
+    - sh .gitlab/scripts/sf-generate-delta.sh
+  artifacts:
+    paths:
+      - changed-sources
+  rules:
+  - if: '$CI_MERGE_REQUEST_IID || $CI_COMMIT_BRANCH =~ /^(main|develop|releases\/.*)$/ && $CI_PIPELINE_SOURCE == "push"'
+    when: on_success
+  - when: never   
+
+
+
+# Scan and Upload SARIF
+scan_sarif:
+  stage: scan
+  image: $DOCKER_IMAGE
+  dependencies:
+    - generate_delta
+  script:
+    - chmod +x .gitlab/scripts/sf-code-scanner.sh
+    - sh ./.gitlab/scripts/sf-code-scanner.sh
+  rules:
+  - if: '$CI_MERGE_REQUEST_IID || $CI_COMMIT_BRANCH =~ /^(main|develop|releases\/.*)$/ && $CI_PIPELINE_SOURCE == "push"'
+    when: on_success
+  - when: never
+
+# Deploy Delta
+deploy_delta:
+  stage: deploy
+  image: $DOCKER_IMAGE
+  dependencies:
+    - select_target_org
+    - generate_delta
+  script:
+    - chmod +x .gitlab/scripts/sf-deploy-delta.sh
+    - if [ ! -z "$ORG_ALIAS" ]; then
+        sh .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
+        sh .gitlab/scripts/sf-deploy-delta.sh "$ORG_ALIAS";
+      fi
+  rules:
+    # Run only on merge commit to target branch
+    - if: '$CI_COMMIT_BRANCH =~ /^(main|develop|releases\/.*)$/ && $CI_PIPELINE_SOURCE == "push"'
+      when: on_success
+    - when: never
+
+
+# Validate Delta
+validate_delta:
+  stage: validate
+  image: $DOCKER_IMAGE
+  dependencies:
+    - select_target_org
+    - generate_delta
+  script:
+    - chmod +x .gitlab/scripts/sf-validate-delta.sh
+    - if [ -n "$ORG_ALIAS" ]; then 
+        sh .gitlab/scripts/authenticate-to-org.sh "$ORG_ALIAS" "auth_file.json";
+        sh .gitlab/scripts/sf-validate-delta.sh "$ORG_ALIAS" ;
+      else echo "ORG_ALIAS is empty, skipping validation"; 
+      fi
+  rules:
+  # Run only for open/updated MRs
+  - if: '$CI_MERGE_REQUEST_IID && $CI_COMMIT_BRANCH != $CI_MERGE_REQUEST_TARGET_BRANCH_NAME'
+    when: on_success
+  - when: never
+
+# Trigger only on Merge Requests to main, qa, or uat
+workflow:
+  rules:
+    # Run MR pipelines (any source branch into develop, releases/*, or main)
+    - if: '$CI_MERGE_REQUEST_IID'
+      when: always
+
+    # Run pipeline when commit is merged into main, releases/*, or develop
+    - if: '$CI_COMMIT_BRANCH =~ /^(main|develop|releases\/.*)$/'
+      when: always
+
+    # Otherwise, don't run
+    - when: never
+

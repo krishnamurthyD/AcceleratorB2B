@@ -1,0 +1,32 @@
+<template>
+    <template if:true={showSuccess}>
+        <div class="custom-toast">
+            <strong>Success</strong> — Subscribed successfully with {email}
+        </div>
+    </template>
+
+    <div class="right-container">
+        <div class="subscribe-container">
+            <h2 class="title">Stay in the loop with Emails!</h2>
+
+            <div class="input-wrapper">
+
+                <input type="email"
+                       class="email-input"
+                       placeholder="Your Email Address"
+                       value={email}
+                       oninput={handleChange} />
+
+                <button class="subscribe-btn" onclick={handleSubscribe}>
+                    Subscribe
+                </button>
+            </div>
+
+            <template if:true={errorMessage}>
+                <p style="color:red; font-size:14px; margin-top:4px;">
+                    {errorMessage}
+                </p>
+            </template>
+        </div>
+    </div>
+</template>

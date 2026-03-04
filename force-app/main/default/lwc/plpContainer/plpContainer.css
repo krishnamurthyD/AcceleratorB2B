@@ -1,0 +1,267 @@
+.plp-container {
+  padding: 24px;
+  /* max-width: 1440px; Removed to allow full width */
+  margin: 0 auto;
+}
+
+/* --- GRID LAYOUT --- */
+.product-grid.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 297px);
+  justify-content: flex-start;
+  gap: 24px;
+}
+
+/* --- LIST LAYOUT --- */
+.product-grid.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* --- INJECTION ITEMS (Span Full Width) --- */
+.injection-item {
+  grid-column: 1 / -1;
+  /* Span all columns */
+  margin: 24px 0;
+}
+
+.injection-content {
+  background: #f3f3f3;
+  border-radius: 8px;
+  padding: 32px;
+  text-align: center;
+  border: 1px dashed #ccc;
+}
+
+.banner-placeholder h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.filter-placeholder .filter-tags {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+  .product-grid.grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-grid.grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-grid.grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- COMPONENTS --- */
+.force-app {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.main-page {
+  padding: 24px;
+}
+
+.product-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.product-card-badge {
+  background: #f3f3f3;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  color: #333;
+}
+
+.product-card-image {
+  border-radius: 8px;
+  height: 100px;
+}
+
+.product-card-actions {
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.product-card-info {
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.product-card-pricing {
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.product-card-cart {
+  border-radius: 8px;
+  padding: 8px;
+}
+
+/* --- HEADER BAR --- */
+.plp-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  background-color: #E6F4F6;
+  padding: 12px 24px;
+  /* Increased horizontal padding to match container offset */
+
+  /* Full Width Logic */
+  margin-left: -24px;
+  margin-right: -24px;
+  border-radius: 0;
+  /* Removed rounded corners */
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* --- FILTER BUTTON --- */
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  background-color: white;
+  border: 1px solid #0095A8;
+  border-radius: 12px;
+  padding: 7px 10px;
+  gap: 20px;
+  color: #1C1F26;
+  /* Default text color */
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 1;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background-color: #f3f3f3;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* --- ACTION BUTTONS (Cyan Theme) --- */
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 44px;
+  padding: 10px;
+  /* Adjusted horizontal padding to fit text within 160px */
+  background-color: white;
+  border: 1px solid #00AEC7;
+  /* Cyan */
+  border-radius: 12px;
+  color: #00AEC7;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  gap: 10px;
+  opacity: 1;
+}
+
+.action-btn:hover {
+  background-color: #E6F7F9;
+}
+
+.action-btn .icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.action-btn svg {
+  fill: currentColor;
+  width: 16px;
+  height: 16px;
+}
+
+/* --- VIEW TOGGLE --- */
+.view-toggle-group {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dddbda;
+  border-radius: 4px;
+  height: 40px;
+  overflow: hidden;
+}
+
+.view-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 100%;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.view-btn:not(:last-child) {
+  border-right: 1px solid #dddbda;
+}
+
+.view-btn:hover {
+  background-color: #f3f3f3;
+}
+
+.view-btn.active {
+  background-color: #E6F7F9;
+  /* Light Cyan */
+}
+
+/* List View Icon (Fill based) */
+.view-btn:first-child svg path {
+  fill: #747474;
+  transition: fill 0.2s ease;
+}
+
+.view-btn:first-child.active svg path {
+  fill: #00AEC7;
+}
+
+/* Grid View Icon (Stroke based) */
+.view-btn:last-child svg path {
+  stroke: #747474;
+  transition: stroke 0.2s ease;
+}
+
+.view-btn:last-child.active svg path {
+  stroke: #00AEC7;
+}
+
+/* Filter Icon (Stroke based) */
+.action-btn .filter-icon svg path {
+  stroke: currentColor;
+}

@@ -1,0 +1,237 @@
+.carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+}
+
+.carousel img {
+    width: 100%;
+    height: 700px;
+}
+
+/* .carousel-image {
+    width: 100%;
+    height: 700px;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+} */
+
+/* :host {
+    display: block;
+    width: 100vw !important; 
+    margin-left: calc(50% - 50vw);
+} */
+
+ 
+.carousel-image {
+    width: 100%;
+    height: 700px;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+}
+ 
+/* Modifier classes */
+.carousel-image.cover {
+    object-fit: cover;
+}
+ 
+.carousel-image.contain {
+    object-fit: contain;
+}
+ 
+.carousel-image.slide-right {
+    transform: translateX(100%);
+    opacity: 0;
+}
+.carousel-image.slide-left {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+.carousel-image.fade-in {
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+.additional-image {
+    position: absolute;
+    bottom: 10px;
+    right: -100px;
+    width: 380.267px !important;
+    height: 95.2222px !important;
+    transition: right 1.6s ease-in-out;
+}
+
+.additional-image.slide-in {
+    right: -76px;
+}
+
+.additional-image.hidden {
+    right: -399px;
+    transition: none;
+}
+
+.middle-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 1.6s ease-in-out;
+    width: 805px !important;
+    height: 436px;
+
+}
+
+.middle-image.zoom-in {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.middle-image.hidden {
+    transform: translate(-50%, -50%) scale(0);
+    transition: none;
+}
+
+.button-container{
+    display: flex ;
+    gap: 20px;
+}
+
+.text-container {
+    top: 23%;
+    padding-right: 50px;
+    position: absolute;
+    left: 100px;
+    opacity: 1;
+    transition: opacity 0.18s;
+} 
+
+.text-container.fade {
+    opacity: 0;
+}
+
+.heading {
+    width: 50%;
+}
+
+.arrow-container {
+    position: absolute;
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+    gap: 15px;
+    bottom: 10%;
+    left: 6%;
+}
+.arrow svg {
+    display: block;
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+}
+.left-arrow {
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    background-color: #E6F4F6;
+    border: 1px solid #0095A8;
+ }
+.right-arrow {
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    background-color: #E6F4F6;
+    border: 1px solid #0095A8;
+}
+.slot-container {
+    position: absolute;
+    top: 20px; /* Adjust as needed */
+    width: 100%;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none; /* so arrows still clickable */
+}
+
+.slot-container ::slotted(*) {
+    pointer-events: auto;
+    color: white;
+    font-size: 20px;
+}
+
+
+/* Mobile Design */
+@media (max-width: 1024px) {
+    .carousel {
+        /* height: 60vw; */
+        height: 600px;
+    }
+    .carousel-image {
+        width: 100%;
+        /* max-width: 100vw; */
+        object-fit: cover;
+        border-radius: 0;
+    }
+    .text-container {
+        top: 30%;
+        left: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 5px;
+    }
+    .carousel img {
+        height: 100%;
+        object-fit: cover;
+    }
+    .arrow-container {
+        position: absolute;
+
+        cursor: pointer;
+        z-index: 1;
+        display: flex;
+        gap: 15px;
+        bottom: 10%;
+        left: 6%;
+    }
+
+}
+[data-show="false"] {
+    display: none;
+}
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.banner-wrapper {
+    box-sizing: border-box;
+}
+.banner {
+    box-sizing: border-box;
+}
+
+.banner-image {
+    max-width: 100%;
+}
+
+.content {
+    width: 100%;
+}
